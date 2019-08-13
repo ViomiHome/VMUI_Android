@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="vButton">
+        <attr name="button_style">
+            <enum name="black_stroke" value="0" />
+            <enum name="black_fill" value="1" />
+            <enum name="blue_stroke" value="2" />
+            <enum name="blue_fill" value="3" />
+            <enum name="red_stroke" value="4" />
+            <enum name="red_fill" value="5" />
+        </attr>
+    </declare-styleable>
+
+</resources>
