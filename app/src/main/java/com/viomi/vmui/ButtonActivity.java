@@ -1,19 +1,52 @@
 package com.viomi.vmui;
 
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class ButtonActivity extends AppCompatActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class ButtonActivity extends AppCompatActivity implements View.OnClickListener {
+
+    @BindView(R.id.vb)
+    VButton vb;
+    @BindView(R.id.vb1)
+    VButton vb1;
+    @BindView(R.id.vb2)
+    VButton vb2;
+    @BindView(R.id.vb3)
+    VButton vb3;
+    @BindView(R.id.vb4)
+    VButton vb4;
+    @BindView(R.id.vb5)
+    VButton vb5;
+    @BindView(R.id.vb6)
+    VButton vb6;
+    @BindView(R.id.vb7)
+    VButton vb7;
+    @BindView(R.id.vb8)
+    VButton vb8;
+    @BindView(R.id.vb9)
+    VButton vb9;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_button);
+        ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Button");
+        vb.setOnClickListener(this);
+        vb1.setOnClickListener(this);
+        vb2.setOnClickListener(this);
+        vb3.setOnClickListener(this);
+        vb4.setOnClickListener(this);
+        vb5.setOnClickListener(this);
+        vb7.setEnabled(false);
+        vb8.setEnabled(false);
     }
 
     @Override
@@ -24,5 +57,10 @@ public class ButtonActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 }

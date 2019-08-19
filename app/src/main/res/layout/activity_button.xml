@@ -4,6 +4,113 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="15dp"
     tools:context=".ButtonActivity">
 
+    <com.viomi.vmui.VButton
+        android:id="@+id/vb"
+        android:layout_width="110dp"
+        android:layout_height="44dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:text_content="默认按钮" />
+
+    <com.viomi.vmui.VButton
+        android:id="@+id/vb1"
+        android:layout_width="110dp"
+        android:layout_height="44dp"
+        android:layout_marginLeft="15dp"
+        app:button_style="green_stroke"
+        app:layout_constraintLeft_toRightOf="@+id/vb"
+        app:layout_constraintTop_toTopOf="parent"
+        app:text_content="标题"
+        app:text_sub="辅助文字" />
+
+
+    <com.viomi.vmui.VButton
+        android:id="@+id/vb3"
+        android:layout_width="110dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="15dp"
+        app:button_style="red_stroke"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vb"
+        app:text_content="按钮" />
+
+    <com.viomi.vmui.VButton
+        android:id="@+id/vb4"
+        android:layout_width="110dp"
+        android:layout_height="44dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        app:button_style="red_fill"
+        app:layout_constraintLeft_toRightOf="@+id/vb3"
+        app:layout_constraintTop_toBottomOf="@+id/vb"
+        app:text_content="按钮" />
+
+
+    <com.viomi.vmui.VButton
+        android:id="@+id/vb2"
+        android:layout_width="110dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="15dp"
+        app:button_style="green_fill"
+        app:drawable_right="@mipmap/icon_loading_white"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vb3"
+        app:text_content="加载中…" />
+
+    <com.viomi.vmui.VButton
+        android:id="@+id/vb5"
+        android:layout_width="110dp"
+        android:layout_height="44dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        app:button_style="black_fill"
+        app:layout_constraintLeft_toRightOf="@+id/vb2"
+        app:layout_constraintTop_toBottomOf="@+id/vb3"
+        app:text_content="按钮" />
+
+    <com.viomi.vmui.VButton
+        android:id="@+id/vb6"
+        android:layout_width="110dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="15dp"
+        app:button_style="green_fill"
+        app:drawable_right="@mipmap/icon_loading_white"
+        app:isloading="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vb2" />
+
+    <com.viomi.vmui.VButton
+        android:id="@+id/vb7"
+        android:layout_width="110dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="15dp"
+        app:button_style="green_fill"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vb6"
+        app:text_content="失效按钮" />
+
+    <com.viomi.vmui.VButton
+        android:id="@+id/vb8"
+        android:layout_width="110dp"
+        android:layout_height="44dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        app:button_style="red_fill"
+        app:layout_constraintLeft_toRightOf="@+id/vb7"
+        app:layout_constraintTop_toBottomOf="@+id/vb6"
+        app:text_content="失效按钮" />
+
+    <com.viomi.vmui.VButton
+        android:id="@+id/vb9"
+        android:layout_width="110dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="15dp"
+        app:button_style="red_fill"
+        app:layout_constraintLeft_toLeftOf="@+id/vb7"
+        app:layout_constraintTop_toBottomOf="@+id/vb7"
+        app:text_content="小字按钮"
+        app:text_size="12sp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,6 +13,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
+        <activity android:name=".TitleActivity"></activity>
         <activity android:name=".ButtonActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

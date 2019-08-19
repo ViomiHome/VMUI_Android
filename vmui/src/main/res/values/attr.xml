@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="VButton">
+        <attr name="button_style" format="enum">
+            <enum name="black_stroke" value="0" />
+            <enum name="black_fill" value="1" />
+            <enum name="green_stroke" value="2" />
+            <enum name="green_fill" value="3" />
+            <enum name="red_stroke" value="4" />
+            <enum name="red_fill" value="5" />
+        </attr>
+        <attr name="text_content" format="string" />
+        <attr name="text_sub" format="string" />
+        <attr name="drawable_right" format="reference" />
+        <attr name="isloading" format="boolean" />
+        <attr name="drawablepadding" format="dimension" />
+        <attr name="textpadding" format="dimension" />
+        <attr name="loading_duration" format="integer" />
+        <attr name="text_size" format="dimension" />
+        <attr name="subtext_size" format="dimension" />
+    </declare-styleable>
+
+</resources>

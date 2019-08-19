@@ -1,1 +1,1 @@
-include ':app', ':vmuilibs'
+include ':app', ':vmui'
