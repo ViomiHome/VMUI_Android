@@ -17,8 +17,8 @@ import androidx.annotation.Nullable;
 
 public class VButton extends LinearLayout {
     int button_style;
-    TextView tvContent, tvSubcontent;
-    ImageView iv;
+    public TextView tvContent, tvSubcontent;
+    public ImageView iv;
     String text_content, text_sub;
     Drawable drawable_right;
     boolean isloading;

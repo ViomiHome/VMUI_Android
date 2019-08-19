@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(getBaseContext(), ButtonActivity.class));
                         break;
                     case 1:
+                        startActivity(new Intent(getBaseContext(), TitleActivity.class));
                         break;
                     case 2:
                         break;

@@ -20,5 +20,23 @@
         <attr name="text_size" format="dimension" />
         <attr name="subtext_size" format="dimension" />
     </declare-styleable>
+    <declare-styleable name="VTitle">
+        <attr name="title_style" format="enum">
+            <enum name="light" value="0" />
+            <enum name="dark" value="1" />
+        </attr>
+        <attr name="text_title" format="string" />
+        <attr name="text_subtitle" format="string" />
+        <attr name="text_back" format="string" />
+        <attr name="text_right" format="string" />
+        <attr name="title_drawable_right" format="reference" />
+        <attr name="title_drawable_back" format="reference" />
+        <attr name="title_drawable_share" format="reference" />
+        <attr name="title_size" format="dimension" />
+        <attr name="title_subtext_size" format="dimension" />
+        <attr name="enable_right" format="boolean" />
+        <attr name="enable_share" format="boolean" />
+        <attr name="enable_back" format="boolean" />
+    </declare-styleable>
 
 </resources>

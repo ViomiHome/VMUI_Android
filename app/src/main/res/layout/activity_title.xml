@@ -4,7 +4,90 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:background="@color/bg_gray">
 
+    <com.viomi.vmui.VTitle
+        android:id="@+id/title1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:enable_right="true"
+        app:enable_share="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:text_subtitle="副标题"
+        app:text_title="标题" />
+
+    <com.viomi.vmui.VTitle
+        android:id="@+id/title2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:enable_right="true"
+        app:enable_share="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title1"
+        app:text_title="标题" />
+
+    <com.viomi.vmui.VTitle
+        android:id="@+id/title3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:enable_right="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title2"
+        app:text_back="返回"
+        app:text_right="选项"
+        app:text_title="标题" />
+
+    <com.viomi.vmui.VTitle
+        android:id="@+id/title4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:enable_right="true"
+        app:enable_share="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title3"
+        app:text_title="标题"
+        app:title_style="dark" />
+
+    <com.viomi.vmui.VTitle
+        android:id="@+id/title5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:enable_right="true"
+        app:enable_share="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title4"
+        app:text_subtitle="副标题"
+        app:text_title="标题"
+        app:title_style="dark" />
+
+    <com.viomi.vmui.VTitle
+        android:id="@+id/title6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:enable_right="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title5"
+        app:text_back="返回"
+        app:text_right="选项"
+        app:text_title="标题"
+        app:title_style="dark" />
+
+    <com.viomi.vmui.VTitle
+        android:id="@+id/title7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        app:enable_right="true"
+        app:enable_share="true"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title6"
+        app:title_style="dark" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
