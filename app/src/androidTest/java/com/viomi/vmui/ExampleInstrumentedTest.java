@@ -1,4 +1,4 @@
-package com.viomi.vmui;
+package com.viomi.vmuidemo;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

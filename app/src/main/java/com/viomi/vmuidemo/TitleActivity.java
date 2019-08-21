@@ -1,9 +1,11 @@
-package com.viomi.vmui;
+package com.viomi.vmuidemo;
 
 import android.os.Bundle;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.viomi.vmui.VTitle;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

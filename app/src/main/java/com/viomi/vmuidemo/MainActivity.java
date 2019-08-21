@@ -1,4 +1,4 @@
-package com.viomi.vmui;
+package com.viomi.vmuidemo;
 
 import android.content.Intent;
 import android.os.Bundle;

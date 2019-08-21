@@ -1,10 +1,12 @@
-package com.viomi.vmui;
+package com.viomi.vmuidemo;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.viomi.vmui.VButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -1,4 +1,4 @@
-package com.viomi.vmui;
+package com.viomi.vmuidemo;
 
 import org.junit.Test;
 
