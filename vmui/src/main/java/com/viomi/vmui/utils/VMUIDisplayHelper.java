@@ -89,7 +89,14 @@ public class VMUIDisplayHelper {
         return getDisplayMetrics(context).widthPixels;
     }
 
-
+    /**
+     * 获取屏幕高度
+     * @param context
+     * @return
+     */
+    public static int getScreenHeight(Context context){
+        return getDisplayMetrics(context).widthPixels;
+    }
 
     /**
      * 单位转换: dp -> px

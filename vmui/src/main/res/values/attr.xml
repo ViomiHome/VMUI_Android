@@ -51,6 +51,8 @@
         <attr name="dialog_padding_horizontal" format="dimension" />
         <attr name="dialog_background_dim_amount" format="float" />
         <attr name="dialog_title_style" format="reference" />
+        <attr name="sheet_title_style" format="reference" />
+        <attr name="sheet_action_style" format="reference" />
         <attr name="dialog_action_container_style" format="reference" />
         <attr name="dialog_action_style" format="reference" />
         <attr name="dialog_message_content_style" format="reference" />
@@ -98,12 +100,19 @@
         <attr name="android:gravity" />
         <attr name="android:minWidth" />
         <attr name="android:textStyle" />
+        <attr name="android:shadowColor" />
+        <attr name="android:shadowDx" />
+        <attr name="android:shadowDy" />
         <attr name="dialog_action_button_padding_horizontal" format="dimension" />
         <attr name="dialog_action_icon_space" format="dimension" />
         <attr name="dialog_positive_action_text_color" format="color|reference" />
         <attr name="dialog_negative_action_text_color" format="color|reference" />
+        <attr name="dialog_danger_action_text_color" format="color|reference" />
+        <attr name="dialog_common_action_text_color" format="color|reference" />
     </declare-styleable>
 
     <item name="vmui_dialog_edit_input" type="id" />
     <item name="vmui_dialog_edit_right_icon" type="id" />
+    <item name="vmui_toast_message" type="id" />
+    <item name="vmui_toast_icon" type="id" />
 </resources>

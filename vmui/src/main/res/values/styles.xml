@@ -20,6 +20,20 @@
         <item name="android:textSize">11sp</item>
     </style>
 
+    <style name="VMUI.ActionSheet" parent="android:Theme.Dialog">
+        <item name="android:backgroundDimAmount">?attr/dialog_background_dim_amount</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@null
+        </item><!-- 为了避免在有 NavigationBar 的手机上 Dialog 从 NavigationBar 底部上来。去掉 Dialog 的动画，使用 View 的动画。-->
+        <item name="android:layout_width">match_parent</item>
+
+        <item name="sheet_title_style">@style/VMUI.ActionSheet.Title</item>
+        <item name="dialog_action_container_style">@style/VMUI.Dialog.ActionContainer</item>
+        <item name="dialog_action_style">@style/VMUI.Dialog.Action</item>
+        <item name="sheet_action_style">@style/VMUI.ActionSheet.Action</item>
+    </style>
+
     <style name="VMUI.Dialog" parent="android:Theme.Dialog">
         <item name="android:backgroundDimAmount">?attr/dialog_background_dim_amount</item>
         <item name="android:windowBackground">@drawable/vmui_dialog_bg</item>
@@ -37,19 +51,23 @@
         <item name="dialog_title_style">@style/VMUI.Dialog.Title</item>
         <item name="dialog_action_container_style">@style/VMUI.Dialog.ActionContainer</item>
         <item name="dialog_action_style">@style/VMUI.Dialog.Action</item>
+        <item name="sheet_action_style">@style/VMUI.ActionSheet.Action</item>
         <item name="dialog_message_content_style">@style/VMUI.Dialog.MessageContent</item>
         <item name="dialog_edit_content_style">@style/VMUI.Dialog.EditContent</item>
+    </style>
+
+    <style name="VMUI.ActionSheet.Title">
+        <item name="android:textColor">@color/tips_gray</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:lineSpacingExtra">2dp</item>
     </style>
 
     <style name="VMUI.Dialog.Title">
         <item name="android:textColor">@color/title_gray</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:gravity">left</item>
-        <item name="android:paddingTop">24dp</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:paddingLeft">?attr/dialog_padding_horizontal</item>
-        <item name="android:paddingRight">?attr/dialog_padding_horizontal</item>
-        <item name="android:paddingBottom">11dp</item>
+        <item name="android:gravity">left</item>
         <item name="android:ellipsize">end</item>
         <item name="android:lineSpacingExtra">2dp</item>
         <item name="dialog_paddingBottomWhenNotContent">27dp</item>
@@ -72,11 +90,28 @@
         <!--<item name="android:gravity">right|center_vertical</item>-->
         <item name="android:gravity">center</item>
         <item name="android:minWidth">64dp</item>
-        <item name="android:background">@color/bg_button</item>
+        <item name="android:background">@color/main_action_color</item>
         <item name="dialog_action_button_padding_horizontal">12dp</item>
         <item name="dialog_action_icon_space">6dp</item>
         <item name="dialog_positive_action_text_color">@color/viomi_green</item>
         <item name="dialog_negative_action_text_color">@color/tips_gray</item>
+        <item name="dialog_danger_action_text_color">@color/danger_red</item>
+        <item name="dialog_common_action_text_color">@color/title_gray</item>
+    </style>
+
+    <style name="VMUI.ActionSheet.Action">
+        <item name="android:textColor">@color/danger_red</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:height">60dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:shadowColor">@color/divider_gray</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">1</item>
+        <item name="dialog_positive_action_text_color">@color/viomi_green</item>
+        <item name="dialog_negative_action_text_color">@color/tips_gray</item>
+        <item name="dialog_danger_action_text_color">@color/danger_red</item>
+        <item name="dialog_common_action_text_color">@color/title_gray</item>
     </style>
 
     <style name="VMUI.Dialog.MessageContent">

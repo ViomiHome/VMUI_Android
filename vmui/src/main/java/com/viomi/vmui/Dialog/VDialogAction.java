@@ -1,5 +1,6 @@
 package com.viomi.vmui.Dialog;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
@@ -16,7 +17,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 public class VDialogAction {
-    @IntDef({ACTION_PROP_NEGATIVE, ACTION_PROP_NEUTRAL, ACTION_PROP_POSITIVE})
+    @IntDef({ACTION_PROP_NEGATIVE, ACTION_PROP_NEUTRAL, ACTION_PROP_POSITIVE, ACTION_PROP_DANGER, ACTION_PROP_COMMON})
     @Retention(RetentionPolicy.SOURCE)
     public @interface Prop {
     }
@@ -25,6 +26,8 @@ public class VDialogAction {
     public static final int ACTION_PROP_POSITIVE = 0;
     public static final int ACTION_PROP_NEUTRAL = 1;
     public static final int ACTION_PROP_NEGATIVE = 2;
+    public static final int ACTION_PROP_DANGER = 3;
+    public static final int ACTION_PROP_COMMON = 4;
 
 
     private Context mContext;
@@ -36,22 +39,22 @@ public class VDialogAction {
     private boolean mIsEnabled = true;
 
     public interface ActionListener {
-        void onClick(VDialog dialog, int index);
+        void onClick(Dialog dialog, int index);
     }
 
-    public VDialogAction(Context context, CharSequence str,ActionListener onClickListener) {
+    public VDialogAction(Context context, CharSequence str, ActionListener onClickListener) {
         this.mContext = context;
         this.mStr = str;
         this.mOnClickListener = onClickListener;
     }
 
-    public VDialogAction(Context context, int strRes,ActionListener onClickListener) {
+    public VDialogAction(Context context, int strRes, ActionListener onClickListener) {
         this.mContext = mContext;
         this.mStr = mContext.getResources().getString(strRes);
         this.mOnClickListener = onClickListener;
     }
 
-    public VDialogAction(Context context, int iconRes, CharSequence str, @Prop int actionProp, ActionListener onClickListener){
+    public VDialogAction(Context context, int iconRes, CharSequence str, @Prop int actionProp, ActionListener onClickListener) {
         this.mContext = context;
         this.mIconRes = iconRes;
         this.mStr = str;
@@ -70,9 +73,9 @@ public class VDialogAction {
         }
     }
 
-    public Button buildActionView(final VDialog dialog, final int index) {
+    public Button buildActionView(final Dialog dialog, final int index) {
 
-        mButton = generateActionButton(dialog.getContext(),mStr,-1);
+        mButton = generateActionButton(dialog.getContext(), mStr, -1);
         //mButton = new Button(dialog.getContext());
         //mButton.setText(mStr);
         mButton.setOnClickListener(new View.OnClickListener() {
@@ -95,10 +98,16 @@ public class VDialogAction {
         button.setMinimumHeight(0);
         button.setPressed(true);
         button.setEnabled(true);
-        TypedArray a = context.obtainStyledAttributes(null, R.styleable.DialogActionStyleDef, R.attr.dialog_action_style, 0);
+        TypedArray a;
+        if (mActionProp == ACTION_PROP_DANGER || mActionProp == ACTION_PROP_COMMON) {
+            a = context.obtainStyledAttributes(null, R.styleable.DialogActionStyleDef, R.attr.sheet_action_style, 0);
+        } else {
+            a = context.obtainStyledAttributes(null, R.styleable.DialogActionStyleDef, R.attr.dialog_action_style, 0);
+        }
         int count = a.getIndexCount();
         int paddingHor = 0, iconSpace = 0;
-        ColorStateList negativeTextColor = null, positiveTextColor = null;
+        float shadowDx = 0, shadowDy = 0;
+        ColorStateList negativeTextColor = null, positiveTextColor = null, commonTextColor = null, dangerTextColor = null, shadowColor = null;
         for (int i = 0; i < count; i++) {
             int attr = a.getIndex(i);
             if (attr == R.styleable.DialogActionStyleDef_android_gravity) {
@@ -119,10 +128,20 @@ public class VDialogAction {
                 positiveTextColor = a.getColorStateList(attr);
             } else if (attr == R.styleable.DialogActionStyleDef_dialog_negative_action_text_color) {
                 negativeTextColor = a.getColorStateList(attr);
+            } else if (attr == R.styleable.DialogActionStyleDef_dialog_danger_action_text_color) {
+                dangerTextColor = a.getColorStateList(attr);
+            } else if (attr == R.styleable.DialogActionStyleDef_dialog_common_action_text_color) {
+                commonTextColor = a.getColorStateList(attr);
             } else if (attr == R.styleable.DialogActionStyleDef_dialog_action_icon_space) {
                 iconSpace = a.getDimensionPixelSize(attr, 0);
-            } else if(attr == R.styleable.DialogActionStyleDef_android_height){
-                button.setHeight(a.getDimensionPixelSize(attr,0));
+            } else if (attr == R.styleable.DialogActionStyleDef_android_height) {
+                button.setHeight(a.getDimensionPixelSize(attr, 0));
+            } else if (attr == R.styleable.DialogActionStyleDef_android_shadowColor) {
+                shadowColor = a.getColorStateList(attr);
+            } else if (attr == R.styleable.DialogActionStyleDef_android_shadowDx) {
+                shadowDx = a.getFloat(attr, 0);
+            } else if (attr == R.styleable.DialogActionStyleDef_android_shadowDy) {
+                shadowDy = a.getFloat(attr, 0);
             }
         }
 
@@ -137,10 +156,17 @@ public class VDialogAction {
         button.setClickable(true);
         button.setEnabled(mIsEnabled);
 
+
         if (mActionProp == ACTION_PROP_NEGATIVE) {
             button.setTextColor(negativeTextColor);
         } else if (mActionProp == ACTION_PROP_POSITIVE) {
             button.setTextColor(positiveTextColor);
+        } else if (mActionProp == ACTION_PROP_DANGER) {
+            button.setTextColor(dangerTextColor);
+            button.setShadowLayer(0, shadowDx, shadowDy, shadowColor.getDefaultColor());
+        } else if (mActionProp == ACTION_PROP_COMMON) {
+            button.setTextColor(commonTextColor);
+            button.setShadowLayer(0, shadowDx, shadowDy, shadowColor.getDefaultColor());
         }
         return button;
     }

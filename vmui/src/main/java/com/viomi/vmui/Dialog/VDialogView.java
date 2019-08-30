@@ -25,7 +25,6 @@ public class VDialogView extends LinearLayout {
         super(context, attrs, defStyleAttr);
         mMinWidth = VMUIDisplayHelper.getAttrDimen(context, R.attr.dialog_min_width);
         mMaxWidth = VMUIDisplayHelper.getAttrDimen(context, R.attr.dialog_max_width);
-        mMaxHeight = VMUIDisplayHelper.getAttrDimen(context, R.attr.dialog_max_width);
     }
 
     @Override

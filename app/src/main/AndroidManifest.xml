@@ -15,6 +15,7 @@
         tools:replace="android:appComponentFactory">
         <activity android:name="com.viomi.vmuidemo.TitleActivity"></activity>
         <activity android:name="com.viomi.vmuidemo.ButtonActivity" />
+        <activity android:name=".ToastActivity"/>
         <activity android:name="com.viomi.vmuidemo.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

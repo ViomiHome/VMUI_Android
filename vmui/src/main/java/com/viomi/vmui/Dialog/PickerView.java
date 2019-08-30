@@ -63,10 +63,10 @@ public class PickerView extends View {
     private static final float AUTO_SCROLL_SPEED = 10;
 
     /**
-     * 透明度：最小 120，最大 255，极差 135
+     * 透明度：最小 100，最大 255，极差 155
      */
-    private static final int TEXT_ALPHA_MIN = 120;
-    private static final int TEXT_ALPHA_RANGE = 135;
+    private static final int TEXT_ALPHA_MIN = 100;
+    private static final int TEXT_ALPHA_RANGE = 155;
 
     private float mBaseLine = 0;
     private float mTop = 0;
@@ -141,8 +141,7 @@ public class PickerView extends View {
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mPaint.setStyle(Style.FILL);
         mPaint.setTextAlign(Align.CENTER);
-        mLightColor = ContextCompat.getColor(mContext, R.color.date_picker_text_light);
-        mDarkColor = ContextCompat.getColor(mContext, R.color.date_picker_text_dark);
+        mDarkColor = ContextCompat.getColor(mContext, R.color.title_gray);
         mDividerColor = ContextCompat.getColor(mContext, R.color.divider_gray);
     }
 
@@ -168,6 +167,11 @@ public class PickerView extends View {
     }
 
     @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
@@ -183,21 +187,21 @@ public class PickerView extends View {
             mOffsetX = mPaint.measureText(mDataList.get(mSelectedIndex));
         }
         if (mBaseLine != 0) {
-            drawLine(canvas, mDividerColor, mTop);
-            drawLine(canvas, mDividerColor, mBottom);
+            drawLine(canvas, mDividerColor, mAscent - mHalfTextSpacing / 2);
+            drawLine(canvas, mDividerColor, mBaseLine + mHalfTextSpacing / 2);
             mPaint.setColor(mDarkColor);
             drawTipsText(canvas, mDarkColor, mHalfWidth + mOffsetX / 2, mAscent, mTips);
         }
         // 绘制选中上方的 text
         for (int i = 1; i <= mSelectedIndex; i++) {
-            drawText(canvas, mLightColor, mScrollDistance - i * mTextSpacing,
+            drawText(canvas, mDarkColor, mScrollDistance - i * mTextSpacing,
                     mDataList.get(mSelectedIndex - i));
         }
 
         // 绘制选中下方的 text
         int size = mDataList.size() - mSelectedIndex;
         for (int i = 1; i < size; i++) {
-            drawText(canvas, mLightColor, mScrollDistance + i * mTextSpacing,
+            drawText(canvas, mDarkColor, mScrollDistance + i * mTextSpacing,
                     mDataList.get(mSelectedIndex + i));
         }
     }
@@ -219,12 +223,14 @@ public class PickerView extends View {
         float scale = 1 - (float) Math.pow(offsetY / mQuarterHeight, 2);
         scale = scale < 0 ? 0 : scale;
         //scale = 1;
-        mPaint.setTextSize(mMinTextSize + mTextSizeRange * 1.0f);
+        //mPaint.setTextSize(mMinTextSize + mTextSizeRange * 1.0f);
+        mPaint.setTextSize(VMUIDisplayHelper.sp2px(mContext, 18));
         mPaint.setColor(textColor);
         mPaint.setAlpha(TEXT_ALPHA_MIN + (int) (TEXT_ALPHA_RANGE * scale));
         // text 居中绘制，mHalfHeight + offsetY 是 text 的中心坐标
         Paint.FontMetrics fm = mPaint.getFontMetrics();
         float baseline = mHalfHeight + offsetY - (fm.top + fm.bottom) / 2f;
+
         canvas.drawText(text, mHalfWidth, baseline, mPaint);
         return baseline;
         //canvas.drawText(text, mHalfWidth, baseline, mPaint);

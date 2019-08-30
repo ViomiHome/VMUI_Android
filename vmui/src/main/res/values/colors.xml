@@ -14,9 +14,10 @@
     <color name="divider_gray">#eeeeee</color>
     <color name="bg_gray">#f7f8f8</color>
     <color name="white">#ffffff</color>
+    <color name="white_60_transparent">#a0ffffff</color>
     <color name="black">#000000</color>
     <color name="transparent">#00000000</color>
-    <color name="bg_button">#fffafafa</color>
-    <color name="date_picker_text_light">#59B29C</color>
-    <color name="date_picker_text_dark">#333333</color>
+    <color name="toast_black">#b3000000</color>
+    <color name="main_action_color">#fffafafa</color>
+    <color name="danger_red">#ee3333</color>
 </resources>

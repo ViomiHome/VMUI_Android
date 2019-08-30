@@ -138,7 +138,7 @@ public class VDialog extends Dialog {
         }
 
         @Override
-        protected void onCreateContent(VDialog dialog, ViewGroup parent, Context context) {
+        protected void onCreateContent(Dialog dialog, ViewGroup parent, Context context) {
             if (mMessage != null && mMessage.length() != 0) {
                 mTextView = new TextView(context);
                 assignMessageTvWithAttr(mTextView, hasTitle(), R.attr.dialog_message_content_style);
@@ -231,7 +231,7 @@ public class VDialog extends Dialog {
         }
 
         @Override
-        protected void onCreateContent(VDialog dialog, ViewGroup parent, Context context) {
+        protected void onCreateContent(Dialog dialog, ViewGroup parent, Context context) {
             mEditText = new AppCompatEditText(context);
             MessageDialogBuilder.assignMessageTvWithAttr(mEditText, hasTitle(), R.attr.dialog_edit_content_style);
             mEditText.setFocusable(true);
@@ -273,7 +273,7 @@ public class VDialog extends Dialog {
         }
 
         @Override
-        protected void onAfter(VDialog dialog, LinearLayout parent, Context context) {
+        protected void onAfter(Dialog dialog, LinearLayout parent, Context context) {
             super.onAfter(dialog, parent, context);
             final InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
             dialog.setOnDismissListener(new OnDismissListener() {
@@ -293,9 +293,9 @@ public class VDialog extends Dialog {
     }
 
     public static class SingleCheckableDialogBuilder extends VDialogBuilder<SingleCheckableDialogBuilder> {
-        protected PickerView mPickerView;
-        protected List<String> mData = new ArrayList<>();
-        protected String mSelected;
+        private PickerView mPickerView;
+        private List<String> mData = new ArrayList<>();
+        private String mSelected;
 
         public SingleCheckableDialogBuilder(Context context) {
             super(context);
@@ -315,10 +315,11 @@ public class VDialog extends Dialog {
         }
 
         @Override
-        protected void onCreateContent(VDialog dialog, ViewGroup parent, Context context) {
+        protected void onCreateContent(Dialog dialog, ViewGroup parent, Context context) {
             mPickerView = new PickerView(context);
+            mPickerView.setBackground(getBaseContext().getDrawable(R.drawable.dialog_picker_bg));
             mPickerView.setDataList(mData);
-            mPickerView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 600));
+            mPickerView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, VMUIDisplayHelper.dp2px(mContext, 188)));
             mPickerView.setOnSelectListener(new PickerView.OnSelectListener() {
                 @Override
                 public void onSelect(View view, String selected) {
@@ -332,10 +333,10 @@ public class VDialog extends Dialog {
     }
 
     public static class MultiCheckableDialogBuilder extends VDialogBuilder<MultiCheckableDialogBuilder> {
-        protected ListView mListView;
-        protected ListAdapter mAdapter;
-        protected List<String> mData = new ArrayList<>();
-        protected AdapterView.OnItemClickListener onItemClickListener;
+        private ListView mListView;
+        private ListAdapter mAdapter;
+        private List<String> mData = new ArrayList<>();
+        private AdapterView.OnItemClickListener onItemClickListener;
 
         public MultiCheckableDialogBuilder(Context context) {
             super(context);
@@ -361,12 +362,12 @@ public class VDialog extends Dialog {
         }
 
         @Override
-        protected void onCreateContent(VDialog dialog, ViewGroup parent, Context context) {
+        protected void onCreateContent(Dialog dialog, ViewGroup parent, Context context) {
             initData();
-            //mListView = new VMUIWrapContentListView(context, VMUIDisplayHelper.dp2px(context, 200));
             mListView = new ListView(context, null, 0, R.style.CustomListViewTheme);
+            mListView.setBackground(getBaseContext().getDrawable(R.drawable.dialog_picker_bg));
             mAdapter = new ListAdapter(dialog.getContext(), mData);
-            FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, VMUIDisplayHelper.dp2px(context, 200));
+            FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 800);
             mListView.setLayoutParams(lp);
             mListView.setAdapter(mAdapter);
             mListView.setVerticalScrollBarEnabled(false);
@@ -491,16 +492,17 @@ public class VDialog extends Dialog {
         }
 
         @Override
-        protected void onCreateContent(VDialog dialog, ViewGroup parent, Context context) {
+        protected void onCreateContent(Dialog dialog, ViewGroup parent, Context context) {
             mProvincePickerView = new PickerView(context);
             mCityPickerView = new PickerView(context);
             mDistrictPickerView = new PickerView(context);
 
             LinearLayout ll = new LinearLayout(context);
+            ll.setBackground(getBaseContext().getDrawable(R.drawable.dialog_picker_bg));
             ll.setOrientation(LinearLayout.HORIZONTAL);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             ll.setLayoutParams(lp);
-            LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(0, 400);
+            LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(0, VMUIDisplayHelper.dp2px(mContext, 188));
             lp1.weight = 1.0f;
             mProvincePickerView.setLayoutParams(lp1);
             mCityPickerView.setLayoutParams(lp1);
@@ -583,6 +585,8 @@ public class VDialog extends Dialog {
                 initDateUnits(MAX_MONTH_UNIT, mBeginTime.getActualMaximum(Calendar.DAY_OF_MONTH));
             } else if (canSpanMon) {
                 initDateUnits(mEndMonth, mBeginTime.getActualMaximum(Calendar.DAY_OF_MONTH));
+            } else {
+                initDateUnits(mEndMonth, mBeginTime.getActualMaximum(Calendar.DAY_OF_MONTH));
             }
         }
 
@@ -619,27 +623,62 @@ public class VDialog extends Dialog {
             super(context);
         }
 
+        /**
+         * 日期开始时间
+         * @param timestamp 格式（long）
+         * @return
+         */
         public DatePickerBuilder setBeginTimestamp(long timestamp) {
             this.beginTimestamp = timestamp;
             return this;
         }
 
+        /**
+         * 日期开始时间
+         * @param beginTime 格式（yyyy-MM-dd）
+         * @return
+         */
+        public DatePickerBuilder setBeginTimestamp(String beginTime) {
+            this.beginTimestamp = VMUIDateFormatUtils.str2Long(beginTime, 0);
+            return this;
+        }
+
+        /**
+         * 日期结束时间
+         * @param endTime 格式（yyyy-MM-dd）
+         * @return
+         */
+        public DatePickerBuilder setEndTimestamp(String endTime) {
+            this.endTimestamp = VMUIDateFormatUtils.str2Long(endTime, 0);
+            return this;
+        }
+
+        /**
+         * 日期结束时间
+         * @param timestamp 格式（long）
+         * @return
+         */
         public DatePickerBuilder setEndTimestamp(long timestamp) {
             this.endTimestamp = timestamp;
             return this;
         }
 
-        public long getSelectTimeStamp() {
-            return mSelectedTime.getTimeInMillis();
+        public String getSelectTime() {
+            return VMUIDateFormatUtils.long2Str(mSelectedTime.getTimeInMillis(), mShowDateFormatPattern);
         }
 
+        /**
+         * 展示日期格式类型
+         * @param typ 0：yyyy-MM-dd，1：MM-dd，2：dd
+         * @return
+         */
         public DatePickerBuilder setShowDateFormatPattern(int typ) {
             this.mShowDateFormatPattern = typ;
             return this;
         }
 
         @Override
-        protected void onCreateContent(VDialog dialog, ViewGroup parent, Context context) {
+        protected void onCreateContent(Dialog dialog, ViewGroup parent, Context context) {
             mBeginTime = Calendar.getInstance();
             mBeginTime.setTimeInMillis(beginTimestamp);
             mEndTime = Calendar.getInstance();
@@ -651,12 +690,13 @@ public class VDialog extends Dialog {
             mDayPickerView = new PickerView(context, "日");
 
             LinearLayout ll = new LinearLayout(context);
+            ll.setBackground(getBaseContext().getDrawable(R.drawable.dialog_picker_bg));
             ll.setOrientation(LinearLayout.HORIZONTAL);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             ll.setLayoutParams(lp);
-            LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(0, 400);
+            LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(0, VMUIDisplayHelper.dp2px(mContext, 188));
             lp1.weight = 4.0f;
-            LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(0, 400);
+            LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(0, VMUIDisplayHelper.dp2px(mContext, 188));
             lp2.weight = 2.0f;
             mYearPickerView.setLayoutParams(lp1);
             mMonthPickerView.setLayoutParams(lp2);
