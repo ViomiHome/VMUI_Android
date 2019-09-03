@@ -15,8 +15,15 @@ import androidx.appcompat.widget.AppCompatTextView;
 public class VTextView extends AppCompatTextView {
     private StaticLayout myStaticLayout;
     private TextPaint tp;
+    private boolean alignCenter = false;
+
     public VTextView(Context context) {
         this(context, null);
+    }
+
+    public VTextView(Context context,boolean value){
+        this(context,null);
+        this.alignCenter = value;
     }
 
     public VTextView(Context context, AttributeSet attrs) {
@@ -41,7 +48,9 @@ public class VTextView extends AppCompatTextView {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        initView();
+        if (alignCenter) {
+            initView();
+        }
     }
 
     private void initView() {
@@ -53,6 +62,10 @@ public class VTextView extends AppCompatTextView {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        myStaticLayout.draw(canvas);
+        if (!alignCenter) {
+            super.onDraw(canvas);
+        } else {
+            myStaticLayout.draw(canvas);
+        }
     }
 }

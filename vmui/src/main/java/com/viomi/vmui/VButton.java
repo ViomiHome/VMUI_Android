@@ -28,6 +28,9 @@ public class VButton extends LinearLayout {
     float textSize;
     float subTextSize;
 
+    int textColor;
+    int backgroundResId;
+
     public VButton(Context context) {
         this(context, null);
     }
@@ -77,6 +80,11 @@ public class VButton extends LinearLayout {
                 tvContent.setTextColor(getResources().getColor(R.color.white));
                 tvSubcontent.setTextColor(getResources().getColor(R.color.white));
                 setBackgroundResource(R.drawable.red_fill);
+                break;
+            case 6:
+                tvContent.setTextColor(textColor);
+                tvSubcontent.setTextColor(textColor);
+                setBackgroundResource(backgroundResId);
                 break;
         }
         if (!TextUtils.isEmpty(text_content)) {
@@ -257,6 +265,16 @@ public class VButton extends LinearLayout {
 
     public void setSubTextSize(float subTextSize) {
         this.subTextSize = subTextSize;
+        init();
+    }
+
+    public void setTextColor(int textColor){
+        this.textColor = textColor;
+        init();
+    }
+
+    public void setBackgroundResId(int backgroundResId){
+        this.backgroundResId = backgroundResId;
         init();
     }
 }

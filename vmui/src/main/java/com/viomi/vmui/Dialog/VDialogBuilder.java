@@ -3,8 +3,6 @@ package com.viomi.vmui.Dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.text.Layout;
-import android.text.StaticLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +11,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Space;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
-import androidx.core.content.ContextCompat;
 
+import com.viomi.vmui.VButton;
+import com.viomi.vmui.VPopup;
 import com.viomi.vmui.R;
 import com.viomi.vmui.VActionSheet;
 import com.viomi.vmui.VTextView;
@@ -117,9 +115,9 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
         return mContext;
     }
 
-    public T setActionContainerOrientation(int orientation){
+    public T setActionContainerOrientation(int orientation) {
         mActionContainerOrientation = orientation;
-        return (T)this;
+        return (T) this;
     }
 
     //region 添加action
@@ -158,13 +156,14 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
 
     /**
      * 添加无图标指定类型的操作按钮
-     * @param str       文案
-     * @param prop      按钮类型
-     * @param listener  点击回调时间
+     *
+     * @param str      文案
+     * @param prop     按钮类型
+     * @param listener 点击回调时间
      * @return
      */
-    public T addAction(CharSequence str,@VDialogAction.Prop int prop, VDialogAction.ActionListener listener){
-        return addAction(0,str,prop,listener);
+    public T addAction(CharSequence str, @VDialogAction.Prop int prop, VDialogAction.ActionListener listener) {
+        return addAction(0, str, prop, listener);
     }
 
 
@@ -230,17 +229,22 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
         return dialog;
     }
 
-    public VActionSheet showActionSheet(){
+    public VActionSheet showActionSheet() {
         VActionSheet actionSheet = createActionSheet();
         actionSheet.show();
         return actionSheet;
     }
 
-    public VActionSheet createActionSheet(){
+    public VPopup showPopup() {
+        VPopup popup = createPopup();
+        popup.show();
+        return popup;
+    }
+
+    public VActionSheet createActionSheet() {
         VActionSheet actionSheet = new VActionSheet(mContext);
         Context sheetContext = actionSheet.getContext();
-        //mRootView = (LinearLayout)View.inflate(mContext, R.layout.vdialog, null);
-        mRootView = (LinearLayout) LayoutInflater.from(sheetContext).inflate(R.layout.vdialog, null);
+        mRootView = (LinearLayout) View.inflate(mContext, R.layout.vdialog, null);
         mDialogView = mRootView.findViewById(R.id.dialog);
 
         // title
@@ -252,14 +256,26 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
         // 操作
         onCreateHandlerBar(actionSheet, mDialogView, sheetContext);
 
-//        actionSheet.addContentView(mRootView, new ViewGroup.LayoutParams(
-//                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        actionSheet.setContentView(mRootView,new ViewGroup.LayoutParams(
+        actionSheet.addContentView(mRootView, new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         actionSheet.setCancelable(mCancelable);
         actionSheet.setCanceledOnTouchOutside(mCanceledOnTouchOutside);
         onAfter(actionSheet, mRootView, sheetContext);
         return actionSheet;
+    }
+
+    public VPopup createPopup() {
+        VPopup popup = new VPopup(mContext);
+        Context popupContext = popup.getContext();
+        mRootView = (LinearLayout) LayoutInflater.from(popupContext).inflate(R.layout.vdialog, null);
+        mDialogView = mRootView.findViewById(R.id.dialog);
+        //content
+        onCreateContent(popup, mDialogView, popupContext);
+        popup.setContentView(mRootView, new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        popup.setCancelable(mCancelable);
+        popup.setCanceledOnTouchOutside(mCanceledOnTouchOutside);
+        return popup;
     }
 
     public VDialog createDialog() {
@@ -322,12 +338,13 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
             mTitleView.setText(mTitle);
 
             VMUIResHelper.assignTextViewWithAttr(mTitleView, R.attr.dialog_title_style);
-            RelativeLayout rtl = new RelativeLayout(dialog.getContext());
+            RelativeLayout rtl = new RelativeLayout(context);
             RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             lp2.addRule(RelativeLayout.CENTER_HORIZONTAL);
-            int tb = VMUIDisplayHelper.dp2px(context,22);
-            lp2.setMargins(0,tb,0,tb);
+            int top = VMUIDisplayHelper.dp2px(context, 22);
+            int bottom = VMUIDisplayHelper.dp2px(context, 11);
+            lp2.setMargins(0, top, 0, bottom);
             rtl.setLayoutParams(lp1);
             mTitleView.setLayoutParams(lp2);
             rtl.addView(mTitleView);
@@ -335,9 +352,9 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
         }
     }
 
-    protected void onCreateSheetTittle(VActionSheet sheet,ViewGroup parent,Context context){
+    protected void onCreateSheetTittle(VActionSheet sheet, ViewGroup parent, Context context) {
         if (hasTitle()) {
-            mTitleView = new VTextView(context);
+            mTitleView = new VTextView(context, true);
             mTitleView.setEnabled(false);
             mTitleView.setText(mTitle);
 
@@ -346,9 +363,9 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
             RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             RelativeLayout.LayoutParams lp3 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
-            int lr = VMUIDisplayHelper.dp2px(context,28);
-            int tb = VMUIDisplayHelper.dp2px(context,16);
-            lp2.setMargins(lr,tb,lr,tb);
+            int lr = VMUIDisplayHelper.dp2px(context, 28);
+            int tb = VMUIDisplayHelper.dp2px(context, 16);
+            lp2.setMargins(lr, tb, lr, tb);
             lp2.addRule(RelativeLayout.CENTER_HORIZONTAL);
 
             rtl.setLayoutParams(lp1);
@@ -428,20 +445,20 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
                         actionLp.weight = 1;
                     }
                 }
-                Button actionView = action.buildActionView(dialog, i);
+                VButton actionView = action.buildActionView(dialog, i);
 
-                // add divider
-                if (mActionDividerThickness > 0 && i > 0 && spaceInsertPos != i) {
+                // add divider mActionDividerThickness > 0 && i > 0 && spaceInsertPos != i
+                if (i > 0) {
                     if (mActionContainerOrientation == VERTICAL) {
-
                         //actionView.onlyShowTopDivider(mActionDividerInsetStart, mActionDividerInsetEnd, mActionDividerThickness, ContextCompat.getColor(context, mActionDividerColorRes));
                     } else {
-                        //actionView.onlyShowLeftDivider(mActionDividerInsetStart, mActionDividerInsetEnd, mActionDividerThickness, ContextCompat.getColor(context, mActionDividerColorRes));
+                        RelativeLayout.LayoutParams lp3 = new RelativeLayout.LayoutParams(2, ViewGroup.LayoutParams.MATCH_PARENT);
+                        View view = new View(context);
+                        view.setLayoutParams(lp3);
+                        view.setBackground(context.getDrawable(R.drawable.divider_line));
+                        mActionContainer.addView(view);
                     }
                 }
-
-                //actionView.setChangeAlphaWhenDisable(mChangeAlphaForPressOrDisable);
-                //actionView.setChangeAlphaWhenPress(mChangeAlphaForPressOrDisable);
                 mActionContainer.addView(actionView, actionLp);
             }
 

@@ -37,8 +37,8 @@ public class VDialogView extends LinearLayout {
         if (mMaxWidth > 0 && widthSize > mMaxWidth) {
             widthMeasureSpec = MeasureSpec.makeMeasureSpec(mMaxWidth, widthMode);
         }
-        if(mMaxHeight > 0 && heightSize > mMaxHeight){
-            heightMeasureSpec = MeasureSpec.makeMeasureSpec(mMaxHeight,heightMode);
+        if (mMaxHeight > 0 && heightSize > mMaxHeight) {
+            heightMeasureSpec = MeasureSpec.makeMeasureSpec(mMaxHeight, heightMode);
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         if (widthMode == MeasureSpec.AT_MOST) {

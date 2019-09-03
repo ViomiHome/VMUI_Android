@@ -4,14 +4,12 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
-import android.util.TypedValue;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.annotation.IntDef;
 
 import com.viomi.vmui.R;
-import com.viomi.vmui.utils.VMUIDrawableHelper;
+import com.viomi.vmui.VButton;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -35,7 +33,7 @@ public class VDialogAction {
     private int mIconRes;
     private int mActionProp;
     private ActionListener mOnClickListener;
-    private Button mButton;
+    private VButton mButton;
     private boolean mIsEnabled = true;
 
     public interface ActionListener {
@@ -73,11 +71,10 @@ public class VDialogAction {
         }
     }
 
-    public Button buildActionView(final Dialog dialog, final int index) {
+    public VButton buildActionView(final Dialog dialog, final int index) {
 
-        mButton = generateActionButton(dialog.getContext(), mStr, -1);
-        //mButton = new Button(dialog.getContext());
-        //mButton.setText(mStr);
+        mButton = generateActionButton(dialog.getContext(), mStr, mIconRes);
+
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,12 +89,12 @@ public class VDialogAction {
     /**
      * 生成适用于对话框的按钮
      */
-    private Button generateActionButton(Context context, CharSequence text, int iconRes) {
+    private VButton generateActionButton(Context context, CharSequence text, int iconRes) {
         // button 有提供 buttonStyle, 覆盖第三个参数不是好选择
-        Button button = new Button(context);
+        VButton button = new VButton(context);
+        button.setButton_style(6);
         button.setMinimumHeight(0);
-        button.setPressed(true);
-        button.setEnabled(true);
+
         TypedArray a;
         if (mActionProp == ACTION_PROP_DANGER || mActionProp == ACTION_PROP_COMMON) {
             a = context.obtainStyledAttributes(null, R.styleable.DialogActionStyleDef, R.attr.sheet_action_style, 0);
@@ -105,24 +102,22 @@ public class VDialogAction {
             a = context.obtainStyledAttributes(null, R.styleable.DialogActionStyleDef, R.attr.dialog_action_style, 0);
         }
         int count = a.getIndexCount();
-        int paddingHor = 0, iconSpace = 0;
-        float shadowDx = 0, shadowDy = 0;
-        ColorStateList negativeTextColor = null, positiveTextColor = null, commonTextColor = null, dangerTextColor = null, shadowColor = null;
+        int paddingHor = 0;
+        ColorStateList negativeTextColor = null, positiveTextColor = null, commonTextColor = null, dangerTextColor = null;
         for (int i = 0; i < count; i++) {
             int attr = a.getIndex(i);
             if (attr == R.styleable.DialogActionStyleDef_android_gravity) {
                 button.setGravity(a.getInt(attr, -1));
             } else if (attr == R.styleable.DialogActionStyleDef_android_textColor) {
-                button.setTextColor(a.getColorStateList(attr));
+                button.setTextColor(a.getColorStateList(attr).getDefaultColor());
             } else if (attr == R.styleable.DialogActionStyleDef_android_textSize) {
-                button.setTextSize(TypedValue.COMPLEX_UNIT_PX, a.getDimensionPixelSize(attr, 0));
+                button.setTextSize(a.getDimensionPixelSize(attr, 0));
             } else if (attr == R.styleable.DialogActionStyleDef_dialog_action_button_padding_horizontal) {
                 paddingHor = a.getDimensionPixelSize(attr, 0);
             } else if (attr == R.styleable.DialogActionStyleDef_android_background) {
-                VMUIDrawableHelper.setBackground(button, a.getDrawable(attr));
+                button.setBackgroundResId(a.getResourceId(attr,0));
             } else if (attr == R.styleable.DialogActionStyleDef_android_minWidth) {
                 int miniWidth = a.getDimensionPixelSize(attr, 0);
-                button.setMinWidth(miniWidth);
                 button.setMinimumWidth(miniWidth);
             } else if (attr == R.styleable.DialogActionStyleDef_dialog_positive_action_text_color) {
                 positiveTextColor = a.getColorStateList(attr);
@@ -132,41 +127,28 @@ public class VDialogAction {
                 dangerTextColor = a.getColorStateList(attr);
             } else if (attr == R.styleable.DialogActionStyleDef_dialog_common_action_text_color) {
                 commonTextColor = a.getColorStateList(attr);
-            } else if (attr == R.styleable.DialogActionStyleDef_dialog_action_icon_space) {
-                iconSpace = a.getDimensionPixelSize(attr, 0);
-            } else if (attr == R.styleable.DialogActionStyleDef_android_height) {
-                button.setHeight(a.getDimensionPixelSize(attr, 0));
-            } else if (attr == R.styleable.DialogActionStyleDef_android_shadowColor) {
-                shadowColor = a.getColorStateList(attr);
-            } else if (attr == R.styleable.DialogActionStyleDef_android_shadowDx) {
-                shadowDx = a.getFloat(attr, 0);
-            } else if (attr == R.styleable.DialogActionStyleDef_android_shadowDy) {
-                shadowDy = a.getFloat(attr, 0);
             }
         }
 
         a.recycle();
         button.setPadding(paddingHor, 0, paddingHor, 0);
         if (iconRes <= 0) {
-            button.setText(text);
+            button.setText_content(text.toString());
         } else {
-            //button.setText(VMUISpanHelper.generateSideIconText(true, iconSpace, text, ContextCompat.getDrawable(context, iconRes)));
+            button.setDrawable_right(context.getDrawable(iconRes));
+            button.setText_content(text.toString());
         }
 
-        button.setClickable(true);
         button.setEnabled(mIsEnabled);
 
-
         if (mActionProp == ACTION_PROP_NEGATIVE) {
-            button.setTextColor(negativeTextColor);
+            button.setTextColor(negativeTextColor.getDefaultColor());
         } else if (mActionProp == ACTION_PROP_POSITIVE) {
-            button.setTextColor(positiveTextColor);
+            button.setTextColor(positiveTextColor.getDefaultColor());
         } else if (mActionProp == ACTION_PROP_DANGER) {
-            button.setTextColor(dangerTextColor);
-            button.setShadowLayer(0, shadowDx, shadowDy, shadowColor.getDefaultColor());
+            button.setTextColor(dangerTextColor.getDefaultColor());
         } else if (mActionProp == ACTION_PROP_COMMON) {
-            button.setTextColor(commonTextColor);
-            button.setShadowLayer(0, shadowDx, shadowDy, shadowColor.getDefaultColor());
+            button.setTextColor(commonTextColor.getDefaultColor());
         }
         return button;
     }

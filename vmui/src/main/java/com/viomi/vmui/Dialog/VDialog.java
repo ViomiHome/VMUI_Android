@@ -6,8 +6,10 @@ import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.method.TransformationMethod;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,7 @@ import androidx.appcompat.widget.AppCompatEditText;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.viomi.vmui.R;
+import com.viomi.vmui.VTextView;
 import com.viomi.vmui.utils.VMUIDateFormatUtils;
 import com.viomi.vmui.utils.VMUIDisplayHelper;
 import com.viomi.vmui.utils.VMUIResHelper;
@@ -116,7 +119,7 @@ public class VDialog extends Dialog {
 
     public static class MessageDialogBuilder extends VDialogBuilder<MessageDialogBuilder> {
         protected CharSequence mMessage;
-        private TextView mTextView;
+        private VTextView mTextView;
 
         public MessageDialogBuilder(Context context) {
             super(context);
@@ -140,10 +143,27 @@ public class VDialog extends Dialog {
         @Override
         protected void onCreateContent(Dialog dialog, ViewGroup parent, Context context) {
             if (mMessage != null && mMessage.length() != 0) {
-                mTextView = new TextView(context);
-                assignMessageTvWithAttr(mTextView, hasTitle(), R.attr.dialog_message_content_style);
+                RelativeLayout rtl = new RelativeLayout(context);
+                RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                int lr = VMUIDisplayHelper.dp2px(context, 36);
+                int tb = VMUIDisplayHelper.dp2px(context, 28);
+                lp2.addRule(RelativeLayout.CENTER_HORIZONTAL);
+                mTextView = new VTextView(context, true);
+                mTextView.setEnabled(false);
                 mTextView.setText(mMessage);
-                parent.addView(mTextView);
+                mTextView.setTextColor(context.getResources().getColor(R.color.content_gray));
+                if (hasTitle()) {
+                    lp2.setMargins(lr, 0, lr, tb);
+                    mTextView.setTextSize(14);
+                } else {
+                    lp2.setMargins(lr, tb, lr, tb);
+                    mTextView.setTextSize(15);
+                }
+                mTextView.setLayoutParams(lp2);
+                rtl.setLayoutParams(lp1);
+                rtl.addView(mTextView);
+                parent.addView(rtl);
             }
         }
 
@@ -170,7 +190,7 @@ public class VDialog extends Dialog {
         }
     }
 
-    public static class EditTextDialogBuilder extends VDialogBuilder<EditTextDialogBuilder> {
+    public static class EditTextDialogBuilder extends VDialogBuilder<EditTextDialogBuilder> implements View.OnClickListener {
 
         protected String mPlaceholder;
         protected EditText mEditText;
@@ -238,11 +258,30 @@ public class VDialog extends Dialog {
             mEditText.setFocusableInTouchMode(true);
             mEditText.setImeOptions(EditorInfo.IME_ACTION_GO);
             mEditText.setId(R.id.vmui_dialog_edit_input);
+            mEditText.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (s.length() > 0) {
+                        mRightImageView.setVisibility(View.VISIBLE);
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
 
             mRightImageView = new ImageView(context);
             mRightImageView.setId(R.id.vmui_dialog_edit_right_icon);
+            mRightImageView.setImageResource(R.mipmap.ic_clear);
             mRightImageView.setVisibility(View.GONE);
-
+            mRightImageView.setOnClickListener(this);
             mMainLayout = new RelativeLayout(context);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             lp.topMargin = mEditText.getPaddingTop();
@@ -289,6 +328,12 @@ public class VDialog extends Dialog {
                     inputMethodManager.showSoftInput(mEditText, 0);
                 }
             }, 300);
+        }
+
+        @Override
+        public void onClick(View v) {
+            mEditText.getText().clear();
+            mRightImageView.setVisibility(View.GONE);
         }
     }
 
@@ -625,6 +670,7 @@ public class VDialog extends Dialog {
 
         /**
          * 日期开始时间
+         *
          * @param timestamp 格式（long）
          * @return
          */
@@ -635,6 +681,7 @@ public class VDialog extends Dialog {
 
         /**
          * 日期开始时间
+         *
          * @param beginTime 格式（yyyy-MM-dd）
          * @return
          */
@@ -645,6 +692,7 @@ public class VDialog extends Dialog {
 
         /**
          * 日期结束时间
+         *
          * @param endTime 格式（yyyy-MM-dd）
          * @return
          */
@@ -655,6 +703,7 @@ public class VDialog extends Dialog {
 
         /**
          * 日期结束时间
+         *
          * @param timestamp 格式（long）
          * @return
          */
@@ -669,6 +718,7 @@ public class VDialog extends Dialog {
 
         /**
          * 展示日期格式类型
+         *
          * @param typ 0：yyyy-MM-dd，1：MM-dd，2：dd
          * @return
          */

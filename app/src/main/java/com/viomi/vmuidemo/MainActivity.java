@@ -15,9 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.viomi.vmui.Dialog.VDialog;
 import com.viomi.vmui.Dialog.VDialogAction;
+import com.viomi.vmui.VPopup;
 import com.viomi.vmui.VActionSheet;
 import com.viomi.vmui.VToast;
-import com.viomi.vmui.utils.VMUIDateFormatUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -95,8 +95,8 @@ public class MainActivity extends AppCompatActivity {
                                         dialog.dismiss();
                                     }
                                 })
-                                .setTitle("弹窗标题")
-                                .setMessage("这是一个弹窗")
+
+                                .setMessage("弹窗内容，告知当前状态、信息和解决方法，描述文字尽量控制在三行内。")
                                 .showDialog();
                         break;
                     case 8:
@@ -198,25 +198,35 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 13:
                         //Popup
-                        new VActionSheet.MultiButtonActionSheetBuilder(MainActivity.this)
-                                .setTitle("这是一个清晰的描述")
-                                .addItem("按钮1")
-                                .addItem("按钮2")
-                                .addItem("按钮3")
-                                .addAction("确认", VDialogAction.ACTION_PROP_POSITIVE,new VDialogAction.ActionListener() {
+//                        new VActionSheet.MultiButtonActionSheetBuilder(MainActivity.this)
+//                                .setTitle("这是一个清晰的描述")
+//                                .addItem("按钮1")
+//                                .addItem("按钮2")
+//                                .addItem("按钮3")
+//                                .addAction("确认", VDialogAction.ACTION_PROP_POSITIVE,new VDialogAction.ActionListener() {
+//                                    @Override
+//                                    public void onClick(Dialog dialog, int index) {
+//                                        dialog.dismiss();
+//                                    }
+//                                })
+//                                .setOnSheetItemClickListener(new VActionSheet.MultiButtonActionSheetBuilder.OnSheetItemClickListener() {
+//                                    @Override
+//                                    public void onItemClick(Dialog dialog, String selected) {
+//                                        dialog.dismiss();
+//                                        VToast.makeErrorText(MainActivity.this, "您按下的按钮是：" + selected, Toast.LENGTH_SHORT).show();
+//                                    }
+//                                })
+//                                .showActionSheet();
+                        new VPopup.VPopupBuilder(MainActivity.this)
+                                .setShowCloseImage(true)
+                                .setShowOperateButton(true)
+                                .setViewDismissClickListener(new VPopup.VPopupBuilder.OnViewClickListener() {
                                     @Override
-                                    public void onClick(Dialog dialog, int index) {
+                                    public void onViewClick(Dialog dialog) {
                                         dialog.dismiss();
                                     }
                                 })
-                                .setOnSheetItemClickListener(new VActionSheet.MultiButtonActionSheetBuilder.OnSheetItemClickListener() {
-                                    @Override
-                                    public void onItemClick(Dialog dialog, String selected) {
-                                        dialog.dismiss();
-                                        VToast.makeErrorText(MainActivity.this, "您按下的按钮是：" + selected, Toast.LENGTH_SHORT).show();
-                                    }
-                                })
-                                .showActionSheet();
+                                .showPopup();
                         break;
                     case 14:
                         new VActionSheet.MultiButtonActionSheetBuilder(MainActivity.this)
@@ -229,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
                                         dialog.dismiss();
                                     }
                                 })
-                                .addAction("主操作", VDialogAction.ACTION_PROP_POSITIVE, new VDialogAction.ActionListener() {
+                                .addAction("主操作", new VDialogAction.ActionListener() {
                                     @Override
                                     public void onClick(Dialog dialog, int index) {
                                         dialog.dismiss();

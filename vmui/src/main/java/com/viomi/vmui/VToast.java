@@ -102,7 +102,7 @@ public class VToast extends Toast {
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT,RelativeLayout.TRUE);
         LinearLayout container = new LinearLayout(context);
         container.setLayoutParams(layoutParams);
-        VTextView message = new VTextView(context);
+        VTextView message = new VTextView(context,true);
         message.setId(R.id.vmui_toast_message);
         message.setTextColor(context.getResources().getColor(R.color.white));
         message.setTextSize(14);
