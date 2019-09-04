@@ -44,12 +44,6 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
     private int mActionContainerOrientation = HORIZONTAL;
     protected List<VDialogAction> mActions = new ArrayList<>();
 
-    //---------divider---------------------
-    private int mActionDividerThickness = 0;
-    private int mActionDividerColorRes = 0;
-    private int mActionDividerInsetStart = 0;
-    private int mActionDividerInsetEnd = 0;
-
     protected LinearLayout mRootView;
     protected VDialogView mDialogView;
 
@@ -248,7 +242,7 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
         mDialogView = mRootView.findViewById(R.id.dialog);
 
         // title
-        onCreateSheetTittle(actionSheet, mDialogView, sheetContext);
+        onCreateSheetTitle(actionSheet, mDialogView, sheetContext);
 
         //content
         onCreateContent(actionSheet, mDialogView, sheetContext);
@@ -288,7 +282,6 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
 
         mRootView = (LinearLayout) LayoutInflater.from(dialogContext).inflate(R.layout.vdialog, null);
         mDialogView = mRootView.findViewById(R.id.dialog);
-        //mDialogView.setOnDecorationListener(mOnDecorationListener);
 
         // head image
         onCreateHeadImage(mDialog, mDialogView, dialogContext);
@@ -301,7 +294,6 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
 
         // 操作
         onCreateHandlerBar(mDialog, mDialogView, dialogContext);
-
 
         mDialog.addContentView(mRootView, new ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -323,6 +315,8 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
             mHeadImage = new ImageView(context);
             mHeadImage.setImageResource(mImgResId);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            int top = VMUIDisplayHelper.dp2px(context, 27);
+            lp.setMargins(0, top, 0, 0);
             mHeadImage.setLayoutParams(lp);
             parent.addView(mHeadImage);
         }
@@ -342,9 +336,15 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
             RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             lp2.addRule(RelativeLayout.CENTER_HORIZONTAL);
-            int top = VMUIDisplayHelper.dp2px(context, 22);
-            int bottom = VMUIDisplayHelper.dp2px(context, 11);
-            lp2.setMargins(0, top, 0, bottom);
+
+            if (hasHeadImage()) {
+                int top = VMUIDisplayHelper.dp2px(context, 13);
+                lp2.setMargins(0, top, 0, 0);
+            } else {
+                int top = VMUIDisplayHelper.dp2px(context, 28);
+                lp2.setMargins(0, top, 0, 0);
+            }
+
             rtl.setLayoutParams(lp1);
             mTitleView.setLayoutParams(lp2);
             rtl.addView(mTitleView);
@@ -352,7 +352,7 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
         }
     }
 
-    protected void onCreateSheetTittle(VActionSheet sheet, ViewGroup parent, Context context) {
+    protected void onCreateSheetTitle(VActionSheet sheet, ViewGroup parent, Context context) {
         if (hasTitle()) {
             mTitleView = new VTextView(context, true);
             mTitleView.setEnabled(false);
@@ -421,8 +421,6 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
             mActionContainer = new LinearLayout(context, null);
             mActionContainer.setOrientation(mActionContainerOrientation == VERTICAL ? VERTICAL : HORIZONTAL);
             mActionContainer.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            mActionContainer.setDividerDrawable(getBaseContext().getDrawable(R.color.price_red));
-            mActionContainer.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
             for (int i = 0; i < size; i++) {
                 if (spaceInsertPos == i) {
                     mActionContainer.addView(createActionContainerSpace(context));
@@ -447,15 +445,21 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
                 }
                 VButton actionView = action.buildActionView(dialog, i);
 
-                // add divider mActionDividerThickness > 0 && i > 0 && spaceInsertPos != i
+                // add divider
                 if (i > 0) {
                     if (mActionContainerOrientation == VERTICAL) {
-                        //actionView.onlyShowTopDivider(mActionDividerInsetStart, mActionDividerInsetEnd, mActionDividerThickness, ContextCompat.getColor(context, mActionDividerColorRes));
-                    } else {
-                        RelativeLayout.LayoutParams lp3 = new RelativeLayout.LayoutParams(2, ViewGroup.LayoutParams.MATCH_PARENT);
+                        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
                         View view = new View(context);
-                        view.setLayoutParams(lp3);
+                        view.setLayoutParams(lp);
                         view.setBackground(context.getDrawable(R.drawable.divider_line));
+                        mActionContainer.addView(view);
+                    } else if (mActionContainerOrientation == HORIZONTAL) {
+                        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(1, ViewGroup.LayoutParams.MATCH_PARENT);
+                        int tb = VMUIDisplayHelper.dp2px(context, 18);
+                        lp.setMargins(0, tb, 0, tb);
+                        View view = new View(context);
+                        view.setLayoutParams(lp);
+                        view.setBackgroundColor(context.getResources().getColor(R.color.divider_color));
                         mActionContainer.addView(view);
                     }
                 }

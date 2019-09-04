@@ -187,8 +187,8 @@ public class PickerView extends View {
             mOffsetX = mPaint.measureText(mDataList.get(mSelectedIndex));
         }
         if (mBaseLine != 0) {
-            drawLine(canvas, mDividerColor, mAscent - mHalfTextSpacing / 2);
-            drawLine(canvas, mDividerColor, mBaseLine + mHalfTextSpacing / 2);
+            drawLine(canvas, mDividerColor, mHalfHeight - (mBottom - mTop) / 2 - mPaint.getFontSpacing() / 4);
+            drawLine(canvas, mDividerColor, mHalfHeight + (mBottom - mTop) / 2 + mPaint.getFontSpacing() / 4);
             mPaint.setColor(mDarkColor);
             drawTipsText(canvas, mDarkColor, mHalfWidth + mOffsetX / 2, mAscent, mTips);
         }

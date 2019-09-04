@@ -10,7 +10,7 @@
         android:layout_alignParentStart="true"
         android:text="text"
         android:textSize="16sp"
-        android:paddingLeft="15dp"
+        android:paddingLeft="24dp"
         android:layout_marginBottom="19dp"
         android:layout_marginTop="19dp"
         android:gravity="center_vertical"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerInParent="true"
-        android:layout_marginEnd="22dp"
+        android:layout_marginEnd="24dp"
         android:clickable="false"
         android:focusable="false"
         style="@style/CustomCheckboxTheme"/>

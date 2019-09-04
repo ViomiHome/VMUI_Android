@@ -11,8 +11,17 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.TransformationMethod;
+import android.text.util.Linkify;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -28,6 +37,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
+import androidx.core.text.util.LinkifyCompat;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -37,19 +47,21 @@ import com.viomi.vmui.utils.VMUIDateFormatUtils;
 import com.viomi.vmui.utils.VMUIDisplayHelper;
 import com.viomi.vmui.utils.VMUIResHelper;
 
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 public class VDialog extends Dialog {
-    private boolean mCancelable = true;
-    private boolean mCanceledOnTouchOutside = true;
-    private boolean mCanceledOnTouchOutsideSet = true;
+    private View mContentView;
+    private boolean mIsAnimating = false;
+    private int mAnimationDuration = 200;
+    private boolean mCancelable = false;
+    private boolean mCanceledOnTouchOutside = false;
+    private boolean mCanceledOnTouchOutsideSet = false;
 
     public VDialog(@NonNull Context context) {
-        super(context);
+        super(context, R.style.VMUI_Dialog);
     }
 
     public VDialog(@NonNull Context context, int themeResId) {
@@ -73,6 +85,37 @@ public class VDialog extends Dialog {
     }
 
     private void initDialog() {
+        //noinspection ConstantConditions
+        getWindow().getDecorView().setPadding(0, 0, 0, 0);
+
+        // 在底部，宽度撑满
+        WindowManager.LayoutParams params = getWindow().getAttributes();
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        params.gravity = Gravity.BOTTOM | Gravity.CENTER;
+
+        int screenWidth = VMUIDisplayHelper.getScreenWidth(getContext());
+        int screenHeight = VMUIDisplayHelper.getScreenHeight(getContext());
+        params.width = screenWidth < screenHeight ? screenWidth : screenHeight;
+        getWindow().setAttributes(params);
+        setCanceledOnTouchOutside(true);
+    }
+
+    @Override
+    public void setContentView(int layoutResID) {
+        mContentView = LayoutInflater.from(getContext()).inflate(layoutResID, null);
+        super.setContentView(layoutResID);
+    }
+
+    @Override
+    public void setContentView(@NonNull View view, @Nullable ViewGroup.LayoutParams params) {
+        mContentView = view;
+        super.setContentView(view, params);
+    }
+
+    @Override
+    public void addContentView(@NonNull View view, @Nullable ViewGroup.LayoutParams params) {
+        mContentView = view;
+        super.addContentView(view, params);
     }
 
     @Override
@@ -91,9 +134,98 @@ public class VDialog extends Dialog {
         mCanceledOnTouchOutsideSet = true;
     }
 
+    /**
+     * BottomSheet升起动画
+     */
+    private void animateUp() {
+        if (mContentView == null) {
+            return;
+        }
+        TranslateAnimation translate = new TranslateAnimation(
+                Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f,
+                Animation.RELATIVE_TO_SELF, 1f, Animation.RELATIVE_TO_SELF, 0f
+        );
+        AlphaAnimation alpha = new AlphaAnimation(0, 1);
+        AnimationSet set = new AnimationSet(true);
+        set.addAnimation(translate);
+        set.addAnimation(alpha);
+        set.setInterpolator(new DecelerateInterpolator());
+        set.setDuration(mAnimationDuration);
+        set.setFillAfter(true);
+        mContentView.startAnimation(set);
+    }
+
+    /**
+     * BottomSheet降下动画
+     */
+    private void animateDown() {
+        if (mContentView == null) {
+            return;
+        }
+        final Runnable dismissTask = new Runnable() {
+            @Override
+            public void run() {
+                // java.lang.IllegalArgumentException: View=com.android.internal.policy.PhoneWindow$DecorView{22dbf5b V.E...... R......D 0,0-1080,1083} not attached to window manager
+                // 在dismiss的时候可能已经detach了，简单try-catch一下
+                try {
+                    VDialog.super.dismiss();
+                } catch (Exception e) {
+                    //QMUILog.w(TAG, "dismiss error\n" + Log.getStackTraceString(e));
+                }
+            }
+        };
+        if (mContentView.getHeight() == 0) {
+            // TranslateAnimation will not call onAnimationEnd if its height is 0.
+            // At this case, we run dismiss task immediately.
+            dismissTask.run();
+            return;
+        }
+        TranslateAnimation translate = new TranslateAnimation(
+                Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 0f,
+                Animation.RELATIVE_TO_SELF, 0f, Animation.RELATIVE_TO_SELF, 1f
+        );
+        AlphaAnimation alpha = new AlphaAnimation(1, 0);
+        AnimationSet set = new AnimationSet(true);
+        set.addAnimation(translate);
+        set.addAnimation(alpha);
+        set.setInterpolator(new DecelerateInterpolator());
+        set.setDuration(mAnimationDuration);
+        set.setFillAfter(true);
+        set.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                mIsAnimating = true;
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mIsAnimating = false;
+                /**
+                 * Bugfix： Attempting to destroy the window while drawing!
+                 */
+                mContentView.post(dismissTask);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        mContentView.startAnimation(set);
+    }
+
     @Override
     public void show() {
         super.show();
+        animateUp();
+    }
+
+    @Override
+    public void dismiss() {
+        if (mIsAnimating) {
+            return;
+        }
+        animateDown();
     }
 
     boolean shouldWindowCloseOnTouchOutside() {
@@ -147,17 +279,24 @@ public class VDialog extends Dialog {
                 RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 int lr = VMUIDisplayHelper.dp2px(context, 36);
-                int tb = VMUIDisplayHelper.dp2px(context, 28);
+                int top = VMUIDisplayHelper.dp2px(context, 10);
+                int bottom = VMUIDisplayHelper.dp2px(context, 28);
                 lp2.addRule(RelativeLayout.CENTER_HORIZONTAL);
                 mTextView = new VTextView(context, true);
                 mTextView.setEnabled(false);
                 mTextView.setText(mMessage);
                 mTextView.setTextColor(context.getResources().getColor(R.color.content_gray));
+                //Linkify.addLinks(mTextView, Linkify.ALL);
+                mTextView.setLinksClickable(true);
+                mTextView.setLinkTextColor(context.getResources().getColor(R.color.viomi_green));
                 if (hasTitle()) {
-                    lp2.setMargins(lr, 0, lr, tb);
+                    lp2.setMargins(lr, top, lr, bottom);
+                    mTextView.setTextSize(14);
+                } else if (hasHeadImage()) {
+                    lp2.setMargins(lr, top, lr, bottom);
                     mTextView.setTextSize(14);
                 } else {
-                    lp2.setMargins(lr, tb, lr, tb);
+                    lp2.setMargins(lr, bottom, lr, bottom);
                     mTextView.setTextSize(15);
                 }
                 mTextView.setLayoutParams(lp2);
@@ -192,15 +331,22 @@ public class VDialog extends Dialog {
 
     public static class EditTextDialogBuilder extends VDialogBuilder<EditTextDialogBuilder> implements View.OnClickListener {
 
-        protected String mPlaceholder;
-        protected EditText mEditText;
-        protected TransformationMethod mTransformationMethod;
-        protected RelativeLayout mMainLayout;
-        protected ImageView mRightImageView;
+        private String mPlaceholder;
+        private EditText mEditText;
+        private TextView mTxtTips;
+        private TransformationMethod mTransformationMethod;
+        private RelativeLayout mMainLayout;
+        private ImageView mRightImageView;
         private int mInputType = InputType.TYPE_CLASS_TEXT;
+        private boolean mShowTipsText = false;
 
         public EditTextDialogBuilder(Context context) {
             super(context);
+        }
+
+        public EditTextDialogBuilder setShowTipsText(boolean value) {
+            mShowTipsText = value;
+            return this;
         }
 
         public EditTextDialogBuilder setPlaceholder(String placeholder) {
@@ -253,6 +399,10 @@ public class VDialog extends Dialog {
         @Override
         protected void onCreateContent(Dialog dialog, ViewGroup parent, Context context) {
             mEditText = new AppCompatEditText(context);
+            mTxtTips = new VTextView(context);
+            mTxtTips.setTextColor(context.getResources().getColor(R.color.tips_gray));
+            mTxtTips.setTextSize(12);
+            mTxtTips.setText("辅助文字请尽量控制在一行显示");
             MessageDialogBuilder.assignMessageTvWithAttr(mEditText, hasTitle(), R.attr.dialog_edit_content_style);
             mEditText.setFocusable(true);
             mEditText.setFocusableInTouchMode(true);
@@ -283,13 +433,9 @@ public class VDialog extends Dialog {
             mRightImageView.setVisibility(View.GONE);
             mRightImageView.setOnClickListener(this);
             mMainLayout = new RelativeLayout(context);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            lp.topMargin = mEditText.getPaddingTop();
-            lp.leftMargin = mEditText.getPaddingLeft();
-            lp.rightMargin = mEditText.getPaddingRight();
-            lp.bottomMargin = mEditText.getPaddingBottom();
             mMainLayout.setBackgroundResource(R.drawable.vmui_edittext_bg_border_bottom);
-            mMainLayout.setLayoutParams(lp);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
             if (mTransformationMethod != null) {
                 mEditText.setTransformationMethod(mTransformationMethod);
@@ -297,18 +443,35 @@ public class VDialog extends Dialog {
                 mEditText.setInputType(mInputType);
             }
 
+            lp.leftMargin = mEditText.getPaddingLeft();
+            lp.rightMargin = mEditText.getPaddingRight();
+            lp.topMargin = mEditText.getPaddingTop();
+            if (mShowTipsText) {
+                lp1.leftMargin = mEditText.getPaddingLeft();
+                lp1.rightMargin = mEditText.getPaddingRight();
+                lp1.topMargin = VMUIDisplayHelper.dp2px(context, 8);
+                lp1.bottomMargin = mEditText.getPaddingBottom();
+                mTxtTips.setLayoutParams(lp1);
+            } else {
+                lp.bottomMargin = mEditText.getPaddingBottom();
+            }
             mEditText.setBackgroundResource(0);
-            mEditText.setPadding(0, 0, 0, VMUIDisplayHelper.dpToPx(5));
+            mEditText.setPadding(0, 0, 0, VMUIDisplayHelper.dp2px(context, 15));
+            mRightImageView.setPadding(0, 0, 0, VMUIDisplayHelper.dp2px(context, 15));
             RelativeLayout.LayoutParams editLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             editLp.addRule(RelativeLayout.LEFT_OF, mRightImageView.getId());
             editLp.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
             if (mPlaceholder != null) {
                 mEditText.setHint(mPlaceholder);
             }
+            mMainLayout.setLayoutParams(lp);
             mMainLayout.addView(mEditText, createEditTextLayoutParams());
             mMainLayout.addView(mRightImageView, createRightIconLayoutParams());
 
             parent.addView(mMainLayout);
+            if (mShowTipsText) {
+                parent.addView(mTxtTips);
+            }
         }
 
         @Override
@@ -364,7 +527,9 @@ public class VDialog extends Dialog {
             mPickerView = new PickerView(context);
             mPickerView.setBackground(getBaseContext().getDrawable(R.drawable.dialog_picker_bg));
             mPickerView.setDataList(mData);
-            mPickerView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, VMUIDisplayHelper.dp2px(mContext, 188)));
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, VMUIDisplayHelper.dp2px(mContext, 188));
+            lp.setMargins(0, VMUIDisplayHelper.dp2px(context, 22), 0, 0);
+            mPickerView.setLayoutParams(lp);
             mPickerView.setOnSelectListener(new PickerView.OnSelectListener() {
                 @Override
                 public void onSelect(View view, String selected) {
@@ -412,7 +577,8 @@ public class VDialog extends Dialog {
             mListView = new ListView(context, null, 0, R.style.CustomListViewTheme);
             mListView.setBackground(getBaseContext().getDrawable(R.drawable.dialog_picker_bg));
             mAdapter = new ListAdapter(dialog.getContext(), mData);
-            FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 800);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 800);
+            lp.setMargins(0, VMUIDisplayHelper.dp2px(context, 22), 0, 0);
             mListView.setLayoutParams(lp);
             mListView.setAdapter(mAdapter);
             mListView.setVerticalScrollBarEnabled(false);
@@ -489,8 +655,8 @@ public class VDialog extends Dialog {
         }
 
         private void setProvinceIndex(String province) {
-            for (int i = 0; i < mProvinces.size(); i++) {
-                if (mProvinces.get(i).equals(province)) {
+            for (int i = 0; i < resultBeans.size(); i++) {
+                if (resultBeans.get(i).getProvince().equals(province)) {
                     mProvinceIndex = i;
                     break;
                 }
@@ -526,7 +692,7 @@ public class VDialog extends Dialog {
 
         private void setSelectContent(String district) {
             JSONObject object = new JSONObject();
-            object.put("province", mProvinces.get(mProvinceIndex));
+            object.put("province", resultBeans.get(mProvinceIndex).getProvince());
             object.put("city", mCities.get(mCityIndex));
             object.put("district", district);
             this.mSelectContent = object.toJSONString();
@@ -546,6 +712,7 @@ public class VDialog extends Dialog {
             ll.setBackground(getBaseContext().getDrawable(R.drawable.dialog_picker_bg));
             ll.setOrientation(LinearLayout.HORIZONTAL);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(0, VMUIDisplayHelper.dp2px(context, 10), 0, 0);
             ll.setLayoutParams(lp);
             LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(0, VMUIDisplayHelper.dp2px(mContext, 188));
             lp1.weight = 1.0f;
@@ -554,7 +721,7 @@ public class VDialog extends Dialog {
             mDistrictPickerView.setLayoutParams(lp1);
             mCityPickerView.setCanShowAnim(false);
             mDistrictPickerView.setCanShowAnim(false);
-            mProvincePickerView.setCanScrollLoop(false);
+            mProvincePickerView.setCanScrollLoop(true);
             mCityPickerView.setCanScrollLoop(false);
             mDistrictPickerView.setCanScrollLoop(false);
 
@@ -743,17 +910,18 @@ public class VDialog extends Dialog {
             ll.setBackground(getBaseContext().getDrawable(R.drawable.dialog_picker_bg));
             ll.setOrientation(LinearLayout.HORIZONTAL);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            lp.setMargins(0, VMUIDisplayHelper.dp2px(context, 10), 0, 0);
             ll.setLayoutParams(lp);
             LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(0, VMUIDisplayHelper.dp2px(mContext, 188));
-            lp1.weight = 4.0f;
+            lp1.weight = 1.0f;
             LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(0, VMUIDisplayHelper.dp2px(mContext, 188));
-            lp2.weight = 2.0f;
+            lp2.weight = 1.0f;
             mYearPickerView.setLayoutParams(lp1);
             mMonthPickerView.setLayoutParams(lp2);
             mDayPickerView.setLayoutParams(lp2);
             mMonthPickerView.setCanShowAnim(false);
             mDayPickerView.setCanShowAnim(false);
-            mYearPickerView.setCanScrollLoop(false);
+            mYearPickerView.setCanScrollLoop(true);
             mMonthPickerView.setCanScrollLoop(false);
             mDayPickerView.setCanScrollLoop(false);
 

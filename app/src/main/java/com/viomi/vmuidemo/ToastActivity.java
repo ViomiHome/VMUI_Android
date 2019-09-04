@@ -48,6 +48,7 @@ public class ToastActivity extends AppCompatActivity  implements View.OnClickLis
                 break;
             case R.id.btn_special:
                 VToast.makeText(this,"这是一个很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的Toast",Toast.LENGTH_SHORT).show();
+
         }
     }
 }

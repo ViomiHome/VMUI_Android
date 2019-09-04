@@ -13,10 +13,11 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.viomi.vmui.Dialog.VDialog;
 import com.viomi.vmui.Dialog.VDialogBuilder;
 import com.viomi.vmui.utils.VMUIDisplayHelper;
 
-public class VPopup extends Dialog {
+public class VPopup extends VDialog {
 
     public VPopup(@NonNull Context context) {
         super(context, R.style.VMUI_Popup);

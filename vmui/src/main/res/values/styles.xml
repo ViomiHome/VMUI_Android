@@ -26,16 +26,13 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowAnimationStyle">@null</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="dialog_min_width">300dp</item>
-        <item name="dialog_max_width">375dp</item>
     </style>
 
     <style name="VMUI.ActionSheet" parent="android:Theme.Dialog">
         <item name="android:backgroundDimAmount">?attr/dialog_background_dim_amount</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowAnimationStyle">@null
-        </item><!-- 为了避免在有 NavigationBar 的手机上 Dialog 从 NavigationBar 底部上来。去掉 Dialog 的动画，使用 View 的动画。-->
+        <item name="android:windowAnimationStyle">@null</item><!-- 为了避免在有 NavigationBar 的手机上 Dialog 从 NavigationBar 底部上来。去掉 Dialog 的动画，使用 View 的动画。-->
         <item name="android:layout_width">match_parent</item>
 
         <item name="sheet_title_style">@style/VMUI.ActionSheet.Title</item>
@@ -46,13 +43,10 @@
 
     <style name="VMUI.Dialog" parent="android:Theme.Dialog">
         <item name="android:backgroundDimAmount">?attr/dialog_background_dim_amount</item>
-        <item name="android:windowBackground">@drawable/vmui_dialog_bg</item>
-        <item name="android:windowNoTitle">true</item><!-- 不用window title，使用自己的layout来做title -->
-        <!-- <item name="android:windowTitleStyle">@style/dialog_title</item> --><!-- 不用设置windowStyleStyle，因为windowNoTitle=true -->
-        <item name="android:windowIsFloating">true</item><!-- 在中间弹框、背后有遮罩的效果 -->
-
-        <item name="dialog_min_width">260dp</item>
-        <item name="dialog_max_width">304dp</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@null</item><!-- 为了避免在有 NavigationBar 的手机上 Dialog 从 NavigationBar 底部上来。去掉 Dialog 的动画，使用 View 的动画。-->
+        <item name="android:layout_width">match_parent</item>
         <item name="dialog_bg">@drawable/vmui_dialog_bg</item>
         <item name="dialog_radius">@dimen/vmui_dialog_radius</item>
         <item name="dialog_margin_vertical">20dp</item>
@@ -95,7 +89,6 @@
     <style name="VMUI.Dialog.Action">
         <item name="android:textColor">@color/viomi_green</item>
         <item name="android:textSize">16sp</item>
-        <!--<item name="android:gravity">right|center_vertical</item>-->
         <item name="android:gravity">center</item>
         <item name="android:minWidth">64dp</item>
         <item name="android:background">@color/main_action_color</item>
@@ -139,7 +132,8 @@
         <item name="android:textColor">@color/title_gray</item>
         <item name="android:textColorHint">@color/tips_gray_light</item>
         <item name="android:gravity">left|center_vertical</item>
-        <item name="android:paddingBottom">31dp</item>
+        <item name="android:paddingBottom">28dp</item>
+        <item name="android:paddingTop">13dp</item>
     </style>
 
     <style name="CustomCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">

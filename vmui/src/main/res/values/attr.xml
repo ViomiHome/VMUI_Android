@@ -99,9 +99,6 @@
         <attr name="android:gravity" />
         <attr name="android:minWidth" />
         <attr name="android:textStyle" />
-        <attr name="android:shadowColor" />
-        <attr name="android:shadowDx" />
-        <attr name="android:shadowDy" />
         <attr name="dialog_action_button_padding_horizontal" format="dimension" />
         <attr name="dialog_action_icon_space" format="dimension" />
         <attr name="dialog_positive_action_text_color" format="color|reference" />

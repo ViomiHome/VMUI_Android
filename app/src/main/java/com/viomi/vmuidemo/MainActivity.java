@@ -95,8 +95,9 @@ public class MainActivity extends AppCompatActivity {
                                         dialog.dismiss();
                                     }
                                 })
-
-                                .setMessage("弹窗内容，告知当前状态、信息和解决方法，描述文字尽量控制在三行内。")
+                                .setHeadImage(R.mipmap.ic_launcher)
+                                .setTitle("弹窗标题")
+                                .setMessage("弹窗内容，告知当前状态、信息和解决方法，联系电话：18529271705")
                                 .showDialog();
                         break;
                     case 8:
@@ -120,7 +121,9 @@ public class MainActivity extends AppCompatActivity {
                                 })
                                 .setPlaceholder("在此输入您的内容")
                                 .setTitle("弹窗标题")
-                                .setTransformationMethod(new PasswordTransformationMethod())
+                                .setShowTipsText(true)
+
+                                //.setTransformationMethod(new PasswordTransformationMethod())
                                 .showDialog();
                         break;
                     case 9:
@@ -192,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
                                 })
                                 .setShowDateFormatPattern(0)
                                 .setBeginTimestamp("2001-01-01")
-                                .setEndTimestamp("2019-12-31")
+                                .setEndTimestamp("2029-05-01")
                                 .setTitle("弹窗标题")
                                 .showDialog();
                         break;
@@ -234,8 +237,18 @@ public class MainActivity extends AppCompatActivity {
                                 .addAction("危险按钮", VDialogAction.ACTION_PROP_DANGER, new VDialogAction.ActionListener() {
                                     @Override
                                     public void onClick(Dialog dialog, int index) {
-                                        index += 1;
-                                        VToast.makeText(MainActivity.this, "按下按钮：" + index, Toast.LENGTH_SHORT).show();
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .addAction("按钮1", VDialogAction.ACTION_PROP_COMMON, new VDialogAction.ActionListener() {
+                                    @Override
+                                    public void onClick(Dialog dialog, int index) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .addAction("按钮2", VDialogAction.ACTION_PROP_COMMON, new VDialogAction.ActionListener() {
+                                    @Override
+                                    public void onClick(Dialog dialog, int index) {
                                         dialog.dismiss();
                                     }
                                 })
