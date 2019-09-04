@@ -66,12 +66,16 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(getBaseContext(), TitleActivity.class));
                         break;
                     case 2:
+                        startActivity(new Intent(getBaseContext(), TabsActivity.class));
                         break;
                     case 3:
+                        startActivity(new Intent(getBaseContext(), NoticeBarActivity.class));
                         break;
                     case 4:
+                        startActivity(new Intent(getBaseContext(), TabbarActivity.class));
                         break;
                     case 5:
+                        startActivity(new Intent(getBaseContext(), SegmentActivity.class));
                         break;
                     case 6:
                         break;

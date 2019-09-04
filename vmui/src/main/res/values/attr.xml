@@ -38,5 +38,27 @@
         <attr name="enable_share" format="boolean" />
         <attr name="enable_back" format="boolean" />
     </declare-styleable>
+    <declare-styleable name="VTabSegment">
+        <attr name="seg_selected_color" format="color" />
+        <attr name="seg_normal_color" format="color" />
+        <attr name="seg_has_indicator" format="boolean" />
+        <attr name="seg_indicator_top" format="boolean" />
+        <attr name="seg_indicator_right" format="boolean" />
+        <attr name="seg_indicator_width" format="dimension" />
+        <attr name="seg_indicator_height" format="dimension" />
+        <attr name="seg_selected_textsize" format="dimension" />
+        <attr name="seg_normal_textsize" format="dimension" />
+        <attr name="seg_itemspace_inscroll" format="dimension" />
+        <attr name="seg_tab_icon_position" format="enum">
+            <enum name="left" value="0" />
+            <enum name="top" value="1" />
+            <enum name="right" value="1" />
+            <enum name="bottom" value="1" />
+        </attr>
+        <attr name="seg_mode" format="enum">
+            <enum name="scrollable" value="0" />
+            <enum name="fixed" value="1" />
+        </attr>
+    </declare-styleable>
 
 </resources>

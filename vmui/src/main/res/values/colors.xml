@@ -16,4 +16,7 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="transparent">#00000000</color>
+    <color name="notice_bg_dark">#5B5B5B</color>
+    <color name="notice_bg_light">#FFFFF7E5</color>
+    <color name="notice_text_light">#FFD49C46</color>
 </resources>

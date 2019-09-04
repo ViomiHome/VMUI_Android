@@ -13,15 +13,23 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
-        <activity android:name="com.viomi.vmuidemo.TitleActivity"></activity>
-        <activity android:name="com.viomi.vmuidemo.ButtonActivity" />
-        <activity android:name="com.viomi.vmuidemo.MainActivity">
+        <activity android:name=".SegmentActivity"/>
+        <activity android:name=".TabbarActivity" />
+        <activity android:name=".NoticeBarActivity" />
+        <activity android:name=".VerticalTabsActivity" />
+        <activity android:name=".FixedTabsActivity" />
+        <activity android:name=".DarkTabsActivity" />
+        <activity android:name=".ScrollTabsActivity" />
+        <activity android:name=".TitleActivity" />
+        <activity android:name=".ButtonActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".TabsActivity" />
     </application>
 
 </manifest>

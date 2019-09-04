@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="segment_indicator_with">8dp</dimen>
+    <dimen name="segment_indicator_with_ver">3dp</dimen>
+    <dimen name="segment_indicator_height">4dp</dimen>
+    <dimen name="segment_normal_textsize">14sp</dimen>
+    <dimen name="segment_selected_textsize">14sp</dimen>
+    <dimen name="segment_itemspace">24dp</dimen>
+</resources>
