@@ -13,7 +13,9 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".SegmentActivity"/>
+        <activity android:name=".SearchBarActivity" />
+        <activity android:name=".EmtyActivity" />
+        <activity android:name=".SegmentActivity" />
         <activity android:name=".TabbarActivity" />
         <activity android:name=".NoticeBarActivity" />
         <activity android:name=".VerticalTabsActivity" />

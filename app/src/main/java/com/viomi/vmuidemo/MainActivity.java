@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
                 "NoticeBar",
                 "TabBar",
                 "Segment",
-                "SettlementBar",
                 "Dialog",
                 "TextDialog"
                 , "Picker"
@@ -77,13 +76,29 @@ public class MainActivity extends AppCompatActivity {
                     case 5:
                         startActivity(new Intent(getBaseContext(), SegmentActivity.class));
                         break;
-                    case 6:
+                    case 6://Dialog
                         break;
-                    case 7:
+                    case 7://TextDialog
                         break;
-                    case 8:
+                    case 8://Picker
                         break;
-                    case 9:
+                    case 9://DatePicker
+                        break;
+                    case 10://Popup
+                        break;
+                    case 11://ActionSheet
+                        break;
+                    case 12://ShareSheet
+                        break;
+                    case 13://Toast
+                        break;
+                    case 14://SearchBar
+                        startActivity(new Intent(getBaseContext(), SearchBarActivity.class));
+                        break;
+                    case 15://EmptyPage
+                        startActivity(new Intent(getBaseContext(), EmtyActivity.class));
+                        break;
+                    case 16://LoadingPage
                         break;
                 }
             }

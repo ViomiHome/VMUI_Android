@@ -19,4 +19,5 @@
     <color name="notice_bg_dark">#5B5B5B</color>
     <color name="notice_bg_light">#FFFFF7E5</color>
     <color name="notice_text_light">#FFD49C46</color>
+    <color name="cursor_color">#FF2C76DB</color>
 </resources>
