@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Switch;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.viomi.vmui.VEmptyPage;
 import com.viomi.vmuidemo.util.StatusBarUtil;
 
-public class EmtyActivity extends AppCompatActivity {
+public class LoadingActivity extends AppCompatActivity {
     VEmptyPage vEmptyPage;
 
     @Override
@@ -31,7 +32,8 @@ public class EmtyActivity extends AppCompatActivity {
         }
         StatusBarUtil.StatusBarLightMode(this, true);
         vEmptyPage = findViewById(R.id.empty);
-        vEmptyPage.ivEmpty.setImageDrawable(getDrawable(R.drawable.cuesor_drawable));
-
+        vEmptyPage.setLoading(true);
+        vEmptyPage.setProcess(63);
+        vEmptyPage.getButton().setVisibility(View.GONE);
     }
 }

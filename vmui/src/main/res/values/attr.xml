@@ -86,5 +86,17 @@
         <attr name="barLength" format="dimension" />
         <attr name="unitTextSize" format="dimension" />
     </declare-styleable>
+    <declare-styleable name="VEmptyPage">
+        <attr name="empty_loading" format="boolean" />
+        <attr name="empty_process" format="integer" />
+        <attr name="empty_img" format="reference" />
+        <attr name="empty_title" format="string" />
+        <attr name="empty_title_textcolor" format="color" />
+        <attr name="empty_title_textsize" format="dimension" />
+        <attr name="empty_subtitle" format="string" />
+        <attr name="empty_subtitle_textcolor" format="color" />
+        <attr name="empty_subtitle_textsize" format="dimension" />
+        <attr name="empty_button" format="string" />
+    </declare-styleable>
 
 </resources>

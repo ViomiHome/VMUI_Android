@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(getBaseContext(), EmtyActivity.class));
                         break;
                     case 16://LoadingPage
+                        startActivity(new Intent(getBaseContext(), LoadingActivity.class));
                         break;
                 }
             }

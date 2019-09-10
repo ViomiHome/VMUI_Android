@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:orientation="vertical">
 
     <FrameLayout
@@ -15,8 +14,7 @@
             android:id="@+id/iv_emnty"
             android:layout_width="166dp"
             android:layout_height="166dp"
-            android:layout_gravity="bottom|center_horizontal"
-            android:background="#FF71BBE6" />
+            android:layout_gravity="bottom|center_horizontal" />
 
         <com.viomi.vmui.VCircleProgress
             android:id="@+id/v_process"
@@ -24,6 +22,7 @@
             android:layout_height="74dp"
             android:layout_gravity="bottom|center_horizontal"
             android:layout_marginBottom="28dp"
+            android:visibility="gone"
             app:barColor="@color/viomi_green"
             app:barWidth="4dp"
             app:circleColor="@color/white"
@@ -44,21 +43,26 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="56dp"
-            android:layout_height="20dp"
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:layout_marginBottom="3dp"
-            android:text="标题文字"
             android:textColor="@color/title_gray"
             android:textSize="14sp" />
 
         <TextView
-            android:layout_width="195dp"
-            android:layout_height="18dp"
-            android:text="这里显示的是辅助文字，颜色可改"
+            android:id="@+id/tv_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:textColor="@color/tips_gray"
             android:textSize="13sp" />
 
         <com.viomi.vmui.VButton
+            android:id="@+id/btn"
             android:layout_width="wrap_content"
             android:layout_height="31dp"
             android:layout_marginTop="30dp"
@@ -66,7 +70,6 @@
             android:minWidth="102dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            app:button_style="green_stroke"
-            app:text_content="操作描述" />
+            app:button_style="green_stroke" />
     </LinearLayout>
 </LinearLayout>
