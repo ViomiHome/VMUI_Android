@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cl_container"
+    android:layout_width="match_parent"
+    android:layout_height="44dp"
+    android:background="@color/white"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:id="@+id/layout_edit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="6dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_edittext"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/iv_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="11dp"
+            android:src="@mipmap/icon_searchbar_search" />
+
+        <EditText
+            android:id="@+id/edt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:layout_toLeftOf="@+id/iv_clear"
+            android:layout_toRightOf="@+id/iv_search"
+            android:background="@null"
+            android:hint="预设信息"
+            android:imeOptions="actionSearch"
+            android:lines="1"
+            android:singleLine="true"
+            android:textColor="@color/title_gray"
+            android:textColorHint="@color/tips_gray"
+            android:textCursorDrawable="@drawable/cuesor_drawable"
+            android:textSize="13sp" />
+
+        <ImageView
+            android:id="@+id/iv_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="11dp"
+            android:scaleType="centerInside"
+            android:src="@mipmap/icon_clear" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:paddingRight="16dp"
+        android:text="@string/text_cancel"
+        android:textColor="@color/title_gray"
+        android:textSize="14sp" />
+</LinearLayout>

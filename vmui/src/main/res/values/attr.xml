@@ -38,6 +38,66 @@
         <attr name="enable_share" format="boolean" />
         <attr name="enable_back" format="boolean" />
     </declare-styleable>
+    <declare-styleable name="VTabSegment">
+        <attr name="seg_selected_color" format="color" />
+        <attr name="seg_normal_color" format="color" />
+        <attr name="seg_has_indicator" format="boolean" />
+        <attr name="seg_indicator_top" format="boolean" />
+        <attr name="seg_indicator_right" format="boolean" />
+        <attr name="seg_indicator_width" format="dimension" />
+        <attr name="seg_indicator_height" format="dimension" />
+        <attr name="seg_selected_textsize" format="dimension" />
+        <attr name="seg_normal_textsize" format="dimension" />
+        <attr name="seg_itemspace_inscroll" format="dimension" />
+        <attr name="seg_tab_icon_position" format="enum">
+            <enum name="left" value="0" />
+            <enum name="top" value="1" />
+            <enum name="right" value="1" />
+            <enum name="bottom" value="1" />
+        </attr>
+        <attr name="seg_mode" format="enum">
+            <enum name="scrollable" value="0" />
+            <enum name="fixed" value="1" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="VSearchBar">
+        <attr name="search_cancel_text" format="string" />
+        <attr name="search_cancel_color" format="color" />
+        <attr name="search_cancel_textsize" format="dimension" />
+        <attr name="search_text_color" format="color" />
+        <attr name="search_textsize" format="dimension" />
+        <attr name="search_hint" format="string" />
+        <attr name="search_hint_color" format="color" />
+        <attr name="search_textcursor_drawable" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="VCircleProgress">
+        <attr name="text" format="string" />
+        <attr name="textColor" format="color" />
+        <attr name="textSize" format="dimension" />
+        <attr name="barColor" format="color" />
+        <attr name="rimColor" format="color" />
+        <attr name="rimWidth" format="dimension" />
+        <attr name="spinSpeed" format="dimension" />
+        <attr name="delayMillis" format="integer" />
+        <attr name="circleColor" format="color" />
+        <attr name="radius" format="dimension" />
+        <attr name="barWidth" format="dimension" />
+        <attr name="barLength" format="dimension" />
+        <attr name="unitTextSize" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="VEmptyPage">
+        <attr name="empty_loading" format="boolean" />
+        <attr name="empty_process" format="integer" />
+        <attr name="empty_img" format="reference" />
+        <attr name="empty_title" format="string" />
+        <attr name="empty_title_textcolor" format="color" />
+        <attr name="empty_title_textsize" format="dimension" />
+        <attr name="empty_subtitle" format="string" />
+        <attr name="empty_subtitle_textcolor" format="color" />
+        <attr name="empty_subtitle_textsize" format="dimension" />
+        <attr name="empty_button" format="string" />
+    </declare-styleable>
 
     <declare-styleable name="VDialogView">
         <attr name="dialog_min_width" format="dimension" />

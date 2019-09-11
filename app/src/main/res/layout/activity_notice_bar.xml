@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".NoticeBarActivity">
+
+    <TextView
+        android:id="@+id/tv1"
+        style="@style/noticebar_dark"
+        android:layout_marginTop="10dp"
+        android:drawableRight="@mipmap/icon_arrow_wt"
+        android:text="每个设计师"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv2"
+        style="@style/noticebar_dark"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@mipmap/p3"
+        android:drawableRight="@mipmap/icon_arrow_wt"
+        android:text="每个设计师"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv1" />
+
+    <TextView
+        android:id="@+id/tv3"
+        style="@style/noticebar_dark"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="每个设计师"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv2" />
+
+    <TextView
+        android:id="@+id/tv4"
+        style="@style/noticebar_dark"
+        android:layout_marginTop="10dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="每个设计师、工程师都有自己的习惯、美学倾向和工作流我们希望设计师能够从重复的劳动中获得解脱"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv3" />
+
+    <TextView
+        android:id="@+id/tv5"
+        style="@style/noticebar_dark"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@mipmap/p3"
+        android:drawableRight="@mipmap/icon_arrow_wt"
+        android:text="每个设计师、工程师都有自己的习惯、美学倾向和工作流我们希望设计师能够从重复的劳动中获得解脱"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv4" />
+
+    <TextView
+        android:id="@+id/tv6"
+        style="@style/noticebar_light"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@mipmap/p31"
+        android:drawableRight="@mipmap/icon_arrow_yl"
+        android:text="每个设计师"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv5" />
+
+    <TextView
+        android:id="@+id/tv7"
+        style="@style/noticebar_light"
+        android:layout_marginTop="10dp"
+        android:text="每个设计师、工程师都有自己的习惯、美学倾向和工作流我们希望设计师能够从重复的劳动中获得解脱"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv6" />
+</androidx.constraintlayout.widget.ConstraintLayout>

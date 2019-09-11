@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
                 "NoticeBar",
                 "TabBar",
                 "Segment",
-                "SettlementBar",
                 "Dialog",
                 "TextDialog"
                 , "Picker"
@@ -78,16 +77,18 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(getBaseContext(), TitleActivity.class));
                         break;
                     case 2:
+                        startActivity(new Intent(getBaseContext(), TabsActivity.class));
                         break;
                     case 3:
+                        startActivity(new Intent(getBaseContext(), NoticeBarActivity.class));
                         break;
                     case 4:
+                        startActivity(new Intent(getBaseContext(), TabbarActivity.class));
                         break;
                     case 5:
+                        startActivity(new Intent(getBaseContext(), SegmentActivity.class));
                         break;
                     case 6:
-                        break;
-                    case 7:
                         new VDialog.MessageDialogBuilder(MainActivity.this)
                                 .addAction("确认", new VDialogAction.ActionListener() {
                                     @Override
@@ -100,14 +101,14 @@ public class MainActivity extends AppCompatActivity {
                                 .setMessage("弹窗内容，告知当前状态、信息和解决方法，联系电话：18529271705")
                                 .showDialog();
                         break;
-                    case 8:
+                    case 7:
                         VDialog.EditTextDialogBuilder builder = new VDialog.EditTextDialogBuilder(MainActivity.this);
                         builder.addAction("取消", VDialogAction.ACTION_PROP_NEGATIVE, new VDialogAction.ActionListener() {
-                                    @Override
-                                    public void onClick(Dialog dialog, int index) {
-                                        dialog.dismiss();
-                                    }
-                                })
+                            @Override
+                            public void onClick(Dialog dialog, int index) {
+                                dialog.dismiss();
+                            }
+                        })
                                 .addAction("确认", VDialogAction.ACTION_PROP_POSITIVE, new VDialogAction.ActionListener() {
                                     @Override
                                     public void onClick(Dialog dialog, int index) {
@@ -126,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                                 //.setTransformationMethod(new PasswordTransformationMethod())
                                 .showDialog();
                         break;
-                    case 9:
+                    case 8:
                         List<String> data = new ArrayList<>();
                         data.add("选项0");
                         data.add("选项1");
@@ -136,19 +137,19 @@ public class MainActivity extends AppCompatActivity {
                         data.add("选项5");
                         data.add("选项6");
                         VDialog.SingleCheckableDialogBuilder builder1 = new VDialog.SingleCheckableDialogBuilder(MainActivity.this);
-                        builder1.addAction("确认", VDialogAction.ACTION_PROP_POSITIVE,new VDialogAction.ActionListener() {
-                                    @Override
-                                    public void onClick(Dialog dialog, int index) {
-                                        Toast.makeText(MainActivity.this, "您选择的内容是：" + builder1.getSelected(), Toast.LENGTH_SHORT).show();
-                                        builder1.getPickerView().onDestroy();
-                                        dialog.dismiss();
-                                    }
-                                })
+                        builder1.addAction("确认", VDialogAction.ACTION_PROP_POSITIVE, new VDialogAction.ActionListener() {
+                            @Override
+                            public void onClick(Dialog dialog, int index) {
+                                Toast.makeText(MainActivity.this, "您选择的内容是：" + builder1.getSelected(), Toast.LENGTH_SHORT).show();
+                                builder1.getPickerView().onDestroy();
+                                dialog.dismiss();
+                            }
+                        })
                                 .setTitle("弹窗标题")
                                 .setData(data)
                                 .showDialog();
                         break;
-                    case 10:
+                    case 9:
                         List<String> data1 = new ArrayList<>();
                         data1.add("选项0");
                         data1.add("选项1");
@@ -162,44 +163,44 @@ public class MainActivity extends AppCompatActivity {
                         data1.add("选项9");
                         VDialog.MultiCheckableDialogBuilder builder4 = new VDialog.MultiCheckableDialogBuilder(MainActivity.this);
                         builder4.addAction("确认", new VDialogAction.ActionListener() {
-                                    @Override
-                                    public void onClick(Dialog dialog, int index) {
-                                        dialog.dismiss();
-                                        Toast.makeText(MainActivity.this, "您选择的内容是：" + builder4.getSelectContent(), Toast.LENGTH_SHORT).show();
-                                    }
-                                })
+                            @Override
+                            public void onClick(Dialog dialog, int index) {
+                                dialog.dismiss();
+                                Toast.makeText(MainActivity.this, "您选择的内容是：" + builder4.getSelectContent(), Toast.LENGTH_SHORT).show();
+                            }
+                        })
                                 .setData(data1)
                                 .setTitle("弹窗标题")
                                 .showDialog();
                         break;
-                    case 11:
+                    case 10:
                         VDialog.LocationPickerDialogBuilder builder3 = new VDialog.LocationPickerDialogBuilder(MainActivity.this);
                         builder3.addAction("确认", new VDialogAction.ActionListener() {
-                                    @Override
-                                    public void onClick(Dialog dialog, int index) {
-                                        Toast.makeText(MainActivity.this, "您选择的内容是：" + builder3.getSelectContent(), Toast.LENGTH_SHORT).show();
-                                        dialog.dismiss();
-                                    }
-                                })
+                            @Override
+                            public void onClick(Dialog dialog, int index) {
+                                Toast.makeText(MainActivity.this, "您选择的内容是：" + builder3.getSelectContent(), Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            }
+                        })
                                 .setTitle("弹窗标题")
                                 .showDialog();
                         break;
-                    case 12:
+                    case 11:
                         VDialog.DatePickerBuilder builder2 = new VDialog.DatePickerBuilder(MainActivity.this);
                         builder2.addAction("确认", new VDialogAction.ActionListener() {
-                                    @Override
-                                    public void onClick(Dialog dialog, int index) {
-                                        Toast.makeText(MainActivity.this, "您选择的内容是：" + builder2.getSelectTime(), Toast.LENGTH_SHORT).show();
-                                        dialog.dismiss();
-                                    }
-                                })
+                            @Override
+                            public void onClick(Dialog dialog, int index) {
+                                Toast.makeText(MainActivity.this, "您选择的内容是：" + builder2.getSelectTime(), Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            }
+                        })
                                 .setShowDateFormatPattern(0)
                                 .setBeginTimestamp("2001-01-01")
                                 .setEndTimestamp("2029-05-01")
                                 .setTitle("弹窗标题")
                                 .showDialog();
                         break;
-                    case 13:
+                    case 12:
                         //Popup
 //                        new VActionSheet.MultiButtonActionSheetBuilder(MainActivity.this)
 //                                .setTitle("这是一个清晰的描述")
@@ -231,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
                                 })
                                 .showPopup();
                         break;
-                    case 14:
+                    case 13:
                         new VActionSheet.MultiButtonActionSheetBuilder(MainActivity.this)
                                 .setTitle("这是一个清晰的描述，可以为一行也可以为两行，这仅仅是一个清晰的描述")
                                 .addAction("危险按钮", VDialogAction.ACTION_PROP_DANGER, new VDialogAction.ActionListener() {
@@ -262,15 +263,15 @@ public class MainActivity extends AppCompatActivity {
                                 .showActionSheet();
 
                         break;
-                    case 15:
+                    case 14:
                         new VActionSheet.ShareSheetDialogBuilder(MainActivity.this)
-                                .addItem("QQ空间",R.mipmap.ic_launcher)
-                                .addItem("微信",R.mipmap.ic_launcher)
-                                .addItem("腾讯微博",R.mipmap.ic_launcher)
-                                .addItem("新浪微博",R.mipmap.ic_launcher)
+                                .addItem("QQ空间", R.mipmap.ic_launcher)
+                                .addItem("微信", R.mipmap.ic_launcher)
+                                .addItem("腾讯微博", R.mipmap.ic_launcher)
+                                .addItem("新浪微博", R.mipmap.ic_launcher)
                                 .setOnSheetItemClickListener(new VActionSheet.ShareSheetDialogBuilder.OnSheetItemClickListener() {
                                     @Override
-                                    public void onItemClick(Dialog dialog,String selected) {
+                                    public void onItemClick(Dialog dialog, String selected) {
                                         //Toast.makeText(MainActivity.this, "您选择的内容是：" + selected, Toast.LENGTH_SHORT).show();
                                         //dialog.dismiss();
                                         VToast.makeSuccessText(MainActivity.this, "您选择的内容是：" + selected, Toast.LENGTH_SHORT).show();
@@ -278,8 +279,17 @@ public class MainActivity extends AppCompatActivity {
                                 })
                                 .showActionSheet();
                         break;
-                    case 16:
-                        startActivity(new Intent(getBaseContext(),ToastActivity.class));
+                    case 15:
+                        startActivity(new Intent(getBaseContext(), ToastActivity.class));
+                        break;
+                    case 16://SearchBar
+                        startActivity(new Intent(getBaseContext(), SearchBarActivity.class));
+                        break;
+                    case 17://EmptyPage
+                        startActivity(new Intent(getBaseContext(), EmtyActivity.class));
+                        break;
+                    case 18://LoadingPage
+                        startActivity(new Intent(getBaseContext(), LoadingActivity.class));
                         break;
                 }
             }
