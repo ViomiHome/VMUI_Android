@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".ItemViewActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.viomi.vmui.VItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:item_lefttitle="左标题"
+            app:item_righttitle="默认"
+            app:item_righttitle_textcolor="@color/tips_gray"
+            app:item_style="normal" />
+
+        <com.viomi.vmui.VItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:item_lefttitle="左标题"
+            app:item_righttitle="强调"
+            app:item_righttitle_textcolor="@color/price_red"
+            app:item_style="normal" />
+
+        <com.viomi.vmui.VItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:item_lefttitle="左标题"
+            app:item_righttitle="弱化"
+            app:item_righttitle_textcolor="#FFC8C8C8"
+            app:item_style="normal" />
+
+        <com.viomi.vmui.VItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            app:item_lefttitle="左标题"
+            app:item_style="normal" />
+
+        <com.viomi.vmui.VItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:item_lefttitle="左标题"
+            app:item_style="normal"
+            app:item_text_redot="true" />
+
+        <com.viomi.vmui.VItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:item_lefttitle="左标题"
+            app:item_righttitle="内容"
+            app:item_style="normal"
+            app:item_text_redot="true" />
+
+        <com.viomi.vmui.VItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            app:item_lefttitle="左标题"
+            app:item_righttitle="内容"
+            app:item_src="@mipmap/p4_0"
+            app:item_style="small_icon_left" />
+
+        <com.viomi.vmui.VItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:item_lefttitle="左标题"
+            app:item_righttitle="内容"
+            app:item_src="@mipmap/p4_1"
+            app:item_style="middle_icon_left"
+
+            app:item_sublefttitle="左辅助文字" />
+
+        <com.viomi.vmui.VItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:item_lefttitle="左标题"
+            app:item_righttitle="右标题"
+            app:item_righttitle_textcolor="@color/title_gray"
+            app:item_righttitle_textsize="14sp"
+            app:item_src="@mipmap/p4_2"
+            app:item_style="big_icon_left"
+            app:item_sublefttitle="左辅助文字"
+            app:item_subrighttitle="右辅助文字" />
+
+        <com.viomi.vmui.VItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            app:item_img_redot="true"
+            app:item_lefttitle="左标题"
+            app:item_src="@mipmap/p4_0"
+            app:item_style="small_icon_right" />
+
+        <com.viomi.vmui.VItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:item_lefttitle="左标题"
+            app:item_src="@mipmap/p4_1"
+            app:item_style="middle_icon_right"
+            app:item_sublefttitle="左辅助文字" />
+
+        <com.viomi.vmui.VItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:item_lefttitle="左标题"
+            app:item_src="@mipmap/p4_2"
+            app:item_style="big_icon_right"
+            app:item_sublefttitle="左辅助文字" />
+
+        <com.viomi.vmui.VItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            app:item_lefttitle="我们希望打破设计师与工程师的隔阂，让大家我们希望打破设计师与工程师的隔阂，让大家"
+            app:item_righttitle_textcolor="@color/title_gray"
+            app:item_righttitle_textsize="14sp"
+            app:item_style="normal"
+            app:item_sublefttitle="每个设计师、工程师都有自己的习惯、美学倾每个设计师、工程师都有自己的习惯、美学倾" />
+
+        <com.viomi.vmui.VItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            app:item_lefttitle="选择"
+            app:item_select="true"
+            app:item_style="select" />
+
+        <com.viomi.vmui.VItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:item_lefttitle="选择"
+            app:item_style="select" />
+
+        <com.viomi.vmui.VItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            app:item_check="true"
+            app:item_lefttitle="选择"
+            app:item_style="radio_check" />
+
+        <com.viomi.vmui.VItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:item_lefttitle="选择"
+            app:item_style="radio_check" />
+
+        <com.viomi.vmui.VItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            app:item_lefttitle="开关_关闭"
+            app:item_style="switch_style" />
+
+        <com.viomi.vmui.VItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:item_lefttitle="开关_打开"
+            app:item_style="switch_style"
+            app:item_switch_check="true" />
+
+        <com.viomi.vmui.VItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            app:item_button="小按钮"
+            app:item_lefttitle="左标题"
+            app:item_style="button" />
+
+        <com.viomi.vmui.VItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            app:item_lefttitle="小组标题"
+            app:item_lefttitle_textcolor="@color/tips_gray"
+            app:item_lefttitle_textsize="12sp"
+            app:item_style="row_title" />
+
+        <com.viomi.vmui.VItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:item_lefttitle="左标题"
+            app:item_righttitle="默认"
+            app:item_righttitle_textcolor="@color/tips_gray"
+            app:item_style="normal" />
+
+        <com.viomi.vmui.VItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            app:item_arrow="false"
+            app:item_lefttitle="左标题"
+            app:item_righttitle="默认"
+            app:item_righttitle_textcolor="@color/tips_gray"
+            app:item_style="normal" />
+
+        <com.viomi.vmui.VItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            app:item_lefttitle="左标题"
+            app:item_righttitle="内容"
+            app:item_style="normal"
+            app:item_sublefttitle="左辅助文字" />
+
+        <com.viomi.vmui.VItemView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:item_lefttitle="左标题"
+            app:item_righttitle="右标题"
+            app:item_righttitle_textcolor="@color/title_gray"
+            app:item_style="normal"
+            app:item_sublefttitle="左辅助文字"
+            app:item_subrighttitle="右辅助文字"
+            app:item_righttitle_textsize="14sp" />
+
+        <com.viomi.vmui.VItemView
+            android:id="@+id/tv_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            app:item_arrow="false"
+            app:item_lefttitle="左标题"
+            app:item_righttitle="默认"
+            app:item_righttitle_textcolor="@color/tips_gray"
+            app:item_style="normal" />
+    </LinearLayout>
+
+</ScrollView>

@@ -52,8 +52,8 @@
         <attr name="seg_tab_icon_position" format="enum">
             <enum name="left" value="0" />
             <enum name="top" value="1" />
-            <enum name="right" value="1" />
-            <enum name="bottom" value="1" />
+            <enum name="right" value="2" />
+            <enum name="bottom" value="3" />
         </attr>
         <attr name="seg_mode" format="enum">
             <enum name="scrollable" value="0" />
@@ -97,6 +97,42 @@
         <attr name="empty_subtitle_textcolor" format="color" />
         <attr name="empty_subtitle_textsize" format="dimension" />
         <attr name="empty_button" format="string" />
+    </declare-styleable>
+    <declare-styleable name="VItemView">
+        <attr name="item_style" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="small_icon_left" value="1" />
+            <enum name="small_icon_right" value="2" />
+            <enum name="middle_icon_left" value="3" />
+            <enum name="middle_icon_right" value="4" />
+            <enum name="big_icon_left" value="5" />
+            <enum name="big_icon_right" value="6" />
+            <enum name="select" value="7" />
+            <enum name="radio_check" value="8" />
+            <enum name="switch_style" value="9" />
+            <enum name="button" value="10" />
+            <enum name="row_title" value="11" />
+        </attr>
+        <attr name="item_lefttitle_textsize" format="dimension" />
+        <attr name="item_righttitle_textsize" format="dimension" />
+        <attr name="item_subrighttitle_textsize" format="dimension" />
+        <attr name="item_sublefttitle_textsize" format="dimension" />
+        <attr name="item_lefttitle_textcolor" format="color" />
+        <attr name="item_righttitle_textcolor" format="color" />
+        <attr name="item_subrighttitle_textcolor" format="color" />
+        <attr name="item_sublefttitle_textcolor" format="color" />
+        <attr name="item_lefttitle" format="string" />
+        <attr name="item_righttitle" format="string" />
+        <attr name="item_subrighttitle" format="string" />
+        <attr name="item_sublefttitle" format="string" />
+        <attr name="item_button" format="string" />
+        <attr name="item_text_redot" format="boolean" />
+        <attr name="item_img_redot" format="boolean" />
+        <attr name="item_src" format="reference" />
+        <attr name="item_select" format="boolean" />
+        <attr name="item_check" format="boolean" />
+        <attr name="item_switch_check" format="boolean" />
+        <attr name="item_arrow" format="boolean" />
     </declare-styleable>
 
 </resources>

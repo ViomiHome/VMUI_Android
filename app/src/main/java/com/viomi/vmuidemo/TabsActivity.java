@@ -49,7 +49,7 @@ public class TabsActivity extends AppCompatActivity {
 
         Collections.addAll(data, listItems);
 
-        listview.setAdapter(new ArrayAdapter<String>(getBaseContext(), R.layout.list_item, data));
+        listview.setAdapter(new ArrayAdapter<String>(getBaseContext(), R.layout.item_view, data));
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
