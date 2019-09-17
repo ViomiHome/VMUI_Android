@@ -31,7 +31,7 @@ public class TitleActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Title");
+        getSupportActionBar().setTitle("NavBar");
         ButterKnife.bind(this);
         title1.setRightOnClickListner(this);
         title1.setShareOnClickListner(this);
