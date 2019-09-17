@@ -14,10 +14,8 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
 
-
-
         <activity android:name=".ToastActivity"/>
-
+        <activity android:name=".ItemViewActivity" />
         <activity android:name=".SearchBarActivity" />
         <activity android:name=".LoadingActivity" />
         <activity android:name=".EmtyActivity" />

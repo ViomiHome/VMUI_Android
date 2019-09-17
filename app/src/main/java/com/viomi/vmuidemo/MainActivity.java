@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 , "SearchBar"
                 , "EmptyPage"
                 , "LoadingPage"
+                , "Itemview"
         };
         List<String> data = new ArrayList<>();
 
@@ -293,6 +294,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 18://LoadingPage
                         startActivity(new Intent(getBaseContext(), LoadingActivity.class));
+                        break;
+                    case 19://itemview
+                        startActivity(new Intent(getBaseContext(), ItemViewActivity.class));
                         break;
                 }
             }

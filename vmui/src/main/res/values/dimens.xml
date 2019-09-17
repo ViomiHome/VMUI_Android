@@ -8,7 +8,13 @@
     <dimen name="segment_normal_textsize">14sp</dimen>
     <dimen name="segment_selected_textsize">14sp</dimen>
     <dimen name="segment_itemspace">24dp</dimen>
+    <dimen name="margin">16dp</dimen>
+    <dimen name="itemview_normal">48dp</dimen>
+    <dimen name="itemview_small_icon">52dp</dimen>
+    <dimen name="itemview_middle_icon">72dp</dimen>
+    <dimen name="itemview_big_icon">92dp</dimen>
+    <dimen name="itemview_row_title">37dp</dimen>
+    <dimen name="small_icon_size">24dp</dimen>
+    <dimen name="middle_icon_size">44dp</dimen>
+    <dimen name="big_icon_size">64dp</dimen>
 </resources>
-
-
-
