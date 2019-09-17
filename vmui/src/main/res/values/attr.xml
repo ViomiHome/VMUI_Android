@@ -135,4 +135,78 @@
         <attr name="item_arrow" format="boolean" />
     </declare-styleable>
 
+    <declare-styleable name="VDialogView">
+        <attr name="dialog_min_width" format="dimension" />
+        <attr name="dialog_max_width" format="dimension" />
+        <attr name="dialog_max_height" format="dimension" />
+        <attr name="dialog_bg" format="reference" />
+        <attr name="dialog_radius" format="dimension" />
+        <attr name="dialog_margin_vertical" format="dimension" />
+        <attr name="dialog_paddingTopWhenNotTitle" format="dimension" />
+        <attr name="dialog_paddingBottomWhenNotContent" format="dimension" />
+        <attr name="dialog_padding_horizontal" format="dimension" />
+        <attr name="dialog_background_dim_amount" format="float" />
+        <attr name="dialog_title_style" format="reference" />
+        <attr name="sheet_title_style" format="reference" />
+        <attr name="sheet_action_style" format="reference" />
+        <attr name="dialog_action_container_style" format="reference" />
+        <attr name="dialog_action_style" format="reference" />
+        <attr name="dialog_message_content_style" format="reference" />
+        <attr name="dialog_edit_content_style" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="VMUITextCommonStyleDef">
+        <attr name="android:textColor" />
+        <attr name="android:textSize" />
+        <attr name="android:gravity" />
+        <attr name="android:paddingTop" />
+        <attr name="android:paddingLeft" />
+        <attr name="android:paddingRight" />
+        <attr name="android:paddingBottom" />
+        <attr name="android:singleLine" />
+        <attr name="android:ellipsize" />
+        <attr name="android:maxLines" />
+        <attr name="android:lineSpacingExtra" />
+        <attr name="android:drawablePadding" />
+        <attr name="android:textColorHint" />
+        <attr name="android:textStyle" />
+    </declare-styleable>
+
+    <declare-styleable name="VMUIDialogMessageTvCustomDef">
+        <attr name="dialog_paddingTopWhenNotTitle" />
+    </declare-styleable>
+
+    <declare-styleable name="DialogActionContainerCustomDef">
+        <attr name="dialog_action_container_justify_content" format="enum">
+            <enum name="start" value="0" />
+            <enum name="end" value="1" />
+            <enum name="stretch" value="2" />
+            <enum name="custom" value="3" />
+        </attr>
+        <attr name="dialog_action_container_custom_space_index" format="integer" />
+        <attr name="dialog_action_height" format="dimension" />
+        <attr name="dialog_action_space" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="DialogActionStyleDef">
+        <attr name="android:textColor" />
+        <attr name="android:textSize" />
+        <attr name="android:background" />
+        <attr name="android:gravity" />
+        <attr name="android:minWidth" />
+        <attr name="android:textStyle" />
+        <attr name="dialog_action_button_padding_horizontal" format="dimension" />
+        <attr name="dialog_action_icon_space" format="dimension" />
+        <attr name="dialog_positive_action_text_color" format="color|reference" />
+        <attr name="dialog_negative_action_text_color" format="color|reference" />
+        <attr name="dialog_danger_action_text_color" format="color|reference" />
+        <attr name="dialog_common_action_text_color" format="color|reference" />
+    </declare-styleable>
+
+    <item name="vmui_dialog_edit_input" type="id" />
+    <item name="vmui_dialog_edit_right_icon" type="id" />
+    <item name="vmui_toast_message" type="id" />
+    <item name="vmui_toast_icon" type="id" />
+    <item name="vmui_popup_img_close" type="id" />
+    <item name="vmui_popup_btn_operate" type="id" />
 </resources>

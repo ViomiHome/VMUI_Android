@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.viomi.vmui.VButton
+        android:id="@+id/btn_normal"
+        android:layout_width="110dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:text_content="普通Toast" />
+
+
+
+    <com.viomi.vmui.VButton
+        android:id="@+id/btn_error"
+        android:layout_width="110dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_normal"
+        app:text_content="加载失败"/>
+
+    <com.viomi.vmui.VButton
+        android:id="@+id/btn_success"
+        android:layout_width="110dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_error"
+        app:text_content="登陆成功"/>
+
+
+    <com.viomi.vmui.VButton
+        android:id="@+id/btn_special"
+        android:layout_width="110dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_success"
+        app:text_content="很长的toast"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

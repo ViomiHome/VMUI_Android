@@ -64,7 +64,7 @@
             android:layout_marginTop="6dp"
             app:item_lefttitle="左标题"
             app:item_righttitle="内容"
-            app:item_src="@mipmap/p4_0"
+            app:item_src="@mipmap/img_0"
             app:item_style="small_icon_left" />
 
         <com.viomi.vmui.VItemView
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             app:item_lefttitle="左标题"
             app:item_righttitle="内容"
-            app:item_src="@mipmap/p4_1"
+            app:item_src="@mipmap/img_1"
             app:item_style="middle_icon_left"
 
             app:item_sublefttitle="左辅助文字" />
@@ -84,7 +84,7 @@
             app:item_righttitle="右标题"
             app:item_righttitle_textcolor="@color/title_gray"
             app:item_righttitle_textsize="14sp"
-            app:item_src="@mipmap/p4_2"
+            app:item_src="@mipmap/img_2"
             app:item_style="big_icon_left"
             app:item_sublefttitle="左辅助文字"
             app:item_subrighttitle="右辅助文字" />
@@ -95,14 +95,14 @@
             android:layout_marginTop="6dp"
             app:item_img_redot="true"
             app:item_lefttitle="左标题"
-            app:item_src="@mipmap/p4_0"
+            app:item_src="@mipmap/img_0"
             app:item_style="small_icon_right" />
 
         <com.viomi.vmui.VItemView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:item_lefttitle="左标题"
-            app:item_src="@mipmap/p4_1"
+            app:item_src="@mipmap/img_1"
             app:item_style="middle_icon_right"
             app:item_sublefttitle="左辅助文字" />
 
@@ -110,7 +110,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:item_lefttitle="左标题"
-            app:item_src="@mipmap/p4_2"
+            app:item_src="@mipmap/img_2"
             app:item_style="big_icon_right"
             app:item_sublefttitle="左辅助文字" />
 

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <dimen name="vmui_dialog_radius">12dp</dimen>
     <dimen name="segment_indicator_with">8dp</dimen>
     <dimen name="segment_indicator_with_ver">3dp</dimen>
     <dimen name="segment_indicator_height">4dp</dimen>
