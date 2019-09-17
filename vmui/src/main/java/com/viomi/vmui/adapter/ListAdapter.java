@@ -1,4 +1,4 @@
-package com.viomi.vmui.Dialog;
+package com.viomi.vmui.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -80,11 +80,11 @@ public class ListAdapter extends BaseAdapter {
         CheckBox chbChoice;
     }
 
-    class DataHolder {
-        String strName;
-        boolean checked;
+    public class DataHolder {
+        public String strName;
+        public boolean checked;
 
-        DataHolder(String strName, boolean checked) {
+         DataHolder(String strName, boolean checked) {
             this.strName = strName;
             this.checked = checked;
         }

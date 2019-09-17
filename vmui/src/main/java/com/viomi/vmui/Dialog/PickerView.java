@@ -18,7 +18,7 @@ import android.view.View;
 import androidx.core.content.ContextCompat;
 
 import com.viomi.vmui.R;
-import com.viomi.vmui.utils.VMUIDisplayHelper;
+import com.viomi.vmui.utils.VDisplayHelper;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -208,11 +208,11 @@ public class PickerView extends View {
 
     private void drawTipsText(Canvas canvas, int textColor, float startX, float startY, String text) {
         if (TextUtils.isEmpty(text)) return;
-        mPaint.setTextSize(VMUIDisplayHelper.sp2px(mContext, 9));
+        mPaint.setTextSize(VDisplayHelper.sp2px(mContext, 9));
         mPaint.setColor(textColor);
         Paint.FontMetrics fm = mPaint.getFontMetrics();
         float baseline = mAscent + fm.descent + (fm.bottom - fm.top) - fm.bottom;
-        startX += VMUIDisplayHelper.dpToPx(10);
+        startX += VDisplayHelper.dpToPx(10);
         canvas.drawText(text, startX, baseline, mPaint);
     }
 
@@ -224,7 +224,7 @@ public class PickerView extends View {
         scale = scale < 0 ? 0 : scale;
         //scale = 1;
         //mPaint.setTextSize(mMinTextSize + mTextSizeRange * 1.0f);
-        mPaint.setTextSize(VMUIDisplayHelper.sp2px(mContext, 18));
+        mPaint.setTextSize(VDisplayHelper.sp2px(mContext, 18));
         mPaint.setColor(textColor);
         mPaint.setAlpha(TEXT_ALPHA_MIN + (int) (TEXT_ALPHA_RANGE * scale));
         // text 居中绘制，mHalfHeight + offsetY 是 text 的中心坐标

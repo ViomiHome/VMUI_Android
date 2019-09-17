@@ -8,10 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.viomi.vmui.utils.VMUIDisplayHelper;
+import com.viomi.vmui.utils.VDisplayHelper;
 
 public class VToast extends Toast {
 
@@ -96,8 +95,8 @@ public class VToast extends Toast {
         RelativeLayout layout = new RelativeLayout(context);
         layout.setBackground(context.getDrawable(R.drawable.vmui_toast_bg));
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        int lr = VMUIDisplayHelper.dp2px(context, 24);
-        int tb = VMUIDisplayHelper.dp2px(context, 12);
+        int lr = VDisplayHelper.dp2px(context, 24);
+        int tb = VDisplayHelper.dp2px(context, 12);
         layoutParams.setMargins(lr, tb, lr, tb);
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT,RelativeLayout.TRUE);
         LinearLayout container = new LinearLayout(context);

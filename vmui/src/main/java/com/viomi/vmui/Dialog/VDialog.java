@@ -11,7 +11,6 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.TransformationMethod;
-import android.text.util.Linkify;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +25,6 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -37,15 +35,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
-import androidx.core.text.util.LinkifyCompat;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.viomi.vmui.R;
 import com.viomi.vmui.VTextView;
-import com.viomi.vmui.utils.VMUIDateFormatUtils;
-import com.viomi.vmui.utils.VMUIDisplayHelper;
-import com.viomi.vmui.utils.VMUIResHelper;
+import com.viomi.vmui.adapter.ListAdapter;
+import com.viomi.vmui.entity.VLocationEntity;
+import com.viomi.vmui.utils.VDisplayHelper;
+import com.viomi.vmui.utils.VDateFormatUtils;
+import com.viomi.vmui.utils.VResHelper;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -93,8 +92,8 @@ public class VDialog extends Dialog {
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         params.gravity = Gravity.BOTTOM | Gravity.CENTER;
 
-        int screenWidth = VMUIDisplayHelper.getScreenWidth(getContext());
-        int screenHeight = VMUIDisplayHelper.getScreenHeight(getContext());
+        int screenWidth = VDisplayHelper.getScreenWidth(getContext());
+        int screenHeight = VDisplayHelper.getScreenHeight(getContext());
         params.width = screenWidth < screenHeight ? screenWidth : screenHeight;
         getWindow().setAttributes(params);
         setCanceledOnTouchOutside(true);
@@ -278,9 +277,9 @@ public class VDialog extends Dialog {
                 RelativeLayout rtl = new RelativeLayout(context);
                 RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                int lr = VMUIDisplayHelper.dp2px(context, 36);
-                int top = VMUIDisplayHelper.dp2px(context, 10);
-                int bottom = VMUIDisplayHelper.dp2px(context, 28);
+                int lr = VDisplayHelper.dp2px(context, 36);
+                int top = VDisplayHelper.dp2px(context, 10);
+                int bottom = VDisplayHelper.dp2px(context, 28);
                 lp2.addRule(RelativeLayout.CENTER_HORIZONTAL);
                 mTextView = new VTextView(context, true);
                 mTextView.setEnabled(false);
@@ -307,7 +306,7 @@ public class VDialog extends Dialog {
         }
 
         public static void assignMessageTvWithAttr(TextView messageTv, boolean hasTitle, int defAttr) {
-            VMUIResHelper.assignTextViewWithAttr(messageTv, defAttr);
+            VResHelper.assignTextViewWithAttr(messageTv, defAttr);
 
             if (!hasTitle) {
                 TypedArray a = messageTv.getContext().obtainStyledAttributes(null,
@@ -388,7 +387,7 @@ public class VDialog extends Dialog {
             RelativeLayout.LayoutParams rightIconLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             rightIconLp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
             rightIconLp.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
-            rightIconLp.leftMargin = VMUIDisplayHelper.dpToPx(5);
+            rightIconLp.leftMargin = VDisplayHelper.dpToPx(5);
             return rightIconLp;
         }
 
@@ -449,15 +448,15 @@ public class VDialog extends Dialog {
             if (mShowTipsText) {
                 lp1.leftMargin = mEditText.getPaddingLeft();
                 lp1.rightMargin = mEditText.getPaddingRight();
-                lp1.topMargin = VMUIDisplayHelper.dp2px(context, 8);
+                lp1.topMargin = VDisplayHelper.dp2px(context, 8);
                 lp1.bottomMargin = mEditText.getPaddingBottom();
                 mTxtTips.setLayoutParams(lp1);
             } else {
                 lp.bottomMargin = mEditText.getPaddingBottom();
             }
             mEditText.setBackgroundResource(0);
-            mEditText.setPadding(0, 0, 0, VMUIDisplayHelper.dp2px(context, 15));
-            mRightImageView.setPadding(0, 0, 0, VMUIDisplayHelper.dp2px(context, 15));
+            mEditText.setPadding(0, 0, 0, VDisplayHelper.dp2px(context, 15));
+            mRightImageView.setPadding(0, 0, 0, VDisplayHelper.dp2px(context, 15));
             RelativeLayout.LayoutParams editLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             editLp.addRule(RelativeLayout.LEFT_OF, mRightImageView.getId());
             editLp.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
@@ -527,8 +526,8 @@ public class VDialog extends Dialog {
             mPickerView = new PickerView(context);
             mPickerView.setBackground(getBaseContext().getDrawable(R.drawable.dialog_picker_bg));
             mPickerView.setDataList(mData);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, VMUIDisplayHelper.dp2px(mContext, 188));
-            lp.setMargins(0, VMUIDisplayHelper.dp2px(context, 22), 0, 0);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, VDisplayHelper.dp2px(mContext, 188));
+            lp.setMargins(0, VDisplayHelper.dp2px(context, 22), 0, 0);
             mPickerView.setLayoutParams(lp);
             mPickerView.setOnSelectListener(new PickerView.OnSelectListener() {
                 @Override
@@ -578,7 +577,7 @@ public class VDialog extends Dialog {
             mListView.setBackground(getBaseContext().getDrawable(R.drawable.dialog_picker_bg));
             mAdapter = new ListAdapter(dialog.getContext(), mData);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 800);
-            lp.setMargins(0, VMUIDisplayHelper.dp2px(context, 22), 0, 0);
+            lp.setMargins(0, VDisplayHelper.dp2px(context, 22), 0, 0);
             mListView.setLayoutParams(lp);
             mListView.setAdapter(mAdapter);
             mListView.setVerticalScrollBarEnabled(false);
@@ -598,7 +597,7 @@ public class VDialog extends Dialog {
         protected Context mContext;
         private int mProvinceIndex = 0, mCityIndex = 0, mDistrictIndex = 0;
         private String mSelectContent;
-        private List<VDialogLocationEntity.ResultBean> resultBeans;
+        private List<VLocationEntity.ResultBean> resultBeans;
         private List<String> mProvinces = new ArrayList<>(), mCities = new ArrayList<>(), mDistricts = new ArrayList<>();
 
         public LocationPickerDialogBuilder(Context context) {
@@ -607,8 +606,8 @@ public class VDialog extends Dialog {
         }
 
         private void initData() {
-            String content = VMUIResHelper.readAssetsFile(mContext, "city.json", "UTF-8");
-            resultBeans = JSON.parseObject(content, VDialogLocationEntity.class).getResult();
+            String content = VResHelper.readAssetsFile(mContext, "city.json", "UTF-8");
+            resultBeans = JSON.parseObject(content, VLocationEntity.class).getResult();
             for (int i = 0; i < resultBeans.size(); i++) {
                 mProvinces.add(resultBeans.get(i).getProvince());
             }
@@ -712,9 +711,9 @@ public class VDialog extends Dialog {
             ll.setBackground(getBaseContext().getDrawable(R.drawable.dialog_picker_bg));
             ll.setOrientation(LinearLayout.HORIZONTAL);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(0, VMUIDisplayHelper.dp2px(context, 10), 0, 0);
+            lp.setMargins(0, VDisplayHelper.dp2px(context, 10), 0, 0);
             ll.setLayoutParams(lp);
-            LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(0, VMUIDisplayHelper.dp2px(mContext, 188));
+            LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(0, VDisplayHelper.dp2px(mContext, 188));
             lp1.weight = 1.0f;
             mProvincePickerView.setLayoutParams(lp1);
             mCityPickerView.setLayoutParams(lp1);
@@ -763,7 +762,7 @@ public class VDialog extends Dialog {
         protected PickerView mMonthPickerView;
         protected PickerView mDayPickerView;
 
-        protected long beginTimestamp = VMUIDateFormatUtils.str2Long("2009-05-01", 0);
+        protected long beginTimestamp = VDateFormatUtils.str2Long("2009-05-01", 0);
         protected long endTimestamp = System.currentTimeMillis();
         protected int mShowDateFormatPattern = 0;
         private Calendar mBeginTime, mEndTime, mSelectedTime;
@@ -853,7 +852,7 @@ public class VDialog extends Dialog {
          * @return
          */
         public DatePickerBuilder setBeginTimestamp(String beginTime) {
-            this.beginTimestamp = VMUIDateFormatUtils.str2Long(beginTime, 0);
+            this.beginTimestamp = VDateFormatUtils.str2Long(beginTime, 0);
             return this;
         }
 
@@ -864,7 +863,7 @@ public class VDialog extends Dialog {
          * @return
          */
         public DatePickerBuilder setEndTimestamp(String endTime) {
-            this.endTimestamp = VMUIDateFormatUtils.str2Long(endTime, 0);
+            this.endTimestamp = VDateFormatUtils.str2Long(endTime, 0);
             return this;
         }
 
@@ -880,7 +879,7 @@ public class VDialog extends Dialog {
         }
 
         public String getSelectTime() {
-            return VMUIDateFormatUtils.long2Str(mSelectedTime.getTimeInMillis(), mShowDateFormatPattern);
+            return VDateFormatUtils.long2Str(mSelectedTime.getTimeInMillis(), mShowDateFormatPattern);
         }
 
         /**
@@ -910,11 +909,11 @@ public class VDialog extends Dialog {
             ll.setBackground(getBaseContext().getDrawable(R.drawable.dialog_picker_bg));
             ll.setOrientation(LinearLayout.HORIZONTAL);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(0, VMUIDisplayHelper.dp2px(context, 10), 0, 0);
+            lp.setMargins(0, VDisplayHelper.dp2px(context, 10), 0, 0);
             ll.setLayoutParams(lp);
-            LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(0, VMUIDisplayHelper.dp2px(mContext, 188));
+            LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(0, VDisplayHelper.dp2px(mContext, 188));
             lp1.weight = 1.0f;
-            LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(0, VMUIDisplayHelper.dp2px(mContext, 188));
+            LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(0, VDisplayHelper.dp2px(mContext, 188));
             lp2.weight = 1.0f;
             mYearPickerView.setLayoutParams(lp1);
             mMonthPickerView.setLayoutParams(lp2);

@@ -1,6 +1,5 @@
 package com.viomi.vmuidemo;
 
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -14,7 +13,6 @@ import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.google.android.material.textfield.TextInputEditText;
 import com.viomi.vmui.VSegment;
 
 import butterknife.BindView;

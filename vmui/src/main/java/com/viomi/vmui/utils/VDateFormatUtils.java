@@ -11,7 +11,7 @@ import java.util.Locale;
  * 修改人：liuwan1992
  * 修改时间：2018/12/18
  */
-public class VMUIDateFormatUtils {
+public class VDateFormatUtils {
 
     private static final String DATE_FORMAT_PATTERN_YMD = "yyyy-MM-dd";
     private static final String DATE_FORMAT_PATTERN_MD = "MM-dd";

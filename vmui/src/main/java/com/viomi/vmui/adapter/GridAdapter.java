@@ -1,4 +1,4 @@
-package com.viomi.vmui.Dialog;
+package com.viomi.vmui.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

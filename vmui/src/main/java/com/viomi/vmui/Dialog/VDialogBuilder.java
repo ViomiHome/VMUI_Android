@@ -6,7 +6,6 @@ import android.content.res.TypedArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -20,8 +19,8 @@ import com.viomi.vmui.VPopup;
 import com.viomi.vmui.R;
 import com.viomi.vmui.VActionSheet;
 import com.viomi.vmui.VTextView;
-import com.viomi.vmui.utils.VMUIDisplayHelper;
-import com.viomi.vmui.utils.VMUIResHelper;
+import com.viomi.vmui.utils.VDisplayHelper;
+import com.viomi.vmui.utils.VResHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -315,7 +314,7 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
             mHeadImage = new ImageView(context);
             mHeadImage.setImageResource(mImgResId);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            int top = VMUIDisplayHelper.dp2px(context, 27);
+            int top = VDisplayHelper.dp2px(context, 27);
             lp.setMargins(0, top, 0, 0);
             mHeadImage.setLayoutParams(lp);
             parent.addView(mHeadImage);
@@ -331,17 +330,17 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
             mTitleView.setEnabled(false);
             mTitleView.setText(mTitle);
 
-            VMUIResHelper.assignTextViewWithAttr(mTitleView, R.attr.dialog_title_style);
+            VResHelper.assignTextViewWithAttr(mTitleView, R.attr.dialog_title_style);
             RelativeLayout rtl = new RelativeLayout(context);
             RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             lp2.addRule(RelativeLayout.CENTER_HORIZONTAL);
 
             if (hasHeadImage()) {
-                int top = VMUIDisplayHelper.dp2px(context, 13);
+                int top = VDisplayHelper.dp2px(context, 13);
                 lp2.setMargins(0, top, 0, 0);
             } else {
-                int top = VMUIDisplayHelper.dp2px(context, 28);
+                int top = VDisplayHelper.dp2px(context, 28);
                 lp2.setMargins(0, top, 0, 0);
             }
 
@@ -358,13 +357,13 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
             mTitleView.setEnabled(false);
             mTitleView.setText(mTitle);
 
-            VMUIResHelper.assignTextViewWithAttr(mTitleView, R.attr.sheet_title_style);
+            VResHelper.assignTextViewWithAttr(mTitleView, R.attr.sheet_title_style);
             RelativeLayout rtl = new RelativeLayout(context);
             RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             RelativeLayout.LayoutParams lp3 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
-            int lr = VMUIDisplayHelper.dp2px(context, 28);
-            int tb = VMUIDisplayHelper.dp2px(context, 16);
+            int lr = VDisplayHelper.dp2px(context, 28);
+            int tb = VDisplayHelper.dp2px(context, 16);
             lp2.setMargins(lr, tb, lr, tb);
             lp2.addRule(RelativeLayout.CENTER_HORIZONTAL);
 
@@ -455,7 +454,7 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
                         mActionContainer.addView(view);
                     } else if (mActionContainerOrientation == HORIZONTAL) {
                         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(1, ViewGroup.LayoutParams.MATCH_PARENT);
-                        int tb = VMUIDisplayHelper.dp2px(context, 18);
+                        int tb = VDisplayHelper.dp2px(context, 18);
                         lp.setMargins(0, tb, 0, tb);
                         View view = new View(context);
                         view.setLayoutParams(lp);
@@ -480,7 +479,7 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
                             View lastChild = mActionContainer.getChildAt(childCount - 1);
                             // 如果ActionButton的宽度过宽，则减小padding
                             if (lastChild.getRight() > width) {
-                                int childPaddingHor = Math.max(0, lastChild.getPaddingLeft() - VMUIDisplayHelper.dp2px(mContext, 3));
+                                int childPaddingHor = Math.max(0, lastChild.getPaddingLeft() - VDisplayHelper.dp2px(mContext, 3));
                                 for (int i = 0; i < childCount; i++) {
                                     mActionContainer.getChildAt(i).setPadding(childPaddingHor, 0, childPaddingHor, 0);
                                 }

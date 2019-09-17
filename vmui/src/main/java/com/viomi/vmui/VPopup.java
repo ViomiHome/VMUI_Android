@@ -15,7 +15,7 @@ import androidx.annotation.Nullable;
 
 import com.viomi.vmui.Dialog.VDialog;
 import com.viomi.vmui.Dialog.VDialogBuilder;
-import com.viomi.vmui.utils.VMUIDisplayHelper;
+import com.viomi.vmui.utils.VDisplayHelper;
 
 public class VPopup extends VDialog {
 
@@ -77,9 +77,9 @@ public class VPopup extends VDialog {
         protected void onCreateContent(Dialog dialog, ViewGroup parent, Context context) {
             mDialog = dialog;
 
-            FrameLayout.LayoutParams lp1 = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, VMUIDisplayHelper.dp2px(context, 300));
+            FrameLayout.LayoutParams lp1 = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, VDisplayHelper.dp2px(context, 300));
             LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            LinearLayout.LayoutParams lp3 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, VMUIDisplayHelper.dp2px(context, 44));
+            LinearLayout.LayoutParams lp3 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, VDisplayHelper.dp2px(context, 44));
 
             if (mShowCloseImage) {
                 lp2.gravity = Gravity.END;
@@ -106,14 +106,14 @@ public class VPopup extends VDialog {
 
             if (mShowOperateButton) {
                 mBtnOperation = new VButton(context);
-                int lr = VMUIDisplayHelper.dp2px(context, 16);
-                int tb = VMUIDisplayHelper.dp2px(context, 11);
+                int lr = VDisplayHelper.dp2px(context, 16);
+                int tb = VDisplayHelper.dp2px(context, 11);
                 lp3.setMargins(lr, tb, lr, tb);
                 mBtnOperation.setButton_style(3);
                 mBtnOperation.setText_content("按钮");
                 mBtnOperation.setId(R.id.vmui_popup_btn_operate);
                 mBtnOperation.setOnClickListener(this);
-                mBtnOperation.setTextSize(VMUIDisplayHelper.sp2px(context, 15));
+                mBtnOperation.setTextSize(VDisplayHelper.sp2px(context, 15));
                 mBtnOperation.setLayoutParams(lp3);
                 parent.addView(mBtnOperation);
             }

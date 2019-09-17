@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
 import com.viomi.vmui.R;
-import com.viomi.vmui.utils.VMUIDisplayHelper;
+import com.viomi.vmui.utils.VDisplayHelper;
 
 public class VDialogView extends LinearLayout {
     private int mMinWidth;
@@ -23,8 +23,8 @@ public class VDialogView extends LinearLayout {
 
     public VDialogView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mMinWidth = VMUIDisplayHelper.getAttrDimen(context, R.attr.dialog_min_width);
-        mMaxWidth = VMUIDisplayHelper.getAttrDimen(context, R.attr.dialog_max_width);
+        mMinWidth = VDisplayHelper.getAttrDimen(context, R.attr.dialog_min_width);
+        mMaxWidth = VDisplayHelper.getAttrDimen(context, R.attr.dialog_max_width);
     }
 
     @Override

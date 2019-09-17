@@ -202,35 +202,35 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 12:
                         //Popup
-//                        new VActionSheet.MultiButtonActionSheetBuilder(MainActivity.this)
-//                                .setTitle("这是一个清晰的描述")
-//                                .addItem("按钮1")
-//                                .addItem("按钮2")
-//                                .addItem("按钮3")
-//                                .addAction("确认", VDialogAction.ACTION_PROP_POSITIVE,new VDialogAction.ActionListener() {
-//                                    @Override
-//                                    public void onClick(Dialog dialog, int index) {
-//                                        dialog.dismiss();
-//                                    }
-//                                })
-//                                .setOnSheetItemClickListener(new VActionSheet.MultiButtonActionSheetBuilder.OnSheetItemClickListener() {
-//                                    @Override
-//                                    public void onItemClick(Dialog dialog, String selected) {
-//                                        dialog.dismiss();
-//                                        VToast.makeErrorText(MainActivity.this, "您按下的按钮是：" + selected, Toast.LENGTH_SHORT).show();
-//                                    }
-//                                })
-//                                .showActionSheet();
-                        new VPopup.VPopupBuilder(MainActivity.this)
-                                .setShowCloseImage(true)
-                                .setShowOperateButton(true)
-                                .setViewDismissClickListener(new VPopup.VPopupBuilder.OnViewClickListener() {
+                        new VActionSheet.MultiButtonActionSheetBuilder(MainActivity.this)
+                                .setTitle("这是一个清晰的描述")
+                                .addItem("按钮1")
+                                .addItem("按钮2")
+                                .addItem("按钮3")
+                                .addAction("确认", VDialogAction.ACTION_PROP_POSITIVE, new VDialogAction.ActionListener() {
                                     @Override
-                                    public void onViewClick(Dialog dialog) {
+                                    public void onClick(Dialog dialog, int index) {
                                         dialog.dismiss();
                                     }
                                 })
-                                .showPopup();
+                                .setOnSheetItemClickListener(new VActionSheet.MultiButtonActionSheetBuilder.OnSheetItemClickListener() {
+                                    @Override
+                                    public void onItemClick(Dialog dialog, String selected) {
+                                        dialog.dismiss();
+                                        VToast.makeErrorText(MainActivity.this, "您按下的按钮是：" + selected, Toast.LENGTH_SHORT).show();
+                                    }
+                                })
+                                .showActionSheet();
+//                        new VPopup.VPopupBuilder(MainActivity.this)
+//                                .setShowCloseImage(true)
+//                                .setShowOperateButton(true)
+//                                .setViewDismissClickListener(new VPopup.VPopupBuilder.OnViewClickListener() {
+//                                    @Override
+//                                    public void onViewClick(Dialog dialog) {
+//                                        dialog.dismiss();
+//                                    }
+//                                })
+//                                .showPopup();
                         break;
                     case 13:
                         new VActionSheet.MultiButtonActionSheetBuilder(MainActivity.this)
@@ -239,18 +239,21 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(Dialog dialog, int index) {
                                         dialog.dismiss();
+                                        VToast.makeErrorText(MainActivity.this, "您按下的是：危险按钮", Toast.LENGTH_SHORT).show();
                                     }
                                 })
                                 .addAction("按钮1", VDialogAction.ACTION_PROP_COMMON, new VDialogAction.ActionListener() {
                                     @Override
                                     public void onClick(Dialog dialog, int index) {
                                         dialog.dismiss();
+                                        VToast.makeErrorText(MainActivity.this, "您按下的是：按钮1", Toast.LENGTH_SHORT).show();
                                     }
                                 })
                                 .addAction("按钮2", VDialogAction.ACTION_PROP_COMMON, new VDialogAction.ActionListener() {
                                     @Override
                                     public void onClick(Dialog dialog, int index) {
                                         dialog.dismiss();
+                                        VToast.makeErrorText(MainActivity.this, "您按下的是：按钮2", Toast.LENGTH_SHORT).show();
                                     }
                                 })
                                 .addAction("主操作", new VDialogAction.ActionListener() {

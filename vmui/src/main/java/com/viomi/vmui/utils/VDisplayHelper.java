@@ -25,14 +25,14 @@ import android.util.TypedValue;
  * @author cginechen
  * @date 2016-03-17
  */
-public class VMUIDisplayHelper {
+public class VDisplayHelper {
 
     /**
      * 屏幕密度,系统源码注释不推荐使用
      */
     public static final float DENSITY = Resources.getSystem()
             .getDisplayMetrics().density;
-    private static final String TAG = "VMUIDisplayHelper";
+    private static final String TAG = "VDisplayHelper";
 
 //    private static int[] sPortraitRealSizeCache = null;
 //    private static int[] sLandscapeRealSizeCache = null;

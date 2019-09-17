@@ -1,8 +1,8 @@
-package com.viomi.vmui.Dialog;
+package com.viomi.vmui.entity;
 
 import java.util.List;
 
-public class VDialogLocationEntity {
+public class VLocationEntity {
 
     /**
      * msg : success

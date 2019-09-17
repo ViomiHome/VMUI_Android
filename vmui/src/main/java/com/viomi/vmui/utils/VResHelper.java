@@ -21,9 +21,11 @@ import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.widget.TextView;
 
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
 
 
@@ -36,8 +38,8 @@ import java.io.InputStream;
  * @author cginechen
  * @date 2016-09-22
  */
-public class VMUIResHelper {
-
+public class VResHelper {
+    private static final String TAG = "VResHelper";
     public static float getAttrFloatValue(Context context, int attrRes) {
         TypedValue typedValue = new TypedValue();
         context.getTheme().resolveAttribute(attrRes, typedValue, true);
@@ -68,7 +70,12 @@ public class VMUIResHelper {
         TypedValue value = typedArray.peekValue(index);
         if (value != null) {
             if (value.type != TypedValue.TYPE_ATTRIBUTE && value.resourceId != 0) {
-                return VMUIDrawableHelper.getVectorDrawable(context, value.resourceId);
+                try {
+                    return AppCompatResources.getDrawable(context, value.resourceId);
+                } catch (Exception e) {
+                    Log.d(TAG, "Error in getVectorDrawable. resVector=" + value.resourceId + ", resName=" + context.getResources().getResourceName(value.resourceId) + e.getMessage());
+                    return null;
+                }
             }
         }
         return null;
@@ -77,7 +84,7 @@ public class VMUIResHelper {
     public static int getAttrDimen(Context context, int attrRes) {
         TypedValue typedValue = new TypedValue();
         context.getTheme().resolveAttribute(attrRes, typedValue, true);
-        return TypedValue.complexToDimensionPixelSize(typedValue.data, VMUIDisplayHelper.getDisplayMetrics(context));
+        return TypedValue.complexToDimensionPixelSize(typedValue.data, VDisplayHelper.getDisplayMetrics(context));
     }
 
     public static void assignTextViewWithAttr(TextView textView, int attrRes) {

@@ -14,7 +14,7 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.viomi.vmui.Dialog.GridAdapter;
+import com.viomi.vmui.adapter.GridAdapter;
 import com.viomi.vmui.Dialog.VDialog;
 import com.viomi.vmui.Dialog.VDialogBuilder;
 
