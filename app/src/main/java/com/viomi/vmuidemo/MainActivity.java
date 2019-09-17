@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.viomi.vmui.Dialog.VDialog;
 import com.viomi.vmui.Dialog.VDialogAction;
-import com.viomi.vmui.VPopup;
 import com.viomi.vmui.VActionSheet;
 import com.viomi.vmui.VToast;
 
@@ -41,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initListView() {
         String[] listItems = new String[]{
+                "Colors",
                 "Button",
                 "NavBar",
                 "Tabs",
@@ -72,24 +72,27 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
-                        startActivity(new Intent(getBaseContext(), ButtonActivity.class));
+                        startActivity(new Intent(getBaseContext(), ColorsActivity.class));
                         break;
                     case 1:
-                        startActivity(new Intent(getBaseContext(), TitleActivity.class));
+                        startActivity(new Intent(getBaseContext(), ButtonActivity.class));
                         break;
                     case 2:
-                        startActivity(new Intent(getBaseContext(), TabsActivity.class));
+                        startActivity(new Intent(getBaseContext(), TitleActivity.class));
                         break;
                     case 3:
-                        startActivity(new Intent(getBaseContext(), NoticeBarActivity.class));
+                        startActivity(new Intent(getBaseContext(), TabsActivity.class));
                         break;
                     case 4:
-                        startActivity(new Intent(getBaseContext(), TabbarActivity.class));
+                        startActivity(new Intent(getBaseContext(), NoticeBarActivity.class));
                         break;
                     case 5:
-                        startActivity(new Intent(getBaseContext(), SegmentActivity.class));
+                        startActivity(new Intent(getBaseContext(), TabbarActivity.class));
                         break;
                     case 6:
+                        startActivity(new Intent(getBaseContext(), SegmentActivity.class));
+                        break;
+                    case 7:
                         new VDialog.MessageDialogBuilder(MainActivity.this)
                                 .addAction("确认", new VDialogAction.ActionListener() {
                                     @Override
@@ -102,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                                 .setMessage("弹窗内容，告知当前状态、信息和解决方法，联系电话：18529271705")
                                 .showDialog();
                         break;
-                    case 7:
+                    case 8:
                         VDialog.EditTextDialogBuilder builder = new VDialog.EditTextDialogBuilder(MainActivity.this);
                         builder.addAction("取消", VDialogAction.ACTION_PROP_NEGATIVE, new VDialogAction.ActionListener() {
                             @Override
@@ -128,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                                 //.setTransformationMethod(new PasswordTransformationMethod())
                                 .showDialog();
                         break;
-                    case 8:
+                    case 9:
                         List<String> data = new ArrayList<>();
                         data.add("选项0");
                         data.add("选项1");
@@ -150,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                                 .setData(data)
                                 .showDialog();
                         break;
-                    case 9:
+                    case 10:
                         List<String> data1 = new ArrayList<>();
                         data1.add("选项0");
                         data1.add("选项1");
@@ -174,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
                                 .setTitle("弹窗标题")
                                 .showDialog();
                         break;
-                    case 10:
+                    case 11:
                         VDialog.LocationPickerDialogBuilder builder3 = new VDialog.LocationPickerDialogBuilder(MainActivity.this);
                         builder3.addAction("确认", new VDialogAction.ActionListener() {
                             @Override
@@ -186,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
                                 .setTitle("弹窗标题")
                                 .showDialog();
                         break;
-                    case 11:
+                    case 12:
                         VDialog.DatePickerBuilder builder2 = new VDialog.DatePickerBuilder(MainActivity.this);
                         builder2.addAction("确认", new VDialogAction.ActionListener() {
                             @Override
@@ -201,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
                                 .setTitle("弹窗标题")
                                 .showDialog();
                         break;
-                    case 12:
+                    case 13:
                         //Popup
                         new VActionSheet.MultiButtonActionSheetBuilder(MainActivity.this)
                                 .setTitle("这是一个清晰的描述")
@@ -233,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
 //                                })
 //                                .showPopup();
                         break;
-                    case 13:
+                    case 14:
                         new VActionSheet.MultiButtonActionSheetBuilder(MainActivity.this)
                                 .setTitle("这是一个清晰的描述，可以为一行也可以为两行，这仅仅是一个清晰的描述")
                                 .addAction("危险按钮", VDialogAction.ACTION_PROP_DANGER, new VDialogAction.ActionListener() {
@@ -267,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
                                 .showActionSheet();
 
                         break;
-                    case 14:
+                    case 15:
                         new VActionSheet.ShareSheetDialogBuilder(MainActivity.this)
                                 .addItem("QQ空间", R.mipmap.ic_launcher)
                                 .addItem("微信", R.mipmap.ic_launcher)
@@ -283,19 +286,19 @@ public class MainActivity extends AppCompatActivity {
                                 })
                                 .showActionSheet();
                         break;
-                    case 15:
+                    case 16:
                         startActivity(new Intent(getBaseContext(), ToastActivity.class));
                         break;
-                    case 16://SearchBar
+                    case 17://SearchBar
                         startActivity(new Intent(getBaseContext(), SearchBarActivity.class));
                         break;
-                    case 17://EmptyPage
+                    case 18://EmptyPage
                         startActivity(new Intent(getBaseContext(), EmtyActivity.class));
                         break;
-                    case 18://LoadingPage
+                    case 19://LoadingPage
                         startActivity(new Intent(getBaseContext(), LoadingActivity.class));
                         break;
-                    case 19://itemview
+                    case 20://itemview
                         startActivity(new Intent(getBaseContext(), ItemViewActivity.class));
                         break;
                 }
