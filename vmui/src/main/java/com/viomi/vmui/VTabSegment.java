@@ -1365,6 +1365,8 @@ public class VTabSegment extends HorizontalScrollView {
             mTextView.setEllipsize(TextUtils.TruncateAt.MIDDLE);
             // 用于提供给customView布局用
             mTextView.setId(R.id.tab_segment_item_id);
+            mTextView.setIncludeFontPadding(false);
+            mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
             LayoutParams tvLp = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             tvLp.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
             addView(mTextView, tvLp);
@@ -1396,14 +1398,14 @@ public class VTabSegment extends HorizontalScrollView {
         }
 
         public void setColorInTransition(Tab tab, int color) {
-            mTextView.setTextColor(color);
-            if (tab.isDynamicChangeIconColor()) {
-                Drawable icon = mTextView.getCompoundDrawables()[getTabIconPosition(tab)];
-                if (icon != null) {
-                    setDrawableTintColor(icon, color);
-                    setDrawable(mTextView, icon, getTabIconPosition(tab));
-                }
-            }
+//            mTextView.setTextColor(color);
+//            if (tab.isDynamicChangeIconColor()) {
+//                Drawable icon = mTextView.getCompoundDrawables()[getTabIconPosition(tab)];
+//                if (icon != null) {
+//                    setDrawableTintColor(icon, color);
+//                    setDrawable(mTextView, icon, getTabIconPosition(tab));
+//                }
+//            }
         }
 
         public ColorFilter setDrawableTintColor(Drawable drawable, @ColorInt int tintColor) {
@@ -1435,7 +1437,7 @@ public class VTabSegment extends HorizontalScrollView {
                 mTextView.setCompoundDrawables(null, null, null, null);
             } else {
                 mTextView.setCompoundDrawablePadding(
-                        (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics()));
+                        (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0, getResources().getDisplayMetrics()));
                 setDrawable(mTextView, icon, getTabIconPosition(tab));
             }
         }
