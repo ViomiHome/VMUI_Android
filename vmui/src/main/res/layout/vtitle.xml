@@ -49,6 +49,7 @@
             android:layout_marginRight="100dp"
             android:ellipsize="end"
             android:gravity="center"
+            android:textStyle="bold"
             android:includeFontPadding="false"
             android:lines="1"
             android:singleLine="true"

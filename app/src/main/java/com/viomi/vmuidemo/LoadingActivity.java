@@ -33,7 +33,10 @@ public class LoadingActivity extends AppCompatActivity {
         StatusBarUtil.StatusBarLightMode(this, true);
         vEmptyPage = findViewById(R.id.empty);
         vEmptyPage.setLoading(true);
-        vEmptyPage.setProcess(63);
+        int process = 63;
+        vEmptyPage.setProcess(process);
+        vEmptyPage.getVCircleProgress().setText(process + "%");
+        vEmptyPage.getVCircleProgress().setUint("");
         vEmptyPage.getButton().setVisibility(View.GONE);
     }
 }

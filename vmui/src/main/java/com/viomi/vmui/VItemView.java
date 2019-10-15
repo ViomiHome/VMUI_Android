@@ -39,9 +39,8 @@ public class VItemView extends LinearLayout {
     int item_sublefttitle_textcolor;
     String item_lefttitle, item_righttitle, item_subrighttitle, item_sublefttitle, item_button;
     boolean item_text_redot, item_img_redot, item_select, item_check, item_switch_check, item_arrow;
-
-
     int item_src;
+    int item_arrow_src;
 
     public VItemView(Context context) {
         this(context, null);
@@ -113,6 +112,7 @@ public class VItemView extends LinearLayout {
         item_switch_check = a.getBoolean(R.styleable.VItemView_item_switch_check, false);
         item_arrow = a.getBoolean(R.styleable.VItemView_item_arrow, true);
         item_src = a.getResourceId(R.styleable.VItemView_item_src, 0);
+        item_arrow_src = a.getResourceId(R.styleable.VItemView_item_arrow_src, R.mipmap.icon_arrow_bk);
         a.recycle();
     }
 
@@ -122,6 +122,7 @@ public class VItemView extends LinearLayout {
         mButton.setVisibility(GONE);
         vSwitch.setVisibility(GONE);
         ivLeft.setVisibility(GONE);
+        ivArrow.setImageResource(item_arrow_src);
         switch (style) {
             case 0://normal
                 ivLeft.setVisibility(GONE);
@@ -337,7 +338,10 @@ public class VItemView extends LinearLayout {
         this.style = style;
         init();
     }
-
+    public void setItem_arrow_src(int item_arrow_src) {
+        this.item_arrow_src = item_arrow_src;
+        init();
+    }
     public int getStyle() {
         return style;
     }
