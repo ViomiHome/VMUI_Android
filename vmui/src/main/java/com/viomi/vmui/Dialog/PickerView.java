@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
@@ -138,9 +139,6 @@ public class PickerView extends View {
     }
 
     private void initPaint() {
-        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mPaint.setStyle(Style.FILL);
-        mPaint.setTextAlign(Align.CENTER);
         mDarkColor = ContextCompat.getColor(mContext, R.color.title_gray);
         mDividerColor = ContextCompat.getColor(mContext, R.color.divider_gray);
     }
@@ -218,12 +216,17 @@ public class PickerView extends View {
 
     private float drawText(Canvas canvas, int textColor, float offsetY, String text) {
         if (TextUtils.isEmpty(text)) return 0;
-
         //Math.pow(x,y)表示x的y次方
         float scale = 1 - (float) Math.pow(offsetY / mQuarterHeight, 2);
         scale = scale < 0 ? 0 : scale;
-        //scale = 1;
-        //mPaint.setTextSize(mMinTextSize + mTextSizeRange * 1.0f);
+        if (scale == 1.0f) {
+            mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            mPaint.setTypeface(Typeface.DEFAULT_BOLD);
+        } else {
+            mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        }
+        mPaint.setStyle(Style.FILL);
+        mPaint.setTextAlign(Align.CENTER);
         mPaint.setTextSize(VDisplayHelper.sp2px(mContext, 18));
         mPaint.setColor(textColor);
         mPaint.setAlpha(TEXT_ALPHA_MIN + (int) (TEXT_ALPHA_RANGE * scale));
