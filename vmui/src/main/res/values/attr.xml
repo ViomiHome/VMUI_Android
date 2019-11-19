@@ -164,6 +164,7 @@
     <declare-styleable name="VMUITextCommonStyleDef">
         <attr name="android:textColor" />
         <attr name="android:textSize" />
+        <attr name="android:textStyle" />
         <attr name="android:gravity" />
         <attr name="android:paddingTop" />
         <attr name="android:paddingLeft" />
@@ -175,7 +176,6 @@
         <attr name="android:lineSpacingExtra" />
         <attr name="android:drawablePadding" />
         <attr name="android:textColorHint" />
-        <attr name="android:textStyle" />
     </declare-styleable>
 
     <declare-styleable name="VMUIDialogMessageTvCustomDef">

@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,6 +12,7 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.TransformationMethod;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -284,19 +286,21 @@ public class VDialog extends Dialog {
                 mTextView = new VTextView(context, true);
                 mTextView.setEnabled(false);
                 mTextView.setText(mMessage);
+                Typeface font = Typeface.createFromAsset(context.getAssets(), "font/noto_sans_sc_regular.otf");
+                mTextView.setTypeface(font);
                 mTextView.setTextColor(context.getResources().getColor(R.color.content_gray));
                 //Linkify.addLinks(mTextView, Linkify.ALL);
                 mTextView.setLinksClickable(true);
                 mTextView.setLinkTextColor(context.getResources().getColor(R.color.viomi_green));
                 if (hasTitle()) {
                     lp2.setMargins(lr, top, lr, bottom);
-                    mTextView.setTextSize(14);
+                    mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
                 } else if (hasHeadImage()) {
                     lp2.setMargins(lr, top, lr, bottom);
-                    mTextView.setTextSize(14);
+                    mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
                 } else {
                     lp2.setMargins(lr, bottom, lr, bottom);
-                    mTextView.setTextSize(15);
+                    mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
                 }
                 mTextView.setLayoutParams(lp2);
                 rtl.setLayoutParams(lp1);
@@ -305,7 +309,7 @@ public class VDialog extends Dialog {
             }
         }
 
-        public static void assignMessageTvWithAttr(TextView messageTv, boolean hasTitle, int defAttr) {
+        public static void assignMessageTvWithAttr(Context context, TextView messageTv, boolean hasTitle, int defAttr) {
             VResHelper.assignTextViewWithAttr(messageTv, defAttr);
 
             if (!hasTitle) {
@@ -400,9 +404,9 @@ public class VDialog extends Dialog {
             mEditText = new AppCompatEditText(context);
             mTxtTips = new VTextView(context);
             mTxtTips.setTextColor(context.getResources().getColor(R.color.tips_gray));
-            mTxtTips.setTextSize(12);
+            mTxtTips.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
             mTxtTips.setText("辅助文字请尽量控制在一行显示");
-            MessageDialogBuilder.assignMessageTvWithAttr(mEditText, hasTitle(), R.attr.dialog_edit_content_style);
+            MessageDialogBuilder.assignMessageTvWithAttr(context, mEditText, hasTitle(), R.attr.dialog_edit_content_style);
             mEditText.setFocusable(true);
             mEditText.setFocusableInTouchMode(true);
             mEditText.setImeOptions(EditorInfo.IME_ACTION_GO);
@@ -522,6 +526,16 @@ public class VDialog extends Dialog {
         }
 
         @Override
+        protected void onCreateTitle(VDialog dialog, ViewGroup parent, Context context) {
+            super.onCreateTitle(dialog, parent, context);
+            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) this.mTitleView.getLayoutParams();
+            int top = VDisplayHelper.dp2px(context, 22);
+            lp.setMargins(0, top, 0, 0);
+            this.mTitleView.setLayoutParams(lp);
+            this.mTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+        }
+
+        @Override
         protected void onCreateContent(Dialog dialog, ViewGroup parent, Context context) {
             mPickerView = new PickerView(context);
             mPickerView.setBackground(getBaseContext().getDrawable(R.drawable.dialog_picker_bg));
@@ -568,6 +582,16 @@ public class VDialog extends Dialog {
 
         public String getSelectContent() {
             return mAdapter.getSelectContent();
+        }
+
+        @Override
+        protected void onCreateTitle(VDialog dialog, ViewGroup parent, Context context) {
+            super.onCreateTitle(dialog, parent, context);
+            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) this.mTitleView.getLayoutParams();
+            int top = VDisplayHelper.dp2px(context, 22);
+            lp.setMargins(0, top, 0, 0);
+            this.mTitleView.setLayoutParams(lp);
+            this.mTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
         }
 
         @Override
@@ -699,6 +723,16 @@ public class VDialog extends Dialog {
 
         public String getSelectContent() {
             return this.mSelectContent;
+        }
+
+        @Override
+        protected void onCreateTitle(VDialog dialog, ViewGroup parent, Context context) {
+            super.onCreateTitle(dialog, parent, context);
+            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) this.mTitleView.getLayoutParams();
+            int top = VDisplayHelper.dp2px(context, 22);
+            lp.setMargins(0, top, 0, 0);
+            this.mTitleView.setLayoutParams(lp);
+            this.mTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
         }
 
         @Override
@@ -891,6 +925,16 @@ public class VDialog extends Dialog {
         public DatePickerBuilder setShowDateFormatPattern(int typ) {
             this.mShowDateFormatPattern = typ;
             return this;
+        }
+
+        @Override
+        protected void onCreateTitle(VDialog dialog, ViewGroup parent, Context context) {
+            super.onCreateTitle(dialog, parent, context);
+            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) this.mTitleView.getLayoutParams();
+            int top = VDisplayHelper.dp2px(context, 22);
+            lp.setMargins(0, top, 0, 0);
+            this.mTitleView.setLayoutParams(lp);
+            this.mTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
         }
 
         @Override

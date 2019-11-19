@@ -34,7 +34,7 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
     protected String mTitle;
 
     protected Context mContext;
-    private VTextView mTitleView;
+    protected VTextView mTitleView;
     private ImageView mHeadImage;
     protected int mImgResId = -1;
     private boolean mCancelable = true;
