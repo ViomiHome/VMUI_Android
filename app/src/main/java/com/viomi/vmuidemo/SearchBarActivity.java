@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.viomi.vmui.VSearchBar;
 
-public class SearchBarActivity extends AppCompatActivity {
+public class SearchBarActivity extends BaseActivity {
     VSearchBar searchBar;
     TextView textView;
 

@@ -11,7 +11,7 @@ import com.viomi.vmui.VButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ButtonActivity extends AppCompatActivity implements View.OnClickListener {
+public class ButtonActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.vb)
     VButton vb;
@@ -41,12 +41,7 @@ public class ButtonActivity extends AppCompatActivity implements View.OnClickLis
         ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Button");
-        vb.setOnClickListener(this);
-        vb1.setOnClickListener(this);
-        vb2.setOnClickListener(this);
-        vb3.setOnClickListener(this);
-        vb4.setOnClickListener(this);
-        vb5.setOnClickListener(this);
+
         vb7.setEnabled(false);
         vb8.setEnabled(false);
     }

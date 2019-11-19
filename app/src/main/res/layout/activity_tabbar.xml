@@ -13,13 +13,10 @@
         android:layout_weight="1"
         android:fitsSystemWindows="true" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/divider_gray" />
 
     <com.viomi.vmui.VTabSegment
         android:id="@+id/tabSegment"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="48dp" />
 

@@ -18,7 +18,7 @@ import com.viomi.vmui.VTabSegment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ScrollTabsActivity extends AppCompatActivity {
+public class ScrollTabsActivity extends BaseActivity {
 
     @BindView(R.id.tabSegment)
     VTabSegment mTabSegment;

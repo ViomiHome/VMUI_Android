@@ -22,7 +22,14 @@
             android:layout_height="50dp"
             android:background="@color/price_red"
             android:gravity="center"
-            android:text="#CE3333 / price red"
+            android:text="#EE3333 / price red"
+            android:textColor="@color/white" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/theme_red"
+            android:gravity="center"
+            android:text="#CE3333 / theme_red"
             android:textColor="@color/white" />
 
         <TextView

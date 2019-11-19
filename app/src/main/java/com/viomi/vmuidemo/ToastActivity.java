@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.viomi.vmui.VToast;
 
-public class ToastActivity extends AppCompatActivity  implements View.OnClickListener{
+public class ToastActivity extends BaseActivity  implements View.OnClickListener{
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

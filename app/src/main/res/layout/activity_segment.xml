@@ -8,19 +8,24 @@
     tools:context=".SegmentActivity">
 
     <com.viomi.vmui.VSegment
+        android:id="@+id/tabSegment0"
+        android:layout_width="180dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/segment_bg" />
+
+    <com.viomi.vmui.VSegment
         android:id="@+id/tabSegment"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="30dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginRight="16dp"
         android:background="@drawable/segment_bg" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/divider_gray" />
+
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/contentViewPager"

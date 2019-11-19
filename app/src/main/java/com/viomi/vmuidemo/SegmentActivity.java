@@ -18,8 +18,10 @@ import com.viomi.vmui.VSegment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SegmentActivity extends AppCompatActivity {
+public class SegmentActivity extends BaseActivity {
 
+    @BindView(R.id.tabSegment0)
+    VSegment mTabSegment0;
     @BindView(R.id.tabSegment)
     VSegment mTabSegment;
     @BindView(R.id.contentViewPager)
@@ -32,7 +34,7 @@ public class SegmentActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 4;
+            return 5;
         }
 
         @Override
@@ -72,19 +74,35 @@ public class SegmentActivity extends AppCompatActivity {
     }
 
     private void initTabAndPager() {
+        VSegment.Tab tab00 = new VSegment.Tab("制冷模式");
+
+        VSegment.Tab tab01 = new VSegment.Tab("除湿模式");
+
+        tab01.showSignCountView(getBaseContext(), 0);
+        mTabSegment0.addTab(tab00);
+        mTabSegment0.addTab(tab01);
+        mTabSegment0.setDefaultSelectedColor(getResources().getColor(R.color.viomi_green));
+        mTabSegment0.setDefaultNormalColor(getResources().getColor(R.color.viomi_green));
+        mTabSegment0.setIndicatorSelectedColor(getResources().getColor(R.color.white));
+        mTabSegment0.setIndicatorDrawable(getResources().getDrawable(R.drawable.segment_indicator));
+        mTabSegment0.selectTab(0);
+
+
         mContentViewPager.setAdapter(mPagerAdapter);
         mContentViewPager.setCurrentItem(0, false);
-        VSegment.Tab tab0 = new VSegment.Tab("选项一");
-        tab0.setSpaceWeight(1, 1);
+        VSegment.Tab tab = new VSegment.Tab("选中项");
+        tab.showSignCountView(getBaseContext(), 12,true);
 
-        VSegment.Tab tab1 = new VSegment.Tab("选项");
-        tab1.setSpaceWeight(1, 1);
-        tab1.showSignCountView(getBaseContext(), 5);
-        VSegment.Tab tab2 = new VSegment.Tab("选项三");
-        tab2.setSpaceWeight(1, 1);
-        tab2.showSignCountView(getBaseContext(), 0);
-        VSegment.Tab tab3 = new VSegment.Tab("选项四");
-        tab3.setSpaceWeight(1, 1);
+
+        VSegment.Tab tab0 = new VSegment.Tab("选项1");
+
+        VSegment.Tab tab1 = new VSegment.Tab("选项2");
+
+        VSegment.Tab tab2 = new VSegment.Tab("选项3");
+
+        VSegment.Tab tab3 = new VSegment.Tab("选项4");
+
+        mTabSegment.addTab(tab);
         mTabSegment.addTab(tab0);
         mTabSegment.addTab(tab1);
         mTabSegment.addTab(tab2);

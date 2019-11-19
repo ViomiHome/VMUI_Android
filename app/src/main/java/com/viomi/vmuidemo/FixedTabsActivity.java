@@ -1,5 +1,6 @@
 package com.viomi.vmuidemo;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -18,7 +20,7 @@ import com.viomi.vmui.VTabSegment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FixedTabsActivity extends AppCompatActivity {
+public class FixedTabsActivity extends BaseActivity {
 
     @BindView(R.id.tabSegment)
     VTabSegment mTabSegment;
@@ -109,11 +111,12 @@ public class FixedTabsActivity extends AppCompatActivity {
     }
 
     private View getPageView(int position) {
-        TextView textView = new TextView(getBaseContext());
+        AppCompatTextView textView = new AppCompatTextView(getBaseContext());
         textView.setGravity(Gravity.CENTER);
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-        textView.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.viomi_green));
-        textView.setText("第" + (position + 1) + "页");
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+        textView.setTextColor(Color.BLACK);
+        textView.setText("选项" + (position + 1) );
+        textView .getPaint().setFakeBoldText(true);
         return textView;
     }
 }

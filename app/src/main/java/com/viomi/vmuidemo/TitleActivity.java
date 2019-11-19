@@ -11,7 +11,7 @@ import com.viomi.vmui.VTitle;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TitleActivity extends AppCompatActivity implements View.OnClickListener {
+public class TitleActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.title1)
     VTitle title1;

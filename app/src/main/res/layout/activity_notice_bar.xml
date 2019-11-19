@@ -40,7 +40,7 @@
         style="@style/noticebar_dark"
         android:layout_marginTop="10dp"
         android:ellipsize="end"
-        android:gravity="center"
+        android:gravity="left"
         android:singleLine="true"
         android:text="每个设计师、工程师都有自己的习惯、美学倾向和工作流我们希望设计师能够从重复的劳动中获得解脱"
         app:layout_constraintLeft_toLeftOf="parent"

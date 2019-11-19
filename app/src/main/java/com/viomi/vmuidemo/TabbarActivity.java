@@ -19,7 +19,7 @@ import com.viomi.vmui.VTabSegment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TabbarActivity extends AppCompatActivity {
+public class TabbarActivity extends BaseActivity {
 
     @BindView(R.id.tabSegment)
     VTabSegment mTabSegment;
@@ -83,13 +83,16 @@ public class TabbarActivity extends AppCompatActivity {
         VTabSegment.Tab tab0 = new VTabSegment.Tab(normalDrawable0, selectedDrawable0, "选项一", false);
         tab0.showSignCountView(getBaseContext(), 0);
         tab0.setIconPosition(VTabSegment.ICON_POSITION_TOP);
+        tab0.setTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,10,getResources().getDisplayMetrics()));
 
         VTabSegment.Tab tab1 = new VTabSegment.Tab(normalDrawable1, selectedDrawable1, "选项二", false);
         tab1.showSignCountView(getBaseContext(), 100);
         tab1.setIconPosition(VTabSegment.ICON_POSITION_TOP);
+        tab1.setTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,10,getResources().getDisplayMetrics()));
 
         VTabSegment.Tab tab2 = new VTabSegment.Tab(normalDrawable2, selectedDrawable2, "选项三", false);
         tab2.setIconPosition(VTabSegment.ICON_POSITION_TOP);
+        tab2.setTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,10,getResources().getDisplayMetrics()));
 
         mTabSegment.addTab(tab0);
         mTabSegment.addTab(tab1);

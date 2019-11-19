@@ -5,7 +5,7 @@ import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class NoticeBarActivity extends AppCompatActivity {
+public class NoticeBarActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

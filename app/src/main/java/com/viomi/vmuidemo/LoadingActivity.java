@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.viomi.vmui.VEmptyPage;
 import com.viomi.vmuidemo.util.StatusBarUtil;
 
-public class LoadingActivity extends AppCompatActivity {
+public class LoadingActivity extends BaseActivity {
     VEmptyPage vEmptyPage;
 
     @Override

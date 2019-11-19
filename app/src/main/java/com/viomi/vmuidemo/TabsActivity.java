@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class TabsActivity extends AppCompatActivity {
+public class TabsActivity extends BaseActivity {
     ListView listview;
 
     @Override

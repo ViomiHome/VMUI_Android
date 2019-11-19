@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.viomi.vmui.VEmptyPage;
 import com.viomi.vmuidemo.util.StatusBarUtil;
 
-public class EmtyActivity extends AppCompatActivity {
+public class EmtyActivity extends BaseActivity {
     VEmptyPage vEmptyPage;
 
     @Override
@@ -32,6 +32,5 @@ public class EmtyActivity extends AppCompatActivity {
         StatusBarUtil.StatusBarLightMode(this, true);
         vEmptyPage = findViewById(R.id.empty);
         vEmptyPage.ivEmpty.setImageDrawable(getDrawable(R.drawable.cuesor_drawable));
-
     }
 }

@@ -19,7 +19,7 @@ import com.viomi.vmui.VTabSegment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DarkTabsActivity extends AppCompatActivity {
+public class DarkTabsActivity extends BaseActivity {
 
     @BindView(R.id.tabSegment)
     VTabSegment mTabSegment;

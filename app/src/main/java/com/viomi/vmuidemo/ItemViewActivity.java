@@ -6,15 +6,32 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewTreeObserver;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.viomi.vmui.VItemView;
 
-public class ItemViewActivity extends AppCompatActivity {
-    VItemView itemViewDelete;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class ItemViewActivity extends BaseActivity {
+
+
     float x = 0;
+    @BindView(R.id.select_1)
+    VItemView select1;
+    @BindView(R.id.select_2)
+    VItemView select2;
+    @BindView(R.id.radio_1)
+    VItemView radio1;
+    @BindView(R.id.radio_2)
+    VItemView radio2;
+    @BindView(R.id.switch0)
+    VItemView switch0;
+    @BindView(R.id.tv_delete)
+    VItemView tvDelete;
+    @BindView(R.id.item_button)
+    VItemView itemButton;
+
+
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -23,29 +40,34 @@ public class ItemViewActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("ItemView");
         setContentView(R.layout.activity_item_view);
-        itemViewDelete = findViewById(R.id.tv_delete);
-        itemViewDelete.buttonDelete.setBackgroundColor(getResources().getColor(R.color.price_red));
-//        itemViewDelete.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        ButterKnife.bind(this);
+        tvDelete = findViewById(R.id.tv_delete);
+//        VItemView switch0 = findViewById(R.id.switch0);
+//        VItemView switch1 = findViewById(R.id.switch1);
+//        switch0.vSwitch.setEnabled(false);
+//        switch1.vSwitch.setEnabled(false);
+//        tvDelete.buttonDelete.setBackgroundColor(getResources().getColor(R.color.price_red));
+//        tvDelete.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 //            @Override
 //            public void onGlobalLayout() {
-//                int itemWith = itemViewDelete.getWidth();
+//                int itemWith = tvDelete.getWidth();
 //                if (itemWith > 0) {
-//                    itemViewDelete.llRoot.scrollTo(itemViewDelete.buttonDelete.getWidth(), 0);
-//                    itemViewDelete.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+//                    tvDelete.llRoot.scrollTo(tvDelete.buttonDelete.getWidth(), 0);
+//                    tvDelete.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 //                }
 //            }
 //        });
 
-        itemViewDelete.setOnTouchListener((v, event) -> {
+        tvDelete.setOnTouchListener((v, event) -> {
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     x = event.getX();
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    if (x - event.getX() > itemViewDelete.buttonDelete.getWidth()/2) {
-                        aniTo(0, itemViewDelete.buttonDelete.getWidth());
-                    } else if (x - event.getX() < -itemViewDelete.buttonDelete.getWidth()/2) {
-                        aniTo(itemViewDelete.buttonDelete.getWidth(), 0);
+                    if (x - event.getX() > tvDelete.buttonDelete.getWidth() / 2) {
+                        aniTo(0, tvDelete.buttonDelete.getWidth());
+                    } else if (x - event.getX() < -tvDelete.buttonDelete.getWidth() / 2) {
+                        aniTo(tvDelete.buttonDelete.getWidth(), 0);
                     }
                     break;
                 case MotionEvent.ACTION_UP:
@@ -55,6 +77,32 @@ public class ItemViewActivity extends AppCompatActivity {
             }
             return true;
         });
+        select1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                select1.setItemSelect(!select1.isItemSelected());
+            }
+        });
+        select2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                select2.setItemSelect(!select2.isItemSelected());
+            }
+        });
+        radio1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                radio1.setItemCheck(!radio1.isItemChecked());
+            }
+        });
+        radio2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                radio2.setItemCheck(!radio2.isItemChecked());
+            }
+        });
+
+
     }
 
     ValueAnimator animator;
@@ -66,11 +114,13 @@ public class ItemViewActivity extends AppCompatActivity {
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                itemViewDelete.llRoot.scrollTo((Integer) animation.getAnimatedValue(), 0);
+
+                tvDelete.llRoot.scrollTo((Integer) animation.getAnimatedValue(), 0);
             }
         });
         animator.setDuration(200);
         animator.start();
+
     }
 
     @Override
