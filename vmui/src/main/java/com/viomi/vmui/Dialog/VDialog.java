@@ -171,7 +171,7 @@ public class VDialog extends Dialog {
                 try {
                     VDialog.super.dismiss();
                 } catch (Exception e) {
-                    //QMUILog.w(TAG, "dismiss error\n" + Log.getStackTraceString(e));
+
                 }
             }
         };

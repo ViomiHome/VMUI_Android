@@ -260,7 +260,7 @@ public class VTabSegment extends HorizontalScrollView {
     }
 
     /**
-     * 通知 QMUITabSegment 数据变动。
+     * 通知 TabSegment 数据变动。
      * 一般先调用 {@link #reset()} 清空已加上的 Tab, 然后重新 {@link #addTab(Tab)} 添加新的 Tab, 然后通过本方法通知变动
      */
     public void notifyDataChanged() {
@@ -1428,13 +1428,15 @@ public class VTabSegment extends HorizontalScrollView {
             mTextView.setTextColor(color);
             mTextView.getPaint().setFakeBoldText(isSelected);
             Drawable icon = tab.getNormalIcon();
-            int with = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,28,mTextView.getContext().getResources().getDisplayMetrics());
-            icon.setBounds(0, 0, with, with);
+            int with = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 28, mTextView.getContext().getResources().getDisplayMetrics());
+            if (icon != null)
+                icon.setBounds(0, 0, with, with);
 
             if (isSelected) {
                 if (!tab.isDynamicChangeIconColor()) {
                     icon = tab.getSelectedIcon() != null ? tab.getSelectedIcon() : icon;
-                    icon.setBounds(0, 0, with, with);
+                    if (icon != null)
+                        icon.setBounds(0, 0, with, with);
                 } else if (icon != null) {
                     icon = icon.mutate();
                     setDrawableTintColor(icon, color);

@@ -47,7 +47,7 @@ import java.util.List;
 
 public class VVerticalTabSegment extends ScrollView {
 
-    private static final String TAG = "QMUITabSegment";
+    private static final String TAG = "TabSegment";
 
     // mode: 自适应宽度+滚动 / 均分
     public static final int MODE_SCROLLABLE = 0;
@@ -264,7 +264,7 @@ public class VVerticalTabSegment extends ScrollView {
     }
 
     /**
-     * 通知 QMUITabSegment 数据变动。
+     * 通知 TabSegment 数据变动。
      * 一般先调用 {@link #reset()} 清空已加上的 Tab, 然后重新 {@link #addTab(Tab)} 添加新的 Tab, 然后通过本方法通知变动
      */
     public void notifyDataChanged() {

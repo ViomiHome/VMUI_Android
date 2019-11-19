@@ -31,6 +31,6 @@ public class EmtyActivity extends BaseActivity {
         }
         StatusBarUtil.StatusBarLightMode(this, true);
         vEmptyPage = findViewById(R.id.empty);
-        vEmptyPage.ivEmpty.setImageDrawable(getDrawable(R.drawable.cuesor_drawable));
+        vEmptyPage.ivEmpty.setImageDrawable(getDrawable(R.drawable.empty_drawable));
     }
 }

@@ -248,7 +248,7 @@ public class VSegment extends HorizontalScrollView {
     }
 
     /**
-     * 通知 QMUITabSegment 数据变动。
+     * 通知 TabSegment 数据变动。
      * 一般先调用 {@link #reset()} 清空已加上的 Tab, 然后重新 {@link #addTab(Tab)} 添加新的 Tab, 然后通过本方法通知变动
      */
     public void notifyDataChanged() {

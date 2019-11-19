@@ -58,7 +58,7 @@ public class SegmentActivity extends BaseActivity {
         setContentView(R.layout.activity_segment);
         ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("ScrollTabs");
+        getSupportActionBar().setTitle("Segment");
         ButterKnife.bind(this);
         initTabAndPager();
     }
