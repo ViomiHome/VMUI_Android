@@ -537,6 +537,8 @@ public class VVerticalTabSegment extends ScrollView {
             setTextViewTypeface(nowView.getTextView(), true);
             prevView.updateDecoration(prevModel, false);
             nowView.updateDecoration(nowModel, true);
+            prevView.getTextView().getPaint().setFakeBoldText(false);
+            nowView.getTextView().getPaint().setFakeBoldText(true);
             if (getScrollY() > nowView.getTop()) {
                 smoothScrollTo(0, nowView.getTop());
             } else {
@@ -559,8 +561,12 @@ public class VVerticalTabSegment extends ScrollView {
                 float animValue = (float) animation.getAnimatedValue();
                 int preColor = computeColor(getTabSelectedColor(prevModel), getTabNormalColor(prevModel), animValue);
                 int nowColor = computeColor(getTabNormalColor(nowModel), getTabSelectedColor(nowModel), animValue);
+               int preSize=computeSize(getTabSelectedColor(nowModel), getTabNormalColor(nowModel), animValue);
+               int nowSize=computeSize(getTabNormalSize(nowModel), getTabSelectedSize(nowModel), animValue);
                 prevView.setColorInTransition(prevModel, preColor);
                 nowView.setColorInTransition(nowModel, nowColor);
+                prevView.setSize(preSize);
+                nowView.setSize(nowSize);
                 layoutIndicatorInTransition(prevModel, nowModel, animValue);
             }
         });
@@ -568,6 +574,8 @@ public class VVerticalTabSegment extends ScrollView {
             @Override
             public void onAnimationStart(Animator animation) {
                 mSelectAnimator = animation;
+                prevView.getTextView().getPaint().setFakeBoldText(false);
+                nowView.getTextView().getPaint().setFakeBoldText(true);
             }
 
             @Override
@@ -579,6 +587,7 @@ public class VVerticalTabSegment extends ScrollView {
                 dispatchTabUnselected(prev);
                 setTextViewTypeface(prevView.getTextView(), false);
                 setTextViewTypeface(nowView.getTextView(), true);
+
                 mCurrentSelectedIndex = index;
                 mIsInSelectTab = false;
                 if (mPendingSelectedIndex != NO_POSITION && mViewPagerScrollState == ViewPager.SCROLL_STATE_IDLE) {
@@ -625,6 +634,10 @@ public class VVerticalTabSegment extends ScrollView {
         int resultB = (int) ((maxColorB - minColorB) * fraction) + minColorB;
 
         return Color.argb(resultA, resultR, resultG, resultB);
+    }
+    public int computeSize(@ColorInt int fromSize, @ColorInt int toSize, float fraction) {
+        fraction = Math.max(Math.min(fraction, 1), 0);
+        return fromSize+(int) ((toSize - fromSize) * fraction);
     }
 
     private void layoutIndicator(Tab model, boolean invalidate) {
@@ -717,8 +730,12 @@ public class VVerticalTabSegment extends ScrollView {
         TabItemView targetView = listViews.get(targetIndex);
         int preColor = computeColor(getTabSelectedColor(preModel), getTabNormalColor(preModel), offsetPercent);
         int targetColor = computeColor(getTabNormalColor(targetModel), getTabSelectedColor(targetModel), offsetPercent);
+        int preSize=computeSize(getTabSelectedColor(preModel), getTabNormalColor(preModel), offsetPercent);
+        int targetSize=computeSize(getTabNormalSize(targetModel), getTabSelectedSize(targetModel), offsetPercent);
         preView.setColorInTransition(preModel, preColor);
         targetView.setColorInTransition(targetModel, targetColor);
+        preView.setSize(preSize);
+        targetView.setSize(targetSize);
         layoutIndicatorInTransition(preModel, targetModel, offsetPercent);
     }
 
@@ -769,6 +786,20 @@ public class VVerticalTabSegment extends ScrollView {
             color = mDefaultNormalColor;
         }
         return color;
+    }
+    private int getTabNormalSize(Tab item) {
+        int size = item.getTextSize();
+        if (size == Tab.USE_TAB_SEGMENT) {
+            size = mTabTextSize;
+        }
+        return size;
+    }
+    private int getTabSelectedSize(Tab item) {
+        int size = item.getSelectedTextSize();
+        if (size == Tab.USE_TAB_SEGMENT) {
+            size = mTabSelectedTextSize;
+        }
+        return size;
     }
 
     private int getTabIconPosition(Tab item) {
@@ -1027,6 +1058,7 @@ public class VVerticalTabSegment extends ScrollView {
     public static class Tab {
         public static final int USE_TAB_SEGMENT = Integer.MIN_VALUE;
         private int textSize = USE_TAB_SEGMENT;
+        private int selectedTextSize = USE_TAB_SEGMENT;
         private int normalColor = USE_TAB_SEGMENT;
         private int selectedColor = USE_TAB_SEGMENT;
         private Drawable normalIcon = null;
@@ -1113,9 +1145,15 @@ public class VVerticalTabSegment extends ScrollView {
         public int getTextSize() {
             return textSize;
         }
+        public int getSelectedTextSize() {
+            return selectedTextSize;
+        }
 
         public void setTextSize(int textSize) {
             this.textSize = textSize;
+        }
+        public void setSelectedTextSize(int textSize) {
+            this.selectedTextSize = textSize;
         }
 
         public CharSequence getText() {
@@ -1428,6 +1466,9 @@ public class VVerticalTabSegment extends ScrollView {
                 }
             }
         }
+        public void setSize(int size) {
+            mTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,size);
+        }
 
         public ColorFilter setDrawableTintColor(Drawable drawable, @ColorInt int tintColor) {
             LightingColorFilter colorFilter = new LightingColorFilter(Color.argb(255, 0, 0, 0), tintColor);
@@ -1442,6 +1483,9 @@ public class VVerticalTabSegment extends ScrollView {
 
             int color = isSelected ? getTabSelectedColor(tab) : getTabNormalColor(tab);
             mTextView.setTextColor(color);
+            int size = isSelected ? getTabSelectedSize(tab) : getTabNormalSize(tab);
+            mTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX,size);
+            mTextView.getPaint().setFakeBoldText(isSelected);
 
             Drawable icon = tab.getNormalIcon();
             if (isSelected) {

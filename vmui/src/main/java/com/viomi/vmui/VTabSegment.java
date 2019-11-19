@@ -689,6 +689,7 @@ public class VTabSegment extends HorizontalScrollView {
         }
         boolean isBold = selected ? mTypefaceProvider.isSelectedTabBold() : mTypefaceProvider.isNormalTabBold();
         tv.setTypeface(mTypefaceProvider.getTypeface(), isBold ? Typeface.BOLD : Typeface.NORMAL);
+        tv.getPaint().setFakeBoldText(selected);
     }
 
     public void updateIndicatorPosition(final int index, float offsetPercent) {
@@ -1203,7 +1204,7 @@ public class VTabSegment extends HorizontalScrollView {
 
         private TextView ensureSignCountView(Context context) {
             if (mSignCountTextView == null) {
-                mSignCountTextView = (TextView) View.inflate(context, R.layout.tab_cont_textview, null);
+                mSignCountTextView = (TextView) View.inflate(context, R.layout.tab_cont_textview1, null);
                 RelativeLayout.LayoutParams signCountLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
                         , ViewGroup.LayoutParams.WRAP_CONTENT);
                 signCountLp.addRule(RelativeLayout.ALIGN_TOP, R.id.tab_segment_item_id);
@@ -1227,17 +1228,20 @@ public class VTabSegment extends HorizontalScrollView {
             RelativeLayout.LayoutParams signCountLp = (RelativeLayout.LayoutParams) mSignCountTextView.getLayoutParams();
             if (count != 0) {
                 // 显示未读数
-                signCountLp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, context.getResources().getDisplayMetrics());
+                signCountLp.width = RelativeLayout.LayoutParams.WRAP_CONTENT;
+                signCountLp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 14, context.getResources().getDisplayMetrics());
+                String text = getNumberDigitsFormattingValue(count);
+                int leftMargin = -(int) (mSignCountTextView.getPaint().measureText(text) + mSignCountTextView.getPaddingLeft() + mSignCountTextView.getPaddingRight()) / 2;
+                signCountLp.leftMargin = leftMargin;
                 mSignCountTextView.setLayoutParams(signCountLp);
-                mSignCountTextView.setMinHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, context.getResources().getDisplayMetrics()));
-                mSignCountTextView.setMinWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, context.getResources().getDisplayMetrics()));
-                mSignCountTextView.setText(getNumberDigitsFormattingValue(count));
+                mSignCountTextView.setText(text);
             } else {
                 // 显示红点
-                signCountLp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, context.getResources().getDisplayMetrics());
+                signCountLp.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 7, context.getResources().getDisplayMetrics());
+                signCountLp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 7, context.getResources().getDisplayMetrics());
+                int leftMargin = -signCountLp.width / 2;
+                signCountLp.leftMargin = leftMargin;
                 mSignCountTextView.setLayoutParams(signCountLp);
-                mSignCountTextView.setMinHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, context.getResources().getDisplayMetrics()));
-                mSignCountTextView.setMinWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, context.getResources().getDisplayMetrics()));
                 mSignCountTextView.setText(null);
             }
         }
@@ -1366,7 +1370,8 @@ public class VTabSegment extends HorizontalScrollView {
             // 用于提供给customView布局用
             mTextView.setId(R.id.tab_segment_item_id);
             mTextView.setIncludeFontPadding(false);
-            mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+            mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+
             LayoutParams tvLp = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             tvLp.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
             addView(mTextView, tvLp);
@@ -1421,11 +1426,15 @@ public class VTabSegment extends HorizontalScrollView {
 
             int color = isSelected ? getTabSelectedColor(tab) : getTabNormalColor(tab);
             mTextView.setTextColor(color);
-
+            mTextView.getPaint().setFakeBoldText(isSelected);
             Drawable icon = tab.getNormalIcon();
+            int with = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,28,mTextView.getContext().getResources().getDisplayMetrics());
+            icon.setBounds(0, 0, with, with);
+
             if (isSelected) {
                 if (!tab.isDynamicChangeIconColor()) {
                     icon = tab.getSelectedIcon() != null ? tab.getSelectedIcon() : icon;
+                    icon.setBounds(0, 0, with, with);
                 } else if (icon != null) {
                     icon = icon.mutate();
                     setDrawableTintColor(icon, color);

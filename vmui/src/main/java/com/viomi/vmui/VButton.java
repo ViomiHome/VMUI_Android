@@ -3,6 +3,7 @@ package com.viomi.vmui;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -48,10 +49,16 @@ public class VButton extends LinearLayout {
         iv = findViewById(R.id.iv);
         initAttrs(attrs);
         init();
+        setFocusable(true);
+        setClickable(true);
     }
 
     private void init() {
         switch (button_style) {
+            case -1:
+                tvContent.setTextColor(textColor);
+                tvSubcontent.setTextColor(textColor);
+                break;
             case 0:
                 tvContent.setTextColor(getResources().getColor(R.color.title_gray));
                 tvSubcontent.setTextColor(getResources().getColor(R.color.title_gray));
@@ -154,7 +161,7 @@ public class VButton extends LinearLayout {
             return;
         TypedArray a = getContext().obtainStyledAttributes(attrs,
                 R.styleable.VButton);
-        button_style = a.getInt(R.styleable.VButton_button_style, 0);
+        button_style = a.getInt(R.styleable.VButton_button_style, -1);
         text_content = a.getString(R.styleable.VButton_text_content);
         text_sub = a.getString(R.styleable.VButton_text_sub);
         drawable_right = a.getDrawable(R.styleable.VButton_drawable_right);
@@ -168,6 +175,7 @@ public class VButton extends LinearLayout {
                 , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 14, getResources().getDisplayMetrics()));
         subTextSize = a.getDimension(R.styleable.VButton_subtext_size
                 , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 11, getResources().getDisplayMetrics()));
+        textColor = a.getColor(R.styleable.VButton_text_color, Color.BLACK);
         a.recycle();
     }
 
@@ -177,7 +185,7 @@ public class VButton extends LinearLayout {
         super.setPressed(pressed);
         if (isEnabled())
             if (pressed) {
-                setAlpha(0.6f);
+                setAlpha(0.5f);
             } else {
                 setAlpha(1f);
             }
@@ -269,12 +277,12 @@ public class VButton extends LinearLayout {
         init();
     }
 
-    public void setTextColor(int textColor){
+    public void setTextColor(int textColor) {
         this.textColor = textColor;
         init();
     }
 
-    public void setBackgroundResId(int backgroundResId){
+    public void setBackgroundResId(int backgroundResId) {
         this.backgroundResId = backgroundResId;
         init();
     }

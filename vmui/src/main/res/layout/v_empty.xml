@@ -70,6 +70,7 @@
             android:minWidth="102dp"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            app:button_style="green_stroke" />
+            app:button_style="green_stroke"
+            app:text_size="12sp" />
     </LinearLayout>
 </LinearLayout>

@@ -5,6 +5,7 @@
     <color name="colorAccent">#D81B60</color>
     <color name="viomi_green">#28beca</color>
     <color name="price_red">#CE3333</color>
+    <color name="theme_red">#EE3333</color>
     <color name="title_gray">#2c2c2c</color>
     <color name="content_gray">#4c4c4c</color>
     <color name="content_gray_light">#666666</color>

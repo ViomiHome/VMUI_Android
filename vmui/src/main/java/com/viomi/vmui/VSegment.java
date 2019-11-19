@@ -24,7 +24,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
+import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -995,7 +997,7 @@ public class VSegment extends HorizontalScrollView {
         private CharSequence text;
         private List<View> mCustomViews;
         private int mSignCountDigits = 2;
-        private TextView mSignCountTextView;
+        private View mSignCountTextView;
         private int mSignCountMarginLeft = 0;
         private int mSignCountMarginTop = 0;
         /**
@@ -1142,13 +1144,20 @@ public class VSegment extends HorizontalScrollView {
             }
         }
 
-        private TextView ensureSignCountView(Context context) {
+        private View ensureSignCountView(Context context, boolean align_parent) {
             if (mSignCountTextView == null) {
-                mSignCountTextView = (TextView) View.inflate(context, R.layout.tab_cont_textview, null);
+
+                mSignCountTextView = View.inflate(context, R.layout.tab_cont_textview, null);
                 RelativeLayout.LayoutParams signCountLp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
                         , ViewGroup.LayoutParams.WRAP_CONTENT);
-                signCountLp.addRule(RelativeLayout.ALIGN_TOP, R.id.tab_segment_item_id);
-                signCountLp.addRule(RelativeLayout.RIGHT_OF, R.id.tab_segment_item_id);
+                if (align_parent) {
+                    signCountLp.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
+                    signCountLp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
+                } else {
+                    signCountLp.addRule(RelativeLayout.ALIGN_TOP, R.id.tab_segment_item_id);
+                    signCountLp.addRule(RelativeLayout.RIGHT_OF, R.id.tab_segment_item_id);
+                }
+
                 mSignCountTextView.setLayoutParams(signCountLp);
                 addCustomView(mSignCountTextView);
             }
@@ -1157,32 +1166,43 @@ public class VSegment extends HorizontalScrollView {
             return mSignCountTextView;
         }
 
+        public void showSignCountView(Context context, int count) {
+            showSignCountView(context, count, false);
+        }
+
         /**
          * 显示 Tab 上的未读数或红点
          *
          * @param count 不为0时红点会显示该数字作为未读数,为0时只会显示一个小红点
          */
-        public void showSignCountView(Context context, int count) {
-            ensureSignCountView(context);
-            mSignCountTextView.setVisibility(View.VISIBLE);
-            RelativeLayout.LayoutParams signCountLp = (RelativeLayout.LayoutParams) mSignCountTextView.getLayoutParams();
+        public void showSignCountView(Context context, int count, boolean align_parent) {
+            ensureSignCountView(context, align_parent);
+            TextView textView = ((TextView) mSignCountTextView.findViewById(R.id.tv_reddot));
+            textView.setVisibility(View.VISIBLE);
+            LinearLayout.LayoutParams signCountLp = (LinearLayout.LayoutParams) textView.getLayoutParams();
             if (count != 0) {
                 // 显示未读数
-                signCountLp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, context.getResources().getDisplayMetrics());
+                String text = getNumberDigitsFormattingValue(count);
+                int textWidth = (int) textView.getPaint().measureText(text);
+                int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 3, context.getResources().getDisplayMetrics());
+
+                signCountLp.width = textWidth + padding * 2;
+                Log.d(TAG, "showSignCountView: " + signCountLp.width);
+                signCountLp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 14, context.getResources().getDisplayMetrics());
                 signCountLp.topMargin = 0;
-                mSignCountTextView.setLayoutParams(signCountLp);
-                mSignCountTextView.setMinHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, context.getResources().getDisplayMetrics()));
-                mSignCountTextView.setMinWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, context.getResources().getDisplayMetrics()));
-                mSignCountTextView.setText(getNumberDigitsFormattingValue(count));
+                textView.setLayoutParams(signCountLp);
+                textView.setMinWidth(textWidth + padding * 2);
+                textView.setBackgroundDrawable(context.getDrawable(R.drawable.red_dot_with_number));
+                Log.d(TAG, "showSignCountView: " + text);
+                ((TextView) textView.findViewById(R.id.tv_reddot)).setText(text);
             } else {
                 // 显示红点
-                signCountLp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, context.getResources().getDisplayMetrics());
+                signCountLp.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 7, context.getResources().getDisplayMetrics());
+                signCountLp.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 7, context.getResources().getDisplayMetrics());
                 signCountLp.topMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, context.getResources().getDisplayMetrics());
-
-                mSignCountTextView.setLayoutParams(signCountLp);
-                mSignCountTextView.setMinHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, context.getResources().getDisplayMetrics()));
-                mSignCountTextView.setMinWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, context.getResources().getDisplayMetrics()));
-                mSignCountTextView.setText(null);
+                textView.setLayoutParams(signCountLp);
+                textView.setBackground(context.getDrawable(R.drawable.red_dot));
+                ((TextView) textView.findViewById(R.id.tv_reddot)).setText(null);
             }
         }
 
@@ -1202,8 +1222,8 @@ public class VSegment extends HorizontalScrollView {
             if (mSignCountTextView == null || mSignCountTextView.getVisibility() != VISIBLE) {
                 return 0;
             }
-            if (!TextUtils.isEmpty(mSignCountTextView.getText())) {
-                return Integer.parseInt(mSignCountTextView.getText().toString());
+            if (!TextUtils.isEmpty(((TextView) mSignCountTextView.findViewById(R.id.tv_reddot)).getText())) {
+                return Integer.parseInt(((TextView) mSignCountTextView.findViewById(R.id.tv_reddot)).getText().toString());
             } else {
                 return 0;
             }
@@ -1414,7 +1434,7 @@ public class VSegment extends HorizontalScrollView {
                 if (child.getVisibility() != VISIBLE) {
                     continue;
                 }
-                childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(modeFixItemWidth, MeasureSpec.EXACTLY);
+                childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(i == size - 1 ? (widthSpecSize - modeFixItemWidth * (size - 1)) : modeFixItemWidth, MeasureSpec.EXACTLY);
                 childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(childHeight, MeasureSpec.EXACTLY);
                 child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
 
@@ -1452,6 +1472,7 @@ public class VSegment extends HorizontalScrollView {
                 }
                 Tab model = mTabAdapter.getItem(i);
                 final int childMeasureWidth = childView.getMeasuredWidth();
+
                 childView.layout(
                         usedLeft + model.leftAddonMargin,
                         getPaddingTop(),

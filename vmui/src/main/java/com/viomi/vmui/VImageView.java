@@ -24,7 +24,7 @@ public class VImageView extends AppCompatImageView {
         super.setPressed(pressed);
         if (isEnabled())
             if (pressed) {
-                setAlpha(0.6f);
+                setAlpha(0.5f);
             } else {
                 setAlpha(1f);
             }

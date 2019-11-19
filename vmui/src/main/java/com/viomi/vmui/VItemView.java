@@ -2,19 +2,21 @@ package com.viomi.vmui;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+
+import static android.content.ContentValues.TAG;
 
 public class VItemView extends LinearLayout {
     public FrameLayout fContent;
@@ -25,14 +27,14 @@ public class VItemView extends LinearLayout {
     public FrameLayout layoutRightImage;
     public ImageView ivLeft, ivTextReddot, ivRight, ivReddot, ivArrow;
     public TextView tvLeftTitle, tvLeftSubtitle, tvRightTitle, tvRightSubtitle;
-    public Switch vSwitch;
+    public VSwitch vSwitch;
     public VButton mButton;
     public VButton buttonDelete;
     int style;
-    int item_lefttitle_textsize;
-    int item_righttitle_textsize;
-    int item_subrighttitle_textsize;
-    int item_sublefttitle_textsize;
+    float item_lefttitle_textsize;
+    float item_righttitle_textsize;
+    float item_subrighttitle_textsize;
+    float item_sublefttitle_textsize;
     int item_lefttitle_textcolor;
     int item_righttitle_textcolor;
     int item_subrighttitle_textcolor;
@@ -53,6 +55,7 @@ public class VItemView extends LinearLayout {
     public VItemView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         LayoutInflater.from(context).inflate(R.layout.item_view, this);
+
         llRoot = findViewById(R.id.ll_root);
         fContent = findViewById(R.id.f_content);
         llContent = findViewById(R.id.ll_content);
@@ -76,6 +79,7 @@ public class VItemView extends LinearLayout {
         fContent.setLayoutParams(layoutParams);
         initAttrs(attrs);
         init();
+        setClickable(true);
     }
 
     private void initAttrs(AttributeSet attrs) {
@@ -84,14 +88,14 @@ public class VItemView extends LinearLayout {
         TypedArray a = getContext().obtainStyledAttributes(attrs,
                 R.styleable.VItemView);
         style = a.getInt(R.styleable.VItemView_item_style, 0);
-        item_lefttitle_textsize = (int) a.getDimension(R.styleable.VItemView_item_lefttitle_textsize
-                , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 14, getResources().getDisplayMetrics()));
-        item_righttitle_textsize = (int) a.getDimension(R.styleable.VItemView_item_righttitle_textsize
-                , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 13, getResources().getDisplayMetrics()));
-        item_subrighttitle_textsize = (int) a.getDimension(R.styleable.VItemView_item_subrighttitle_textsize
-                , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, getResources().getDisplayMetrics()));
-        item_sublefttitle_textsize = (int) a.getDimension(R.styleable.VItemView_item_sublefttitle_textsize
-                , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, getResources().getDisplayMetrics()));
+        item_lefttitle_textsize =  a.getDimension(R.styleable.VItemView_item_lefttitle_textsize
+                , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 14, getResources().getDisplayMetrics()));
+        item_righttitle_textsize =  a.getDimension(R.styleable.VItemView_item_righttitle_textsize
+                , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 13, getResources().getDisplayMetrics()));
+        item_subrighttitle_textsize =  a.getDimension(R.styleable.VItemView_item_subrighttitle_textsize
+                , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
+        item_sublefttitle_textsize =  a.getDimension(R.styleable.VItemView_item_sublefttitle_textsize
+                , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
         item_lefttitle_textcolor = a.getColor(R.styleable.VItemView_item_lefttitle_textcolor
                 , getResources().getColor(R.color.title_gray));
         item_righttitle_textcolor = a.getColor(R.styleable.VItemView_item_righttitle_textcolor
@@ -201,12 +205,13 @@ public class VItemView extends LinearLayout {
             case 9://switch
                 vSwitch.setVisibility(VISIBLE);
                 item_arrow = false;
-                vSwitch.setChecked(item_switch_check);
+                vSwitch.setCheck(item_switch_check);
                 break;
             case 10://button
                 item_arrow = false;
                 mButton.setVisibility(VISIBLE);
                 mButton.setText_content(item_button);
+
                 break;
             case 11://row_title
                 llContent.setMinimumHeight((int) getResources().getDimension(R.dimen.itemview_row_title));
@@ -215,12 +220,15 @@ public class VItemView extends LinearLayout {
                 layoutParams6.topMargin = 0;
                 layoutParams6.bottomMargin = 0;
                 llLefttextview.setLayoutParams(layoutParams6);
+                setClickable(false);
+                llRoot.setBackgroundColor(Color.WHITE);
                 break;
         }
         tvLeftTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, item_lefttitle_textsize);
         tvRightTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, item_righttitle_textsize);
         tvLeftSubtitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, item_sublefttitle_textsize);
         tvRightSubtitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, item_subrighttitle_textsize);
+
         tvLeftTitle.setTextColor(item_lefttitle_textcolor);
         tvRightTitle.setTextColor(item_righttitle_textcolor);
         tvLeftSubtitle.setTextColor(item_sublefttitle_textcolor);
@@ -236,21 +244,22 @@ public class VItemView extends LinearLayout {
         ivArrow.setVisibility(item_arrow ? VISIBLE : GONE);
     }
 
-    public void setItem_lefttitle_textsize(int item_lefttitle_textsize) {
+
+    public void setItem_lefttitle_textsize(float item_lefttitle_textsize) {
         this.item_lefttitle_textsize = item_lefttitle_textsize;
         init();
     }
 
-    public void setItem_righttitle_textsize(int item_righttitle_textsize) {
+    public void setItem_righttitle_textsize(float item_righttitle_textsize) {
         this.item_righttitle_textsize = item_righttitle_textsize;
         init();
     }
 
-    public void setItem_subrighttitle_textsize(int item_subrighttitle_textsize) {
+    public void setItem_subrighttitle_textsize(float item_subrighttitle_textsize) {
         this.item_subrighttitle_textsize = item_subrighttitle_textsize;
     }
 
-    public void setItem_sublefttitle_textsize(int item_sublefttitle_textsize) {
+    public void setItem_sublefttitle_textsize(float item_sublefttitle_textsize) {
         this.item_sublefttitle_textsize = item_sublefttitle_textsize;
         init();
     }
@@ -309,12 +318,12 @@ public class VItemView extends LinearLayout {
         init();
     }
 
-    public void setItem_select(boolean item_select) {
+    public void setItemSelect(boolean item_select) {
         this.item_select = item_select;
         init();
     }
 
-    public void setItem_check(boolean item_check) {
+    public void setItemCheck(boolean item_check) {
         this.item_check = item_check;
         init();
     }
@@ -338,27 +347,29 @@ public class VItemView extends LinearLayout {
         this.style = style;
         init();
     }
+
     public void setItem_arrow_src(int item_arrow_src) {
         this.item_arrow_src = item_arrow_src;
         init();
     }
+
     public int getStyle() {
         return style;
     }
 
-    public int getItem_lefttitle_textsize() {
+    public float getItem_lefttitle_textsize() {
         return item_lefttitle_textsize;
     }
 
-    public int getItem_righttitle_textsize() {
+    public float getItem_righttitle_textsize() {
         return item_righttitle_textsize;
     }
 
-    public int getItem_subrighttitle_textsize() {
+    public float getItem_subrighttitle_textsize() {
         return item_subrighttitle_textsize;
     }
 
-    public int getItem_sublefttitle_textsize() {
+    public float getItem_sublefttitle_textsize() {
         return item_sublefttitle_textsize;
     }
 
@@ -406,11 +417,11 @@ public class VItemView extends LinearLayout {
         return item_img_redot;
     }
 
-    public boolean isItem_select() {
+    public boolean isItemSelected() {
         return item_select;
     }
 
-    public boolean isItem_check() {
+    public boolean isItemChecked() {
         return item_check;
     }
 

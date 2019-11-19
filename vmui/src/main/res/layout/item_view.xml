@@ -4,7 +4,7 @@
     android:id="@+id/ll_root"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@drawable/item_bg"
     android:orientation="horizontal">
 
     <FrameLayout
@@ -71,7 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="右标题"
-                    android:textColor="#ff2c2c2c"
+                    android:textColor="@color/title_gray"
                     android:textSize="14sp" />
 
                 <TextView
@@ -111,15 +111,16 @@
                     android:src="@drawable/red_dot" />
             </FrameLayout>
 
-            <Switch
+            <com.viomi.vmui.VSwitch
                 android:id="@+id/vswitch"
-                android:layout_width="48dp"
+                android:layout_width="44dp"
                 android:layout_height="24dp"
                 android:checked="true"
                 android:showText="false"
                 android:thumb="@drawable/thumb"
                 android:track="@drawable/switch_drawable"
-                android:visibility="gone" />
+                android:visibility="gone"
+                app:tintColor="@color/viomi_green" />
 
             <com.viomi.vmui.VButton
                 android:id="@+id/button"
@@ -129,6 +130,7 @@
                 android:minWidth="60dp"
                 android:minHeight="31dp"
                 android:visibility="gone"
+                app:text_size="12sp"
                 app:button_style="green_stroke" />
 
             <ImageView
@@ -154,8 +156,10 @@
         android:layout_width="60dp"
         android:layout_height="match_parent"
         android:layout_toRightOf="@+id/f_content"
+        android:background="@color/theme_red"
         android:gravity="center"
         android:minWidth="60dp"
-        app:button_style="red_fill"
+        app:button_style="none"
+        app:text_color="@color/white"
         app:text_content="删除" />
 </LinearLayout>

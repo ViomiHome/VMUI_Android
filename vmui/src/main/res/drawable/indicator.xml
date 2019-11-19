@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="8dp"
-    android:height="4dp">
-    <solid android:color="#ff28beca" />
-    <corners android:radius="2dp" />
-    <size
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item  android:bottom="4dp">
+    <shape
         android:width="8dp"
-        android:height="4dp" />
-</shape>
+
+        android:height="4dp">
+        <solid android:color="#ff28beca" />
+        <corners android:radius="2dp" />
+        <size
+            android:width="8dp"
+            android:height="4dp" />
+    </shape>
+    </item>
+</layer-list>

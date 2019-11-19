@@ -20,8 +20,8 @@ public class VTextView extends AppCompatTextView {
         this(context, null);
     }
 
-    public VTextView(Context context,boolean value){
-        this(context,null);
+    public VTextView(Context context, boolean value) {
+        this(context, null);
         this.alignCenter = value;
     }
 
@@ -38,7 +38,7 @@ public class VTextView extends AppCompatTextView {
         super.setPressed(pressed);
         if (isEnabled())
             if (pressed) {
-                setAlpha(0.6f);
+                setAlpha(0.5f);
             } else {
                 setAlpha(1f);
             }
