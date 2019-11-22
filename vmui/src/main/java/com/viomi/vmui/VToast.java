@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.viomi.vmui.utils.VDisplayHelper;
@@ -100,8 +101,7 @@ public class VToast extends Toast {
         layoutParams.setMargins(lr, tb, lr, tb);
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT,RelativeLayout.TRUE);
         LinearLayout container = new LinearLayout(context);
-        container.setLayoutParams(layoutParams);
-        VTextView message = new VTextView(context,true);
+        TextView message = new TextView(context);
         message.setId(R.id.vmui_toast_message);
         message.setTextColor(context.getResources().getColor(R.color.white));
         message.setTextSize(14);
@@ -110,10 +110,14 @@ public class VToast extends Toast {
         if (resId != -1) {
             ImageView icon = new ImageView(context);
             icon.setImageResource(resId);
+            RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(VDisplayHelper.dp2px(context, 18), VDisplayHelper.dp2px(context, 18));
+            lp1.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
+            icon.setLayoutParams(lp1);
             container.addView(icon);
-            message.setPadding(13, 0, 0, 0);
+            message.setPadding(VDisplayHelper.dp2px(context, 8), 0, 0, 0);
         }
         container.addView(message);
+        container.setLayoutParams(layoutParams);
         layout.addView(container);
         return layout;
     }

@@ -4,22 +4,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imgLogo"
-        android:layout_gravity="center"
-        android:src="@mipmap/ic_launcher"
-        android:paddingTop="28dp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/txtName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="xxx"
-        android:textSize="12sp"
-        android:textColor="@color/content_gray"
-        android:paddingBottom="28dp"/>
+        <ImageView
+            android:layout_width="47dp"
+            android:layout_height="47dp"
+            android:id="@+id/imgLogo"
+            android:src="@mipmap/ic_launcher"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="27dp"
+            android:layout_alignParentTop="true"
+            />
+
+        <TextView
+            android:id="@+id/txtName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="xxx"
+            android:textSize="12sp"
+            android:layout_below="@id/imgLogo"
+            android:textColor="@color/content_gray"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="28dp"/>
+    </RelativeLayout>
 
 </LinearLayout>
