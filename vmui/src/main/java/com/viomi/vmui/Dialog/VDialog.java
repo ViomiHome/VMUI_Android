@@ -286,8 +286,6 @@ public class VDialog extends Dialog {
                 mTextView = new VTextView(context, true);
                 mTextView.setEnabled(false);
                 mTextView.setText(mMessage);
-                Typeface font = Typeface.createFromAsset(context.getAssets(), "font/noto_sans_sc_regular.otf");
-                mTextView.setTypeface(font);
                 mTextView.setTextColor(context.getResources().getColor(R.color.content_gray));
                 //Linkify.addLinks(mTextView, Linkify.ALL);
                 mTextView.setLinksClickable(true);

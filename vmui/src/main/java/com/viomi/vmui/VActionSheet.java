@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import androidx.annotation.Nullable;
 import com.viomi.vmui.adapter.GridAdapter;
 import com.viomi.vmui.Dialog.VDialog;
 import com.viomi.vmui.Dialog.VDialogBuilder;
+import com.viomi.vmui.utils.VDisplayHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,16 +43,17 @@ public class VActionSheet extends VDialog {
         private BaseAdapter mAdapter;
         List<String> mData = new ArrayList<>();
         private OnSheetItemClickListener onSheetItemClickListener;
+
         public MultiButtonActionSheetBuilder(Context context) {
             super(context);
         }
 
-        public MultiButtonActionSheetBuilder addItem(String itemName){
+        public MultiButtonActionSheetBuilder addItem(String itemName) {
             mData.add(itemName);
             return this;
         }
 
-        public MultiButtonActionSheetBuilder setOnSheetItemClickListener(OnSheetItemClickListener listener){
+        public MultiButtonActionSheetBuilder setOnSheetItemClickListener(OnSheetItemClickListener listener) {
             onSheetItemClickListener = listener;
             return this;
         }
@@ -59,7 +62,7 @@ public class VActionSheet extends VDialog {
         protected void onCreateContent(Dialog dialog, ViewGroup parent, Context context) {
             mDialog = dialog;
             mListView = new ListView(context);
-            mAdapter = new ArrayAdapter<String>(context,R.layout.sheet_item,mData);
+            mAdapter = new ArrayAdapter<String>(context, R.layout.sheet_item, mData);
             mListView.setAdapter(mAdapter);
 
             FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -75,12 +78,12 @@ public class VActionSheet extends VDialog {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            if(onSheetItemClickListener != null){
-                onSheetItemClickListener.onItemClick(mDialog,mAdapter.getItem(position).toString());
+            if (onSheetItemClickListener != null) {
+                onSheetItemClickListener.onItemClick(mDialog, mAdapter.getItem(position).toString());
             }
         }
 
-        public interface OnSheetItemClickListener{
+        public interface OnSheetItemClickListener {
             void onItemClick(Dialog dialog, String selected);
         }
     }
@@ -108,7 +111,7 @@ public class VActionSheet extends VDialog {
             return this;
         }
 
-        public ShareSheetDialogBuilder setOnSheetItemClickListener(OnSheetItemClickListener listener){
+        public ShareSheetDialogBuilder setOnSheetItemClickListener(OnSheetItemClickListener listener) {
             onSheetItemClickListener = listener;
             return this;
         }
@@ -125,7 +128,8 @@ public class VActionSheet extends VDialog {
             } else {
                 mGridView.setNumColumns(4);
             }
-            FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, VDisplayHelper.dp2px(context, 126));
+            lp.setMargins(36, 0, 36, 0);
             mGridView.setLayoutParams(lp);
             mGridView.setSelector(getBaseContext().getDrawable(R.color.transparent));
             mGridView.setOnItemClickListener(this);
@@ -134,12 +138,12 @@ public class VActionSheet extends VDialog {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            if(onSheetItemClickListener != null){
-                onSheetItemClickListener.onItemClick(mDialog,mAdapter.getItemName(position));
+            if (onSheetItemClickListener != null) {
+                onSheetItemClickListener.onItemClick(mDialog, mAdapter.getItemName(position));
             }
         }
 
-        public interface OnSheetItemClickListener{
+        public interface OnSheetItemClickListener {
             void onItemClick(Dialog dialog, String selected);
         }
     }
