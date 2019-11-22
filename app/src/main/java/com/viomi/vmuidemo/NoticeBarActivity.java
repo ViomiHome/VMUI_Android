@@ -12,7 +12,7 @@ public class NoticeBarActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notice_bar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("NotiveBar");
+        getSupportActionBar().setTitle("NoticeBar");
     }
 
     @Override
