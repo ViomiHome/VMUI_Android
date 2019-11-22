@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-public class VTitle extends ConstraintLayout {
+public class VNavBar extends ConstraintLayout {
     public ConstraintLayout clContainer;
     public View vSub;
     public ImageView ivBack;
@@ -42,15 +42,15 @@ public class VTitle extends ConstraintLayout {
     boolean enableShare;
     boolean enableBack;
 
-    public VTitle(Context context) {
+    public VNavBar(Context context) {
         this(context, null);
     }
 
-    public VTitle(Context context, AttributeSet attrs) {
+    public VNavBar(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public VTitle(Context context, AttributeSet attrs, int defStyleAttr) {
+    public VNavBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         LayoutInflater.from(context).inflate(R.layout.vtitle, this);
         clContainer = findViewById(R.id.cl_container);
@@ -71,22 +71,22 @@ public class VTitle extends ConstraintLayout {
         if (attrs == null)
             return;
         TypedArray a = getContext().obtainStyledAttributes(attrs,
-                R.styleable.VTitle);
-        bgStyle = a.getInt(R.styleable.VTitle_title_style, 0);
-        textTitle = a.getString(R.styleable.VTitle_text_title);
-        textSub = a.getString(R.styleable.VTitle_text_subtitle);
-        textLeft = a.getString(R.styleable.VTitle_text_back);
-        textRight = a.getString(R.styleable.VTitle_text_right);
-        drawableRight = a.getDrawable(R.styleable.VTitle_title_drawable_right);
-        drawableLeft = a.getDrawable(R.styleable.VTitle_title_drawable_back);
-        drawableShare = a.getDrawable(R.styleable.VTitle_title_drawable_share);
-        titleSize = a.getDimension(R.styleable.VTitle_title_size
+                R.styleable.VNavBar);
+        bgStyle = a.getInt(R.styleable.VNavBar_title_style, 0);
+        textTitle = a.getString(R.styleable.VNavBar_text_title);
+        textSub = a.getString(R.styleable.VNavBar_text_subtitle);
+        textLeft = a.getString(R.styleable.VNavBar_text_back);
+        textRight = a.getString(R.styleable.VNavBar_text_right);
+        drawableRight = a.getDrawable(R.styleable.VNavBar_title_drawable_right);
+        drawableLeft = a.getDrawable(R.styleable.VNavBar_title_drawable_back);
+        drawableShare = a.getDrawable(R.styleable.VNavBar_title_drawable_share);
+        titleSize = a.getDimension(R.styleable.VNavBar_title_size
                 , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 17, getResources().getDisplayMetrics()));
-        subtextSize = a.getDimension(R.styleable.VTitle_title_subtext_size
+        subtextSize = a.getDimension(R.styleable.VNavBar_title_subtext_size
                 , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
-        enableRight = a.getBoolean(R.styleable.VTitle_enable_right, false);
-        enableShare = a.getBoolean(R.styleable.VTitle_enable_share, false);
-        enableBack = a.getBoolean(R.styleable.VTitle_enable_back, true);
+        enableRight = a.getBoolean(R.styleable.VNavBar_enable_right, false);
+        enableShare = a.getBoolean(R.styleable.VNavBar_enable_share, false);
+        enableBack = a.getBoolean(R.styleable.VNavBar_enable_back, true);
         a.recycle();
     }
 

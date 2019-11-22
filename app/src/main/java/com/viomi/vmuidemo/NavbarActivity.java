@@ -4,27 +4,25 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.viomi.vmui.VTitle;
+import com.viomi.vmui.VNavBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TitleActivity extends BaseActivity implements View.OnClickListener {
+public class NavbarActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.title1)
-    VTitle title1;
+    VNavBar title1;
     @BindView(R.id.title2)
-    VTitle title2;
+    VNavBar title2;
     @BindView(R.id.title3)
-    VTitle title3;
+    VNavBar title3;
     @BindView(R.id.title4)
-    VTitle title4;
+    VNavBar title4;
     @BindView(R.id.title5)
-    VTitle title5;
+    VNavBar title5;
     @BindView(R.id.title6)
-    VTitle title6;
+    VNavBar title6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

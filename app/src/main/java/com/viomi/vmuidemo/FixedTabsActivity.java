@@ -100,7 +100,7 @@ public class FixedTabsActivity extends BaseActivity {
 
             @Override
             public void onTabReselected(int index) {
-//                mTabSegment.hideSignCountView(index);
+
             }
 
             @Override

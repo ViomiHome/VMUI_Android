@@ -22,7 +22,7 @@
         <attr name="text_color" format="reference" />
         <attr name="subtext_size" format="dimension" />
     </declare-styleable>
-    <declare-styleable name="VTitle">
+    <declare-styleable name="VNavBar">
         <attr name="title_style" format="enum">
             <enum name="light" value="0" />
             <enum name="dark" value="1" />

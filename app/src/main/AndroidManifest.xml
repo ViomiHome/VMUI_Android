@@ -25,7 +25,7 @@
         <activity android:name=".FixedTabsActivity" />
         <activity android:name=".DarkTabsActivity" />
         <activity android:name=".ScrollTabsActivity" />
-        <activity android:name=".TitleActivity" />
+        <activity android:name=".NavbarActivity" />
         <activity android:name=".ButtonActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

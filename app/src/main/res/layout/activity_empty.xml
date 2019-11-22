@@ -6,7 +6,7 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <com.viomi.vmui.VTitle
+    <com.viomi.vmui.VNavBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:text_title="标题" />

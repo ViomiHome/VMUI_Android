@@ -3,15 +3,12 @@ package com.viomi.vmuidemo;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.viomi.vmui.Dialog.VDialog;
 import com.viomi.vmui.Dialog.VDialogAction;
@@ -78,7 +75,7 @@ public class MainActivity extends BaseActivity {
                         startActivity(new Intent(getBaseContext(), ButtonActivity.class));
                         break;
                     case 2:
-                        startActivity(new Intent(getBaseContext(), TitleActivity.class));
+                        startActivity(new Intent(getBaseContext(), NavbarActivity.class));
                         break;
                     case 3:
                         startActivity(new Intent(getBaseContext(), TabsActivity.class));
