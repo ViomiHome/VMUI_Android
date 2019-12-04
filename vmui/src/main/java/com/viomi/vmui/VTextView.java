@@ -38,7 +38,7 @@ public class VTextView extends AppCompatTextView {
         super.setPressed(pressed);
         if (isEnabled())
             if (pressed) {
-                setAlpha(0.5f);
+                setAlpha(0.6f);
             } else {
                 setAlpha(1f);
             }

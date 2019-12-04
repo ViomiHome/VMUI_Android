@@ -22,7 +22,7 @@
             android:scaleType="centerInside"
             android:src="@mipmap/back_black"
             android:text="操作"
-            android:textColor="@color/viomi_green"
+            android:textColor="@color/text_green"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -34,7 +34,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="16dp"
             android:gravity="center_vertical"
-            android:textColor="@color/viomi_green"
+            android:textColor="@color/text_green"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -87,7 +87,7 @@
                 android:minWidth="28dp"
                 android:scaleType="centerInside"
                 android:src="@mipmap/right_black"
-                android:textColor="@color/viomi_green"
+                android:textColor="@color/text_green"
                 android:textSize="15sp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -100,7 +100,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginRight="16dp"
                 android:gravity="center_vertical"
-                android:textColor="@color/viomi_green"
+                android:textColor="@color/text_green"
                 android:textSize="15sp" />
         </FrameLayout>
 

@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
@@ -289,7 +288,7 @@ public class VDialog extends Dialog {
                 mTextView.setTextColor(context.getResources().getColor(R.color.content_gray));
                 //Linkify.addLinks(mTextView, Linkify.ALL);
                 mTextView.setLinksClickable(true);
-                mTextView.setLinkTextColor(context.getResources().getColor(R.color.viomi_green));
+                mTextView.setLinkTextColor(context.getResources().getColor(R.color.text_green));
                 if (hasTitle()) {
                     lp2.setMargins(lr, top, lr, bottom);
                     mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);

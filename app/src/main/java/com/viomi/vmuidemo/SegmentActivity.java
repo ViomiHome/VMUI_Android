@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -81,8 +80,8 @@ public class SegmentActivity extends BaseActivity {
         tab01.showSignCountView(getBaseContext(), 0);
         mTabSegment0.addTab(tab00);
         mTabSegment0.addTab(tab01);
-        mTabSegment0.setDefaultSelectedColor(getResources().getColor(R.color.viomi_green));
-        mTabSegment0.setDefaultNormalColor(getResources().getColor(R.color.viomi_green));
+        mTabSegment0.setDefaultSelectedColor(getResources().getColor(R.color.text_green));
+        mTabSegment0.setDefaultNormalColor(getResources().getColor(R.color.text_green));
         mTabSegment0.setIndicatorSelectedColor(getResources().getColor(R.color.white));
         mTabSegment0.setIndicatorDrawable(getResources().getDrawable(R.drawable.segment_indicator));
         mTabSegment0.selectTab(0);
@@ -107,8 +106,8 @@ public class SegmentActivity extends BaseActivity {
         mTabSegment.addTab(tab1);
         mTabSegment.addTab(tab2);
         mTabSegment.addTab(tab3);
-        mTabSegment.setDefaultSelectedColor(getResources().getColor(R.color.viomi_green));
-        mTabSegment.setDefaultNormalColor(getResources().getColor(R.color.viomi_green));
+        mTabSegment.setDefaultSelectedColor(getResources().getColor(R.color.text_green));
+        mTabSegment.setDefaultNormalColor(getResources().getColor(R.color.text_green));
         mTabSegment.setIndicatorSelectedColor(getResources().getColor(R.color.white));
         mTabSegment.setIndicatorDrawable(getResources().getDrawable(R.drawable.segment_indicator));
         mTabSegment.setupWithViewPager(mContentViewPager, false);
@@ -139,7 +138,7 @@ public class SegmentActivity extends BaseActivity {
         TextView textView = new TextView(getBaseContext());
         textView.setGravity(Gravity.CENTER);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-        textView.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.viomi_green));
+        textView.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.text_green));
         textView.setText("第" + (position + 1) + "页");
         return textView;
     }

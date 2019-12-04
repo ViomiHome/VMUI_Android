@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:search_hint="预设信息"
-        app:search_cancel_textsize="13sp"
         app:search_cancel_text="取消"/>
 
     <com.viomi.vmui.VTextView

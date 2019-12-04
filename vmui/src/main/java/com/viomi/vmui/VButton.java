@@ -12,12 +12,20 @@ import android.view.LayoutInflater;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
 public class VButton extends LinearLayout {
+    public final static int STYLE_NONE = -1;
+    public final static int STYLE_BLACK_STROKE = 0;
+    public final static int STYLE_BLACK_FILL = 1;
+    public final static int STYLE_GREEN_STORKE = 2;
+    public final static int STYLE_GREEN_FILL = 3;
+    public final static int STYLE_RED_STROKE = 4;
+    public final static int STYLE_RED_FILL = 5;
+    public final static int STYLE_UNENABLE = 6;
+
     int button_style;
     public TextView tvContent, tvSubcontent;
     public ImageView iv;
@@ -49,51 +57,50 @@ public class VButton extends LinearLayout {
         iv = findViewById(R.id.iv);
         initAttrs(attrs);
         init();
-        setFocusable(true);
-        setClickable(true);
     }
 
     private void init() {
         switch (button_style) {
-            case -1:
+            case STYLE_NONE:
                 tvContent.setTextColor(textColor);
                 tvSubcontent.setTextColor(textColor);
                 break;
-            case 0:
+            case STYLE_BLACK_STROKE:
                 tvContent.setTextColor(getResources().getColor(R.color.title_gray));
                 tvSubcontent.setTextColor(getResources().getColor(R.color.title_gray));
                 setBackgroundResource(R.drawable.black_stoke);
                 break;
-            case 1:
+            case STYLE_BLACK_FILL:
                 tvContent.setTextColor(getResources().getColor(R.color.white));
                 tvSubcontent.setTextColor(getResources().getColor(R.color.white));
                 setBackgroundResource(R.drawable.black_fill);
                 break;
-            case 2:
-                tvContent.setTextColor(getResources().getColor(R.color.viomi_green));
-                tvSubcontent.setTextColor(getResources().getColor(R.color.viomi_green));
+            case STYLE_GREEN_STORKE:
+                tvContent.setTextColor(getResources().getColor(R.color.text_green));
+                tvSubcontent.setTextColor(getResources().getColor(R.color.text_green));
                 setBackgroundResource(R.drawable.blue_stoke);
                 break;
-            case 3:
+            case STYLE_GREEN_FILL:
                 tvContent.setTextColor(getResources().getColor(R.color.white));
                 tvSubcontent.setTextColor(getResources().getColor(R.color.white));
                 setBackgroundResource(R.drawable.blue_fill);
                 break;
-            case 4:
-                tvContent.setTextColor(getResources().getColor(R.color.price_red));
-                tvSubcontent.setTextColor(getResources().getColor(R.color.price_red));
+            case STYLE_RED_STROKE:
+                tvContent.setTextColor(getResources().getColor(R.color.red_stroke_text));
+                tvSubcontent.setTextColor(getResources().getColor(R.color.red_stroke_text));
                 setBackgroundResource(R.drawable.red_stoke);
                 break;
-            case 5:
+            case STYLE_RED_FILL:
                 tvContent.setTextColor(getResources().getColor(R.color.white));
                 tvSubcontent.setTextColor(getResources().getColor(R.color.white));
                 setBackgroundResource(R.drawable.red_fill);
                 break;
-            case 6:
-                tvContent.setTextColor(textColor);
-                tvSubcontent.setTextColor(textColor);
-                setBackgroundResource(backgroundResId);
+            case STYLE_UNENABLE:
+                tvContent.setTextColor(getResources().getColor(R.color.tips_gray));
+                tvSubcontent.setTextColor(getResources().getColor(R.color.tips_gray));
+                setBackgroundResource(R.drawable.btn_unenable);
                 break;
+
         }
         if (!TextUtils.isEmpty(text_content)) {
             tvContent.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
@@ -143,7 +150,13 @@ public class VButton extends LinearLayout {
                 mAnimator.cancel();
             mAnimator = null;
         }
-
+        if (button_style == STYLE_UNENABLE) {
+            setFocusable(false);
+            setClickable(false);
+        } else {
+            setFocusable(true);
+            setClickable(true);
+        }
     }
 
     @Override
@@ -161,7 +174,7 @@ public class VButton extends LinearLayout {
             return;
         TypedArray a = getContext().obtainStyledAttributes(attrs,
                 R.styleable.VButton);
-        button_style = a.getInt(R.styleable.VButton_button_style, -1);
+        button_style = a.getInt(R.styleable.VButton_button_style, 0);
         text_content = a.getString(R.styleable.VButton_text_content);
         text_sub = a.getString(R.styleable.VButton_text_sub);
         drawable_right = a.getDrawable(R.styleable.VButton_drawable_right);
@@ -175,7 +188,8 @@ public class VButton extends LinearLayout {
                 , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 14, getResources().getDisplayMetrics()));
         subTextSize = a.getDimension(R.styleable.VButton_subtext_size
                 , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 11, getResources().getDisplayMetrics()));
-        textColor = a.getColor(R.styleable.VButton_text_color, Color.BLACK);
+        textColor = a.getColor(R.styleable.VButton_text_color, getResources().getColor(R.color.title_gray));
+        setEnabled(a.getBoolean(R.styleable.VButton_enable, true));
         a.recycle();
     }
 
@@ -185,7 +199,7 @@ public class VButton extends LinearLayout {
         super.setPressed(pressed);
         if (isEnabled())
             if (pressed) {
-                setAlpha(0.5f);
+                setAlpha(0.6f);
             } else {
                 setAlpha(1f);
             }

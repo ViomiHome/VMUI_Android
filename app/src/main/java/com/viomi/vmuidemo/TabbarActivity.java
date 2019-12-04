@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -97,7 +96,7 @@ public class TabbarActivity extends BaseActivity {
         mTabSegment.addTab(tab0);
         mTabSegment.addTab(tab1);
         mTabSegment.addTab(tab2);
-        mTabSegment.setDefaultSelectedColor(getResources().getColor(R.color.viomi_green));
+        mTabSegment.setDefaultSelectedColor(getResources().getColor(R.color.text_green));
         mTabSegment.setDefaultNormalColor(getResources().getColor(R.color.tips_gray));
         mTabSegment.setupWithViewPager(mContentViewPager, false);
         mTabSegment.setHasIndicator(false);
@@ -129,7 +128,7 @@ public class TabbarActivity extends BaseActivity {
         TextView textView = new TextView(getBaseContext());
         textView.setGravity(Gravity.CENTER);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-        textView.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.viomi_green));
+        textView.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.text_green));
         textView.setText("第" + (position + 1) + "页");
         return textView;
     }

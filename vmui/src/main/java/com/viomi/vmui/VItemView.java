@@ -88,13 +88,14 @@ public class VItemView extends LinearLayout {
         TypedArray a = getContext().obtainStyledAttributes(attrs,
                 R.styleable.VItemView);
         style = a.getInt(R.styleable.VItemView_item_style, 0);
-        item_lefttitle_textsize =  a.getDimension(R.styleable.VItemView_item_lefttitle_textsize
+        item_subrighttitle = a.getString(R.styleable.VItemView_item_subrighttitle);
+        item_lefttitle_textsize = a.getDimension(R.styleable.VItemView_item_lefttitle_textsize
                 , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 14, getResources().getDisplayMetrics()));
-        item_righttitle_textsize =  a.getDimension(R.styleable.VItemView_item_righttitle_textsize
-                , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 13, getResources().getDisplayMetrics()));
-        item_subrighttitle_textsize =  a.getDimension(R.styleable.VItemView_item_subrighttitle_textsize
+        item_righttitle_textsize = a.getDimension(R.styleable.VItemView_item_righttitle_textsize
+                , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, TextUtils.isEmpty(item_subrighttitle) ? 13 : 14, getResources().getDisplayMetrics()));
+        item_subrighttitle_textsize = a.getDimension(R.styleable.VItemView_item_subrighttitle_textsize
                 , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
-        item_sublefttitle_textsize =  a.getDimension(R.styleable.VItemView_item_sublefttitle_textsize
+        item_sublefttitle_textsize = a.getDimension(R.styleable.VItemView_item_sublefttitle_textsize
                 , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
         item_lefttitle_textcolor = a.getColor(R.styleable.VItemView_item_lefttitle_textcolor
                 , getResources().getColor(R.color.title_gray));
@@ -106,7 +107,7 @@ public class VItemView extends LinearLayout {
                 , getResources().getColor(R.color.tips_gray));
         item_lefttitle = a.getString(R.styleable.VItemView_item_lefttitle);
         item_righttitle = a.getString(R.styleable.VItemView_item_righttitle);
-        item_subrighttitle = a.getString(R.styleable.VItemView_item_subrighttitle);
+
         item_sublefttitle = a.getString(R.styleable.VItemView_item_sublefttitle);
         item_button = a.getString(R.styleable.VItemView_item_button);
         item_text_redot = a.getBoolean(R.styleable.VItemView_item_text_redot, false);
@@ -295,11 +296,15 @@ public class VItemView extends LinearLayout {
 
     public void setItem_subrighttitle(String item_subrighttitle) {
         this.item_subrighttitle = item_subrighttitle;
+        tvRightSubtitle.setVisibility(TextUtils.isEmpty(item_subrighttitle) ? GONE : VISIBLE);
+        item_righttitle_textsize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, TextUtils.isEmpty(item_subrighttitle) ? 13 : 14, getResources().getDisplayMetrics());
+        tvRightSubtitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, item_subrighttitle_textsize);
         init();
     }
 
     public void setItem_sublefttitle(String item_sublefttitle) {
         this.item_sublefttitle = item_sublefttitle;
+        tvLeftSubtitle.setVisibility(TextUtils.isEmpty(item_sublefttitle) ? GONE : VISIBLE);
         init();
     }
 

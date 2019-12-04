@@ -120,7 +120,7 @@
                 android:thumb="@drawable/thumb"
                 android:track="@drawable/switch_drawable"
                 android:visibility="gone"
-                app:tintColor="@color/viomi_green" />
+                app:tintColor="@color/text_green" />
 
             <com.viomi.vmui.VButton
                 android:id="@+id/button"

@@ -8,9 +8,9 @@
 
     <com.viomi.vmui.VVerticalTabSegment
         android:id="@+id/tabSegment"
-        android:layout_width="80dp"
+        android:layout_width="@dimen/tab_width"
         android:layout_height="match_parent"
-        app:seg_indicator_width="3dp" />
+        app:seg_indicator_width="@dimen/normal_btn_height" />
 
     <View
         android:layout_width="1px"

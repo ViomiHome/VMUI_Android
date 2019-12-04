@@ -99,7 +99,7 @@ public class MainActivity extends BaseActivity {
                                 })
                                 .setHeadImage(R.mipmap.ic_launcher)
                                 .setTitle("弹窗标题")
-                                .setMessage("弹窗内容，告知当前状态、信息和解决方法，联系电话：18529271705")
+                                .setMessage("弹窗内容，告知当前状态、信息和解决方法，联系电话：18888888888")
                                 .showDialog();
                         break;
                     case 8:

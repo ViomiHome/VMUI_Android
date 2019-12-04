@@ -1,6 +1,7 @@
 package com.viomi.vmuidemo;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -19,6 +20,8 @@ public class SearchBarActivity extends BaseActivity {
         setContentView(R.layout.activity_search_bar);
         searchBar = findViewById(R.id.search_bar);
         textView = findViewById(R.id.text);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("SearchBar");
         searchBar.setListner(new VSearchBar.OnSearchListner() {
             @Override
             public void onTextChanged(CharSequence s) {
@@ -42,5 +45,14 @@ public class SearchBarActivity extends BaseActivity {
                 searchBar.clearInput();
             }
         });
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

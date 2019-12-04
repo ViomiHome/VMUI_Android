@@ -1,129 +1,238 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="15dp"
-    tools:context=".ButtonActivity">
+    android:layout_height="match_parent">
 
-    <com.viomi.vmui.VButton
-        android:id="@+id/vb"
-        android:layout_width="110dp"
-        android:layout_height="44dp"
-        app:button_style="green_fill"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:text_content="默认按钮" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="15dp">
 
-    <com.viomi.vmui.VButton
-        android:id="@+id/vb1"
-        android:layout_width="110dp"
-        android:layout_height="44dp"
-        android:layout_marginLeft="15dp"
-        app:button_style="green_stroke"
-        app:layout_constraintLeft_toRightOf="@+id/vb"
-        app:layout_constraintTop_toTopOf="parent"
-        app:text_content="标题"
-        app:text_sub="辅助文字" />
+        <TextView
+            android:id="@+id/tv0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选取的是较为通用的6种"
+            android:textColor="#ff999999"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.viomi.vmui.VButton
+            android:id="@+id/vb4"
+            android:layout_width="110dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="15dp"
+            app:button_style="red_fill"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv0"
+            app:text_content="主要按钮红" />
+        <com.viomi.vmui.VButton
+            android:id="@+id/vb41"
+            android:layout_width="110dp"
+            android:layout_height="44dp"
+            android:layout_marginLeft="15dp"
+            app:button_style="red_stroke"
+            app:layout_constraintLeft_toRightOf="@+id/vb4"
+            app:layout_constraintBottom_toBottomOf="@+id/vb4"
+            app:text_content="次要按钮红" />
+
+        <com.viomi.vmui.VButton
+            android:id="@+id/vb"
+            android:layout_width="@dimen/normal_btn_width"
+            android:layout_height="@dimen/normal_btn_height"
+            android:layout_marginTop="10dp"
+            app:button_style="black_stroke"
+            android:layout_marginLeft="15dp"
+            app:layout_constraintBottom_toBottomOf="@+id/vb3"
+            app:layout_constraintLeft_toRightOf="@+id/vb3"
+            app:text_content="次要按钮黑" />
 
 
-    <com.viomi.vmui.VButton
-        android:id="@+id/vb3"
-        android:layout_width="110dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="15dp"
-        app:button_style="red_stroke"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vb"
-        app:text_content="按钮" />
+        <com.viomi.vmui.VButton
+            android:id="@+id/vb3"
+            android:layout_width="110dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="15dp"
+            app:button_style="black_fill"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vb4"
+            app:text_content="主要按钮黑" />
 
-    <com.viomi.vmui.VButton
-        android:id="@+id/vb4"
-        android:layout_width="110dp"
-        android:layout_height="44dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        app:button_style="red_fill"
-        app:layout_constraintLeft_toRightOf="@+id/vb3"
-        app:layout_constraintTop_toBottomOf="@+id/vb"
-        app:text_content="按钮" />
+        <com.viomi.vmui.VButton
+            android:id="@+id/vb1"
+            android:layout_width="110dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="15dp"
+            app:button_style="green_fill"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vb3"
+            app:text_content="主要按钮绿" />
+        <com.viomi.vmui.VButton
+            android:id="@+id/vb11"
+            android:layout_width="110dp"
+            android:layout_height="44dp"
+            android:layout_marginLeft="15dp"
+            app:button_style="green_stroke"
+            app:layout_constraintLeft_toRightOf="@+id/vb1"
+            app:layout_constraintBottom_toBottomOf="@+id/vb1"
+            app:text_content="次要按钮绿" />
+
+        <com.viomi.vmui.VButton
+            android:id="@+id/vb31"
+            android:layout_width="110dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="15dp"
+            app:button_style="unenable"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vb1"
+            app:text_content="失效按钮" />
 
 
-    <com.viomi.vmui.VButton
-        android:id="@+id/vb2"
-        android:layout_width="110dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="15dp"
-        app:button_style="green_fill"
-        app:drawable_right="@mipmap/icon_loading_white"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vb3"
-        app:text_content="加载中…" />
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="禁用"
+            android:textColor="#ff999999"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vb31" />
 
-    <com.viomi.vmui.VButton
-        android:id="@+id/vb5"
-        android:layout_width="110dp"
-        android:layout_height="44dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        app:button_style="black_fill"
-        app:layout_constraintLeft_toRightOf="@+id/vb2"
-        app:layout_constraintTop_toBottomOf="@+id/vb3"
-        app:text_content="按钮" />
+        <com.viomi.vmui.VButton
+            android:id="@+id/vb21"
+            android:layout_width="110dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="15dp"
+            app:button_style="green_fill"
+            app:enable="false"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv2"
+            app:text_content="禁用状态" />
 
-    <com.viomi.vmui.VButton
-        android:id="@+id/vb6"
-        android:layout_width="110dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="15dp"
-        app:button_style="green_fill"
-        app:drawable_right="@mipmap/icon_loading_white"
-        app:isloading="true"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vb2" />
+        <TextView
+            android:id="@+id/tv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="图标"
+            android:textColor="#ff999999"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vb21" />
 
-    <com.viomi.vmui.VButton
-        android:id="@+id/vb7"
-        android:layout_width="110dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="15dp"
-        app:button_style="green_fill"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/vb6"
-        app:text_content="失效按钮" />
+        <com.viomi.vmui.VButton
+            android:id="@+id/vb6"
+            android:layout_width="110dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="15dp"
+            app:button_style="green_fill"
+            app:drawable_right="@mipmap/icon_loading_white"
+            app:isloading="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv3" />
 
-    <com.viomi.vmui.VButton
-        android:id="@+id/vb8"
-        android:layout_width="110dp"
-        android:layout_height="44dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        app:button_style="red_fill"
-        app:layout_constraintLeft_toRightOf="@+id/vb7"
-        app:layout_constraintTop_toBottomOf="@+id/vb6"
-        app:text_content="失效按钮" />
+        <com.viomi.vmui.VButton
+            android:id="@+id/vb61"
+            android:layout_width="110dp"
+            android:layout_height="44dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            app:button_style="green_fill"
+            app:drawable_right="@mipmap/icon_loading_white"
+            app:layout_constraintBottom_toBottomOf="@+id/vb6"
+            app:layout_constraintLeft_toRightOf="@+id/vb6"
+            app:text_content="标题" />
 
-    <com.viomi.vmui.VButton
-        android:id="@+id/vb9"
-        android:layout_width="100dp"
-        android:layout_height="36dp"
-        android:layout_marginTop="15dp"
-        app:button_style="green_fill"
-        app:layout_constraintLeft_toLeftOf="@+id/vb7"
-        app:layout_constraintTop_toBottomOf="@+id/vb7"
-        app:text_content="小号按钮"
-        app:text_size="14sp" />
-    <com.viomi.vmui.VButton
-        android:id="@+id/vb10"
-        android:layout_width="72dp"
-        android:layout_height="31dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="26dp"
-        app:button_style="green_fill"
-        app:layout_constraintLeft_toRightOf="@+id/vb9"
-        app:layout_constraintTop_toBottomOf="@+id/vb7"
-        app:text_content="迷你按钮"
-        app:text_size="12sp" />
+        <TextView
+            android:id="@+id/tv4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="点击"
+            android:textColor="#ff999999"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vb61" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.viomi.vmui.VButton
+            android:id="@+id/vb7"
+            android:layout_width="110dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="15dp"
+            app:button_style="green_fill"
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv4"
+            app:text_content="点击状态" />
+
+
+        <TextView
+            android:id="@+id/tv5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="尺寸"
+            android:textColor="#ff999999"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vb7" />
+
+        <com.viomi.vmui.VButton
+            android:id="@+id/vb90"
+            android:layout_width="110dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="15dp"
+            app:button_style="green_fill"
+            app:layout_constraintLeft_toLeftOf="@+id/tv5"
+            app:layout_constraintTop_toBottomOf="@+id/tv5"
+            app:text_content="普通按钮" />
+
+        <com.viomi.vmui.VButton
+            android:id="@+id/vb9"
+            android:layout_width="@dimen/small_btn_width"
+            android:layout_height="@dimen/small_btn_height"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            app:button_style="green_fill"
+            app:layout_constraintBottom_toBottomOf="@+id/vb90"
+            app:layout_constraintLeft_toRightOf="@+id/vb90"
+            app:text_content="小号按钮" />
+
+        <com.viomi.vmui.VButton
+            android:id="@+id/vb10"
+            android:layout_width="@dimen/mini_btn_width"
+            android:layout_height="@dimen/mini_btn_height"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="15dp"
+            app:button_style="green_fill"
+            app:layout_constraintBottom_toBottomOf="@+id/vb90"
+            app:layout_constraintLeft_toRightOf="@+id/vb9"
+            app:text_content="迷你按钮"
+            app:text_size="@dimen/mini_textsize" />
+
+        <TextView
+            android:id="@+id/tv6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="副标题"
+            android:textColor="#ff999999"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vb90" />
+
+        <com.viomi.vmui.VButton
+            android:id="@+id/vb91"
+            android:layout_width="110dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="15dp"
+            app:button_style="green_fill"
+            app:layout_constraintLeft_toLeftOf="@+id/tv6"
+            app:layout_constraintTop_toBottomOf="@+id/tv6"
+            app:text_content="普通按钮"
+            app:text_sub="辅助文字" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

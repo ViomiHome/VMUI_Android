@@ -10,6 +10,7 @@
             <enum name="green_fill" value="3" />
             <enum name="red_stroke" value="4" />
             <enum name="red_fill" value="5" />
+            <enum name="unenable" value="6" />
         </attr>
         <attr name="text_content" format="string" />
         <attr name="text_sub" format="string" />
@@ -21,6 +22,7 @@
         <attr name="text_size" format="dimension" />
         <attr name="text_color" format="reference" />
         <attr name="subtext_size" format="dimension" />
+        <attr name="enable" format="boolean" />
     </declare-styleable>
     <declare-styleable name="VNavBar">
         <attr name="title_style" format="enum">

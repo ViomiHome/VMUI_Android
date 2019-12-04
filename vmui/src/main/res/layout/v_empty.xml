@@ -23,14 +23,14 @@
             android:layout_gravity="bottom|center_horizontal"
             android:layout_marginBottom="28dp"
             android:visibility="gone"
-            app:barColor="@color/viomi_green"
+            app:barColor="@color/text_green"
             app:barWidth="4dp"
             app:circleColor="@color/white"
             app:rimColor="@color/divider_gray"
             app:rimWidth="4dp"
             app:spinSpeed="3dp"
             app:text="0"
-            app:textColor="@color/viomi_green"
+            app:textColor="@color/text_green"
             app:textSize="14sp"
             app:unitTextSize="14sp" />
     </FrameLayout>

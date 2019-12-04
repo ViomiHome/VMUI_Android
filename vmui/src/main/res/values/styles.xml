@@ -3,9 +3,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/viomi_green</item>
-        <item name="colorPrimaryDark">@color/viomi_green</item>
-        <item name="colorAccent">@color/viomi_green</item>
+        <item name="colorPrimary">@color/text_green</item>
+        <item name="colorPrimaryDark">@color/text_green</item>
+        <item name="colorAccent">@color/text_green</item>
     </style>
 
     <style name="textview_14">
@@ -88,14 +88,14 @@
     </style>
 
     <style name="VMUI.Dialog.Action">
-        <item name="android:textColor">@color/viomi_green</item>
+        <item name="android:textColor">@color/text_green</item>
         <item name="android:textSize">16sp</item>
         <item name="android:gravity">center</item>
         <item name="android:minWidth">64dp</item>
         <item name="android:background">@color/main_action_color</item>
         <item name="dialog_action_button_padding_horizontal">12dp</item>
         <item name="dialog_action_icon_space">6dp</item>
-        <item name="dialog_positive_action_text_color">@color/viomi_green</item>
+        <item name="dialog_positive_action_text_color">@color/text_green</item>
         <item name="dialog_negative_action_text_color">@color/tips_gray</item>
         <item name="dialog_danger_action_text_color">@color/danger_red</item>
         <item name="dialog_common_action_text_color">@color/title_gray</item>
@@ -109,7 +109,7 @@
         <item name="android:shadowColor">@color/divider_gray</item>
         <item name="android:shadowDx">0</item>
         <item name="android:shadowDy">1</item>
-        <item name="dialog_positive_action_text_color">@color/viomi_green</item>
+        <item name="dialog_positive_action_text_color">@color/text_green</item>
         <item name="dialog_negative_action_text_color">@color/tips_gray</item>
         <item name="dialog_danger_action_text_color">@color/danger_red</item>
         <item name="dialog_common_action_text_color">@color/title_gray</item>

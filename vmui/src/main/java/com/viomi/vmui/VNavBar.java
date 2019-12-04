@@ -98,8 +98,8 @@ public class VNavBar extends ConstraintLayout {
             drawableShare = getResources().getDrawable(R.mipmap.share_black);
             tvTitle.setTextColor(getResources().getColor(R.color.title_gray));
             tvSubTitle.setTextColor(getResources().getColor(R.color.content_gray_light));
-            tvBack.setTextColor(getResources().getColor(R.color.viomi_green));
-            tvRight.setTextColor(getResources().getColor(R.color.viomi_green));
+            tvBack.setTextColor(getResources().getColor(R.color.text_green));
+            tvRight.setTextColor(getResources().getColor(R.color.text_green));
         } else {
             clContainer.setBackgroundColor(Color.BLACK);
             drawableLeft = getResources().getDrawable(R.mipmap.back_white);

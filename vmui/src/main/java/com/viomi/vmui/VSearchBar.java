@@ -79,7 +79,7 @@ public class VSearchBar extends ConstraintLayout {
             tvCancel.setText(textCancel);
         tvCancel.setTextColor(a.getColor(R.styleable.VSearchBar_search_cancel_color, getResources().getColor(R.color.title_gray)));
         tvCancel.setTextSize(TypedValue.COMPLEX_UNIT_PX, a.getDimension(R.styleable.VSearchBar_search_cancel_textsize
-                , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 14, getResources().getDisplayMetrics())));
+                , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 13, getResources().getDisplayMetrics())));
         edtSearch.setTextColor(a.getColor(R.styleable.VSearchBar_search_text_color, getResources().getColor(R.color.title_gray)));
         edtSearch.setTextSize(TypedValue.COMPLEX_UNIT_PX, a.getDimension(R.styleable.VSearchBar_search_textsize
                 , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 13, getResources().getDisplayMetrics())));

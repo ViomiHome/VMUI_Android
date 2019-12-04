@@ -12,17 +12,24 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/viomi_green"
+            android:background="@color/text_green"
             android:gravity="center"
-            android:text="#28beca / viomi green"
+            android:text="#28beca / theme_green"
+            android:textColor="@color/white" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/text_green"
+            android:gravity="center"
+            android:text="#28beca / text_green"
             android:textColor="@color/white" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/price_red"
+            android:background="@color/text_red"
             android:gravity="center"
-            android:text="#EE3333 / price red"
+            android:text="#EE3333 / text red"
             android:textColor="@color/white" />
         <TextView
             android:layout_width="match_parent"

@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -117,7 +116,7 @@ public class ScrollTabsActivity extends BaseActivity {
         TextView textView = new TextView(getBaseContext());
         textView.setGravity(Gravity.CENTER);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-        textView.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.viomi_green));
+        textView.setTextColor(ContextCompat.getColor(getBaseContext(), R.color.text_green));
         textView.setText("第" + (position + 1) + "页");
         return textView;
     }

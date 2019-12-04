@@ -93,7 +93,7 @@ public class VSwitch extends View {
         super(context, attrs, defStyle);
 
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.VSwitch);
-        initTintColor = ta.getColor(R.styleable.VSwitch_tintColor, getResources().getColor(R.color.viomi_green));
+        initTintColor = ta.getColor(R.styleable.VSwitch_tintColor, getResources().getColor(R.color.text_green));
         check = ta.getBoolean(R.styleable.VSwitch_check, false);
         ta.recycle();
         tintColor = Color.WHITE;

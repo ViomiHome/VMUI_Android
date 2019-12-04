@@ -2,18 +2,8 @@ package com.viomi.vmuidemo;
 
 import android.os.Bundle;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-
-import com.viomi.vmui.VTabSegment;
 import com.viomi.vmui.VVerticalTabSegment;
 
 import butterknife.BindView;
@@ -48,7 +38,7 @@ public class VerticalTabsActivity extends BaseActivity {
         VVerticalTabSegment.Tab tab0 = new VVerticalTabSegment.Tab("选项一");
         VVerticalTabSegment.Tab tab1 = new VVerticalTabSegment.Tab("选项二");
         int padding = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 16, getResources().getDisplayMetrics());
-        mTabSegment.setDefaultSelectedColor(getResources().getColor(R.color.viomi_green));
+        mTabSegment.setDefaultSelectedColor(getResources().getColor(R.color.text_green));
         mTabSegment.setDefaultNormalColor(getResources().getColor(R.color.content_gray_light));
         mTabSegment.setIndicatorDrawable(getResources().getDrawable(R.drawable.indicator_ver));
         mTabSegment.setPadding(0, padding, 0, padding);
