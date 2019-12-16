@@ -123,6 +123,8 @@ public class VResHelper {
             } else if (attr == R.styleable.VMUITextCommonStyleDef_android_textStyle) {
                 int styleIndex = a.getInt(attr, -1);
                 textView.setTypeface(null, styleIndex);
+            } else if(attr == R.styleable.VMUITextCommonStyleDef_android_includeFontPadding){
+                textView.setIncludeFontPadding(false);
             }
         }
         textView.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom);

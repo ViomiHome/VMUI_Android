@@ -57,16 +57,17 @@
     <style name="VMUI.ActionSheet.Title">
         <item name="android:textColor">@color/tips_gray</item>
         <item name="android:textSize">13sp</item>
-        <item name="android:ellipsize">end</item>
+        <item name="android:includeFontPadding">false</item>
         <item name="android:lineSpacingExtra">2dp</item>
     </style>
 
     <style name="VMUI.Dialog.Title">
         <item name="android:textColor">@color/title_gray</item>
         <item name="android:textSize">18sp</item>
-        <item name="android:gravity">left</item>
+        <item name="subTitleTextSize">11sp</item>
+        <item name="android:gravity">center</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:ellipsize">end</item>
+        <item name="android:includeFontPadding">false</item>
         <item name="android:lineSpacingExtra">2dp</item>
         <item name="dialog_paddingBottomWhenNotContent">27dp</item>
     </style>
@@ -86,9 +87,11 @@
         <item name="android:textSize">16sp</item>
         <item name="android:gravity">center</item>
         <item name="android:minWidth">64dp</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:background">@color/main_action_color</item>
         <item name="dialog_action_button_padding_horizontal">12dp</item>
         <item name="dialog_action_icon_space">6dp</item>
+        <item name="dialog_common_action_background">@color/white</item>
         <item name="dialog_positive_action_text_color">@color/text_green</item>
         <item name="dialog_negative_action_text_color">@color/tips_gray</item>
         <item name="dialog_danger_action_text_color">@color/danger_red</item>
@@ -103,6 +106,7 @@
         <item name="android:shadowColor">@color/divider_gray</item>
         <item name="android:shadowDx">0</item>
         <item name="android:shadowDy">1</item>
+        <item name="dialog_common_action_background">@color/white</item>
         <item name="dialog_positive_action_text_color">@color/text_green</item>
         <item name="dialog_negative_action_text_color">@color/tips_gray</item>
         <item name="dialog_danger_action_text_color">@color/danger_red</item>

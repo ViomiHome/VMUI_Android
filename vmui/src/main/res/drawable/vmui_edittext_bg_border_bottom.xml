@@ -5,5 +5,5 @@
     <item android:drawable="@color/content_gray_light"/>
     <item
         android:drawable="@color/white"
-        android:bottom="1dp"/>
+        android:bottom="2dp"/>
 </layer-list>
