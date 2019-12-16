@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="13dp"
-                android:scaleType="centerCrop" />
+                android:scaleType="fitXY" />
 
             <LinearLayout
                 android:id="@+id/ll_lefttextview"
@@ -101,6 +101,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
+                    android:scaleType="fitXY"
                     android:src="@mipmap/img_0" />
 
                 <ImageView
@@ -130,8 +131,8 @@
                 android:minWidth="60dp"
                 android:minHeight="31dp"
                 android:visibility="gone"
-                app:text_size="12sp"
-                app:button_style="green_stroke" />
+                app:button_style="green_stroke"
+                app:text_size="12sp" />
 
             <ImageView
                 android:id="@+id/iv_arrow"

@@ -29,14 +29,14 @@
             android:layout_height="50dp"
             android:background="@color/text_red"
             android:gravity="center"
-            android:text="#EE3333 / text red"
+            android:text="#CE3333 / text red"
             android:textColor="@color/white" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/theme_red"
             android:gravity="center"
-            android:text="#CE3333 / theme_red"
+            android:text="##EE3333 / theme_red"
             android:textColor="@color/white" />
 
         <TextView
@@ -100,7 +100,7 @@
             android:layout_height="50dp"
             android:background="@color/bg_gray"
             android:gravity="center"
-            android:text="#f7f8f8 / bg gray"
+            android:text="#f5f6f6 / bg gray"
             android:textColor="@color/title_gray" />
     </LinearLayout>
 </ScrollView>

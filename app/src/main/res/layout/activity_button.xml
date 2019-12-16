@@ -206,7 +206,7 @@
             android:id="@+id/vb10"
             android:layout_width="@dimen/mini_btn_width"
             android:layout_height="@dimen/mini_btn_height"
-            android:layout_marginLeft="26dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
             app:button_style="green_fill"
             app:layout_constraintBottom_toBottomOf="@+id/vb90"
