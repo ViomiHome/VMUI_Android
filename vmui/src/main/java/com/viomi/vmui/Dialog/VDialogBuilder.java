@@ -3,6 +3,8 @@ package com.viomi.vmui.Dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Space;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
@@ -32,9 +35,10 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
 
     private VDialog mDialog;
     protected String mTitle;
-
+    protected String mSubTitle;
     protected Context mContext;
     protected VTextView mTitleView;
+    protected VTextView mSubTitleView;
     private ImageView mHeadImage;
     protected int mImgResId = -1;
     private boolean mCancelable = true;
@@ -45,7 +49,8 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
 
     protected LinearLayout mRootView;
     protected VDialogView mDialogView;
-
+    float titleSize;
+    float subtextSize;
     public VDialogBuilder(Context context) {
         this.mContext = context;
     }
@@ -62,10 +67,28 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
     }
 
     /**
-     * 设置对话框顶部的标题文字
+     * 设置对话框顶部的副标题文字
      */
     public T setTitle(int resId) {
         return setTitle(mContext.getResources().getString(resId));
+    }
+
+    /**
+     * 设置对话框顶部的副标题文字
+     */
+    public T setSubTitle(int resId) {
+        return setSubTitle(mContext.getResources().getString(resId));
+    }
+
+    /**
+     * 设置对话框顶部的标题文字
+     */
+    @SuppressWarnings("unchecked")
+    public T setSubTitle(String subTitle) {
+        if (subTitle != null && subTitle.length() > 0) {
+            this.mSubTitle = subTitle + mContext.getString(R.string.vmui_tool_fixellipsize);
+        }
+        return (T) this;
     }
 
     /**
@@ -98,6 +121,15 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
      */
     protected boolean hasTitle() {
         return mTitle != null && mTitle.length() != 0;
+    }
+
+    /**
+     * 判断对话框是否需要显示subtitle
+     *
+     * @return 是否有title
+     */
+    protected boolean hasSubTitle() {
+        return mSubTitle != null && mSubTitle.length() != 0;
     }
 
     protected boolean hasHeadImage() {
@@ -325,14 +357,13 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
      * 创建顶部的标题区域
      */
     protected void onCreateTitle(VDialog dialog, ViewGroup parent, Context context) {
-        if (hasTitle()) {
-            mTitleView = new VTextView(context);
-            mTitleView.setEnabled(false);
-            mTitleView.setText(mTitle);
-
-            VResHelper.assignTextViewWithAttr(mTitleView, R.attr.dialog_title_style);
-            RelativeLayout rtl = new RelativeLayout(context);
-            RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mTitleView = new VTextView(context);
+        mTitleView.setEnabled(false);
+        mTitleView.setText(mTitle);
+        mTitleView.setId(R.id.vmui_dialog_title_id);
+        VResHelper.assignTextViewWithAttr(mTitleView, R.attr.dialog_title_style);
+        RelativeLayout rtl = new RelativeLayout(context);
+        if (hasTitle() && !hasSubTitle()) {
             RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             lp2.addRule(RelativeLayout.CENTER_HORIZONTAL);
 
@@ -343,10 +374,37 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
                 int top = VDisplayHelper.dp2px(context, 28);
                 lp2.setMargins(0, top, 0, 0);
             }
-
-            rtl.setLayoutParams(lp1);
             mTitleView.setLayoutParams(lp2);
             rtl.addView(mTitleView);
+            parent.addView(rtl);
+        } else if (hasTitle() && hasSubTitle()){
+            mSubTitleView = new VTextView(context);
+            mSubTitleView.setEnabled(false);
+            mSubTitleView.setText(mSubTitle);
+            RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            RelativeLayout.LayoutParams lp3 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            lp2.addRule(RelativeLayout.CENTER_HORIZONTAL);
+            lp3.addRule(RelativeLayout.CENTER_HORIZONTAL);
+            if (hasHeadImage() || hasSubTitle()) {
+                int top1 = VDisplayHelper.dp2px(context, 13);
+                lp2.setMargins(0, top1, 0, 0);
+
+                if(hasSubTitle()){
+                    int top2 = VDisplayHelper.dp2px(context, 2);
+                    lp3.setMargins(0, top2, 0, 0);
+                    lp3.addRule(RelativeLayout.BELOW,R.id.vmui_dialog_title_id);
+                }
+            } else {
+                int top = VDisplayHelper.dp2px(context, 28);
+                lp2.setMargins(0, top, 0, 0);
+            }
+            mTitleView.setLayoutParams(lp2);
+            rtl.addView(mTitleView);
+            if(hasSubTitle()){
+                mSubTitleView.setLayoutParams(lp3);
+                rtl.addView(mSubTitleView);
+
+            }
             parent.addView(rtl);
         }
     }
@@ -366,6 +424,7 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
             int tb = VDisplayHelper.dp2px(context, 16);
             lp2.setMargins(lr, tb, lr, tb);
             lp2.addRule(RelativeLayout.CENTER_HORIZONTAL);
+            lp2.addRule(RelativeLayout.CENTER_VERTICAL);
 
             rtl.setLayoutParams(lp1);
             mTitleView.setLayoutParams(lp2);

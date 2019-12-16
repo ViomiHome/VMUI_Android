@@ -92,7 +92,7 @@ public class VDialogAction {
     private VButton generateActionButton(Context context, CharSequence text, int iconRes) {
         // button 有提供 buttonStyle, 覆盖第三个参数不是好选择
         VButton button = new VButton(context);
-        button.setButton_style(6);
+        button.setButton_style(7);
         button.setMinimumHeight(0);
 
         TypedArray a;
@@ -103,19 +103,19 @@ public class VDialogAction {
         }
         int count = a.getIndexCount();
         int paddingHor = 0;
-        ColorStateList negativeTextColor = null, positiveTextColor = null, commonTextColor = null, dangerTextColor = null;
+        ColorStateList commonBackground = null, negativeTextColor = null, positiveTextColor = null, commonTextColor = null, dangerTextColor = null;
         for (int i = 0; i < count; i++) {
             int attr = a.getIndex(i);
             if (attr == R.styleable.DialogActionStyleDef_android_gravity) {
                 button.setGravity(a.getInt(attr, -1));
             } else if (attr == R.styleable.DialogActionStyleDef_android_textColor) {
-                button.setTextColor(a.getColorStateList(attr).getDefaultColor());
+                button.tvContent.setTextColor(a.getColorStateList(attr).getDefaultColor());
             } else if (attr == R.styleable.DialogActionStyleDef_android_textSize) {
                 button.setTextSize(a.getDimensionPixelSize(attr, 0));
             } else if (attr == R.styleable.DialogActionStyleDef_dialog_action_button_padding_horizontal) {
                 paddingHor = a.getDimensionPixelSize(attr, 0);
             } else if (attr == R.styleable.DialogActionStyleDef_android_background) {
-                button.setBackgroundResId(a.getResourceId(attr,0));
+                button.setBackground(a.getDrawable(attr));
             } else if (attr == R.styleable.DialogActionStyleDef_android_minWidth) {
                 int miniWidth = a.getDimensionPixelSize(attr, 0);
                 button.setMinimumWidth(miniWidth);
@@ -127,6 +127,11 @@ public class VDialogAction {
                 dangerTextColor = a.getColorStateList(attr);
             } else if (attr == R.styleable.DialogActionStyleDef_dialog_common_action_text_color) {
                 commonTextColor = a.getColorStateList(attr);
+            } else if (attr == R.styleable.DialogActionStyleDef_android_textStyle) {
+                int styleIndex = a.getInt(attr, -1);
+                button.tvContent.setTypeface(null, styleIndex);
+            } else if(attr == R.styleable.DialogActionStyleDef_dialog_common_action_background){
+                commonBackground = a.getColorStateList(attr);
             }
         }
 
@@ -142,13 +147,15 @@ public class VDialogAction {
         button.setEnabled(mIsEnabled);
 
         if (mActionProp == ACTION_PROP_NEGATIVE) {
-            button.setTextColor(negativeTextColor.getDefaultColor());
+            button.tvContent.setTextColor(negativeTextColor.getDefaultColor());
         } else if (mActionProp == ACTION_PROP_POSITIVE) {
-            button.setTextColor(positiveTextColor.getDefaultColor());
+            button.tvContent.setTextColor(positiveTextColor.getDefaultColor());
         } else if (mActionProp == ACTION_PROP_DANGER) {
-            button.setTextColor(dangerTextColor.getDefaultColor());
+            button.tvContent.setTextColor(dangerTextColor.getDefaultColor());
+            button.setBackgroundColor(commonBackground.getDefaultColor());
         } else if (mActionProp == ACTION_PROP_COMMON) {
-            button.setTextColor(commonTextColor.getDefaultColor());
+            button.tvContent.setTextColor(commonTextColor.getDefaultColor());
+            button.setBackgroundColor(commonBackground.getDefaultColor());
         }
         return button;
     }

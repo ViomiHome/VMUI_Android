@@ -199,6 +199,7 @@ public class MainActivity extends BaseActivity {
                                 .setBeginTimestamp("2001-01-01")
                                 .setEndTimestamp("2029-05-01")
                                 .setTitle("弹窗标题")
+                                .setSubTitle("副标题")
                                 .showDialog();
                         break;
                     case 13:

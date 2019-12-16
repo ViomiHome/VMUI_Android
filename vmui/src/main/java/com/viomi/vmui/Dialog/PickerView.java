@@ -153,13 +153,14 @@ public class PickerView extends View {
         mHalfHeight = height / 2f;
         //四分之一高
         mQuarterHeight = height / 4f;
-        float maxTextSize = height / 7f;
+        float maxTextSize = height / 5f;
         //最小字体
         mMinTextSize = maxTextSize / 2.2f;
         //字体大小变化范围
         mTextSizeRange = maxTextSize - mMinTextSize;
         //字体间隔
-        mTextSpacing = mMinTextSize * 2.8f;
+        //mTextSpacing = mMinTextSize * 2.8f;
+        mTextSpacing = maxTextSize;
         //一半字体间隔
         mHalfTextSpacing = mTextSpacing / 2f;
     }
@@ -176,7 +177,7 @@ public class PickerView extends View {
         if (mSelectedIndex >= mDataList.size()) return;
 
         // 绘制选中的 text
-        float baseline = drawText(canvas, mDarkColor, mScrollDistance, mDataList.get(mSelectedIndex));
+        float baseline = drawText(canvas, mDarkColor, mScrollDistance, mDataList.get(mSelectedIndex), mSelectedIndex);
         if (mBaseLine == 0) {
             mBaseLine = baseline;
             mTop = mBaseLine + mPaint.getFontMetrics().top;
@@ -185,22 +186,24 @@ public class PickerView extends View {
             mOffsetX = mPaint.measureText(mDataList.get(mSelectedIndex));
         }
         if (mBaseLine != 0) {
-            drawLine(canvas, mDividerColor, mHalfHeight - (mBottom - mTop) / 2 - mPaint.getFontSpacing() / 4);
-            drawLine(canvas, mDividerColor, mHalfHeight + (mBottom - mTop) / 2 + mPaint.getFontSpacing() / 4);
+            drawLine(canvas, mDividerColor, mHalfHeight - mTextSpacing / 2);
+            drawLine(canvas, mDividerColor, mHalfHeight + mTextSpacing / 2);
+            //drawLine(canvas, mDividerColor, mHalfHeight - VDisplayHelper.dpToPx(20));
+            //drawLine(canvas, mDividerColor, mHalfHeight + VDisplayHelper.dpToPx(20));
             mPaint.setColor(mDarkColor);
             drawTipsText(canvas, mDarkColor, mHalfWidth + mOffsetX / 2, mAscent, mTips);
         }
         // 绘制选中上方的 text
         for (int i = 1; i <= mSelectedIndex; i++) {
             drawText(canvas, mDarkColor, mScrollDistance - i * mTextSpacing,
-                    mDataList.get(mSelectedIndex - i));
+                    mDataList.get(mSelectedIndex - i), i);
         }
 
         // 绘制选中下方的 text
         int size = mDataList.size() - mSelectedIndex;
         for (int i = 1; i < size; i++) {
             drawText(canvas, mDarkColor, mScrollDistance + i * mTextSpacing,
-                    mDataList.get(mSelectedIndex + i));
+                    mDataList.get(mSelectedIndex + i), i);
         }
     }
 
@@ -214,10 +217,20 @@ public class PickerView extends View {
         canvas.drawText(text, startX, baseline, mPaint);
     }
 
-    private float drawText(Canvas canvas, int textColor, float offsetY, String text) {
+    private float drawText(Canvas canvas, int textColor, float offsetY, String text, int index) {
         if (TextUtils.isEmpty(text)) return 0;
         //Math.pow(x,y)表示x的y次方
         float scale = 1 - (float) Math.pow(offsetY / mQuarterHeight, 2);
+        if (index == mSelectedIndex) {
+            scale = 1.0f;
+        } else if (index == 1) {
+            scale = 0.6f;
+        } else if (index == 2) {
+            scale = 0.4f;
+        } else if (index == 3) {
+            scale = 0.2f;
+        }
+
         scale = scale < 0 ? 0 : scale;
         if (scale == 1.0f) {
             mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -227,9 +240,15 @@ public class PickerView extends View {
         }
         mPaint.setStyle(Style.FILL);
         mPaint.setTextAlign(Align.CENTER);
-        mPaint.setTextSize(VDisplayHelper.sp2px(mContext, 18));
+        if (text.length() > 6) {
+            mPaint.setTextSize(VDisplayHelper.sp2px(mContext, 16));
+        } else {
+            mPaint.setTextSize(VDisplayHelper.sp2px(mContext, 18));
+        }
+
         mPaint.setColor(textColor);
-        mPaint.setAlpha(TEXT_ALPHA_MIN + (int) (TEXT_ALPHA_RANGE * scale));
+        //mPaint.setAlpha(TEXT_ALPHA_MIN + (int) (TEXT_ALPHA_RANGE * scale));
+        mPaint.setAlpha((int) (255 * scale));
         // text 居中绘制，mHalfHeight + offsetY 是 text 的中心坐标
         Paint.FontMetrics fm = mPaint.getFontMetrics();
         float baseline = mHalfHeight + offsetY - (fm.top + fm.bottom) / 2f;

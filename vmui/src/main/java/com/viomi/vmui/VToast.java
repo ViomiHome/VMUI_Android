@@ -3,6 +3,7 @@ package com.viomi.vmui;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -43,6 +44,7 @@ public class VToast extends Toast {
         vToast.setDuration(duration);
         View view = getToastView(context, text, -1);
         vToast.setView(view);
+        vToast.setGravity(Gravity.BOTTOM,0,280);
         return vToast;
     }
 
@@ -58,6 +60,7 @@ public class VToast extends Toast {
         vToast.setDuration(duration);
         View view = getToastView(context, text, R.mipmap.ic_toast_success);
         vToast.setView(view);
+        vToast.setGravity(Gravity.BOTTOM,0,280);
         return vToast;
     }
 
@@ -73,6 +76,7 @@ public class VToast extends Toast {
         vToast.setDuration(duration);
         View view = getToastView(context,text,R.mipmap.ic_toast_error);
         vToast.setView(view);
+        vToast.setGravity(Gravity.BOTTOM,0,280);
         return vToast;
     }
 
@@ -89,6 +93,7 @@ public class VToast extends Toast {
         vToast.setDuration(duration);
         View view = getToastView(context, text, resId);
         vToast.setView(view);
+        vToast.setGravity(Gravity.BOTTOM,0,280);
         return vToast;
     }
 

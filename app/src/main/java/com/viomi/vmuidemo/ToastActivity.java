@@ -1,6 +1,7 @@
 package com.viomi.vmuidemo;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -42,9 +43,11 @@ public class ToastActivity extends BaseActivity  implements View.OnClickListener
                 break;
             case R.id.btn_success:
                 VToast.makeSuccessText(this,"登陆成功",Toast.LENGTH_SHORT).show();
+
                 break;
             case R.id.btn_error:
-                VToast.makeErrorText(this,"加载失败",Toast.LENGTH_SHORT).show();
+                Toast toast = VToast.makeErrorText(this,"加载失败",Toast.LENGTH_SHORT);
+                toast.show();
                 break;
             case R.id.btn_special:
                 VToast.makeText(this,"这是一个很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的Toast",Toast.LENGTH_SHORT).show();

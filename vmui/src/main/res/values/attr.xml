@@ -178,6 +178,8 @@
         <attr name="android:lineSpacingExtra" />
         <attr name="android:drawablePadding" />
         <attr name="android:textColorHint" />
+        <attr name="android:includeFontPadding" />
+        <attr name="subTitleTextSize" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="VMUIDialogMessageTvCustomDef">
@@ -205,12 +207,14 @@
         <attr name="android:textStyle" />
         <attr name="dialog_action_button_padding_horizontal" format="dimension" />
         <attr name="dialog_action_icon_space" format="dimension" />
+        <attr name="dialog_common_action_background" format="color|reference" />
         <attr name="dialog_positive_action_text_color" format="color|reference" />
         <attr name="dialog_negative_action_text_color" format="color|reference" />
         <attr name="dialog_danger_action_text_color" format="color|reference" />
         <attr name="dialog_common_action_text_color" format="color|reference" />
     </declare-styleable>
 
+    <item name="vmui_dialog_title_id" type="id" />
     <item name="vmui_dialog_edit_input" type="id" />
     <item name="vmui_dialog_edit_right_icon" type="id" />
     <item name="vmui_toast_message" type="id" />

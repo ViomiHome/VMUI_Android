@@ -25,6 +25,7 @@ public class VButton extends LinearLayout {
     public final static int STYLE_RED_STROKE = 4;
     public final static int STYLE_RED_FILL = 5;
     public final static int STYLE_UNENABLE = 6;
+    public final static int STYLE_DIALOG = 7;
 
     int button_style;
     public TextView tvContent, tvSubcontent;
@@ -99,6 +100,11 @@ public class VButton extends LinearLayout {
                 tvContent.setTextColor(getResources().getColor(R.color.tips_gray));
                 tvSubcontent.setTextColor(getResources().getColor(R.color.tips_gray));
                 setBackgroundResource(R.drawable.btn_unenable);
+                break;
+            case STYLE_DIALOG:
+                tvContent.setTextColor(getResources().getColor(R.color.text_green));
+                tvSubcontent.setTextColor(getResources().getColor(R.color.tips_gray));
+                setBackgroundResource(R.drawable.btn_dialog);
                 break;
 
         }

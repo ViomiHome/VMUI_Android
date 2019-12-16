@@ -291,13 +291,13 @@ public class VDialog extends Dialog {
                 mTextView.setLinkTextColor(context.getResources().getColor(R.color.text_green));
                 if (hasTitle()) {
                     lp2.setMargins(lr, top, lr, bottom);
-                    mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
+                    mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
                 } else if (hasHeadImage()) {
                     lp2.setMargins(lr, top, lr, bottom);
-                    mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,14);
+                    mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
                 } else {
                     lp2.setMargins(lr, bottom, lr, bottom);
-                    mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP,15);
+                    mTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
                 }
                 mTextView.setLayoutParams(lp2);
                 rtl.setLayoutParams(lp1);
@@ -401,7 +401,7 @@ public class VDialog extends Dialog {
             mEditText = new AppCompatEditText(context);
             mTxtTips = new VTextView(context);
             mTxtTips.setTextColor(context.getResources().getColor(R.color.tips_gray));
-            mTxtTips.setTextSize(TypedValue.COMPLEX_UNIT_SP,12);
+            mTxtTips.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
             mTxtTips.setText("辅助文字请尽量控制在一行显示");
             MessageDialogBuilder.assignMessageTvWithAttr(context, mEditText, hasTitle(), R.attr.dialog_edit_content_style);
             mEditText.setFocusable(true);
@@ -429,7 +429,7 @@ public class VDialog extends Dialog {
 
             mRightImageView = new ImageView(context);
             mRightImageView.setId(R.id.vmui_dialog_edit_right_icon);
-            mRightImageView.setImageResource(R.mipmap.ic_clear);
+            mRightImageView.setImageResource(R.mipmap.icon_clear);
             mRightImageView.setVisibility(View.GONE);
             mRightImageView.setOnClickListener(this);
             mMainLayout = new RelativeLayout(context);
@@ -527,19 +527,23 @@ public class VDialog extends Dialog {
             super.onCreateTitle(dialog, parent, context);
             RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) this.mTitleView.getLayoutParams();
             int top = VDisplayHelper.dp2px(context, 22);
-            lp.setMargins(0, top, 0, 0);
+            lp.setMargins(0, top, 0, top);
             this.mTitleView.setLayoutParams(lp);
-            this.mTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+            this.mTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
         }
 
         @Override
         protected void onCreateContent(Dialog dialog, ViewGroup parent, Context context) {
+            RelativeLayout view = new RelativeLayout(context);
+            View foreground = new View(context);
             mPickerView = new PickerView(context);
-            mPickerView.setBackground(getBaseContext().getDrawable(R.drawable.dialog_picker_bg));
             mPickerView.setDataList(mData);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, VDisplayHelper.dp2px(mContext, 188));
-            lp.setMargins(0, VDisplayHelper.dp2px(context, 22), 0, 0);
-            mPickerView.setLayoutParams(lp);
+            view.setBackground(getBaseContext().getDrawable(R.drawable.dialog_picker_bg));
+            RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, VDisplayHelper.dp2px(mContext, 206));
+            RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, VDisplayHelper.dp2px(mContext, 206));
+
+            mPickerView.setLayoutParams(lp1);
+            view.setLayoutParams(lp2);
             mPickerView.setOnSelectListener(new PickerView.OnSelectListener() {
                 @Override
                 public void onSelect(View view, String selected) {
@@ -547,7 +551,9 @@ public class VDialog extends Dialog {
                 }
             });
             mPickerView.setSelected(0);
-            parent.addView(mPickerView);
+            view.addView(mPickerView);
+            view.addView(foreground);
+            parent.addView(view);
         }
 
     }
@@ -588,7 +594,7 @@ public class VDialog extends Dialog {
             int top = VDisplayHelper.dp2px(context, 22);
             lp.setMargins(0, top, 0, 0);
             this.mTitleView.setLayoutParams(lp);
-            this.mTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+            this.mTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
         }
 
         @Override
@@ -729,7 +735,7 @@ public class VDialog extends Dialog {
             int top = VDisplayHelper.dp2px(context, 22);
             lp.setMargins(0, top, 0, 0);
             this.mTitleView.setLayoutParams(lp);
-            this.mTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+            this.mTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
         }
 
         @Override
@@ -742,13 +748,14 @@ public class VDialog extends Dialog {
             ll.setBackground(getBaseContext().getDrawable(R.drawable.dialog_picker_bg));
             ll.setOrientation(LinearLayout.HORIZONTAL);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(0, VDisplayHelper.dp2px(context, 10), 0, 0);
+            lp.setMargins(0, VDisplayHelper.dp2px(context, 22), 0, 0);
             ll.setLayoutParams(lp);
-            LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(0, VDisplayHelper.dp2px(mContext, 188));
+            LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(0, VDisplayHelper.dp2px(mContext, 206));
             lp1.weight = 1.0f;
             mProvincePickerView.setLayoutParams(lp1);
             mCityPickerView.setLayoutParams(lp1);
             mDistrictPickerView.setLayoutParams(lp1);
+
             mCityPickerView.setCanShowAnim(false);
             mDistrictPickerView.setCanShowAnim(false);
             mProvincePickerView.setCanScrollLoop(true);
@@ -927,11 +934,25 @@ public class VDialog extends Dialog {
         @Override
         protected void onCreateTitle(VDialog dialog, ViewGroup parent, Context context) {
             super.onCreateTitle(dialog, parent, context);
-            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) this.mTitleView.getLayoutParams();
-            int top = VDisplayHelper.dp2px(context, 22);
-            lp.setMargins(0, top, 0, 0);
-            this.mTitleView.setLayoutParams(lp);
-            this.mTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP,16);
+            RelativeLayout.LayoutParams lp1 = (RelativeLayout.LayoutParams) this.mTitleView.getLayoutParams();
+            RelativeLayout.LayoutParams lp2 = (RelativeLayout.LayoutParams) this.mSubTitleView.getLayoutParams();
+
+            if (!hasSubTitle()) {
+                int top = VDisplayHelper.dp2px(context, 22);
+                lp1.setMargins(0, top, 0, top);
+                this.mTitleView.setLayoutParams(lp1);
+                this.mTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+            } else {
+                int top1 = VDisplayHelper.dp2px(context, 13);
+                lp1.setMargins(0, top1, 0, 0);
+                this.mTitleView.setLayoutParams(lp1);
+                int top2 = VDisplayHelper.dp2px(context, 2);
+                lp2.setMargins(0, top2, 0, top1);
+                this.mSubTitleView.setLayoutParams(lp2);
+                this.mTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                this.mSubTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+                this.mSubTitleView.setTextColor(context.getResources().getColor(R.color.title_gray));
+            }
         }
 
         @Override
@@ -950,11 +971,10 @@ public class VDialog extends Dialog {
             ll.setBackground(getBaseContext().getDrawable(R.drawable.dialog_picker_bg));
             ll.setOrientation(LinearLayout.HORIZONTAL);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(0, VDisplayHelper.dp2px(context, 10), 0, 0);
             ll.setLayoutParams(lp);
-            LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(0, VDisplayHelper.dp2px(mContext, 188));
+            LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(0, VDisplayHelper.dp2px(mContext, 206));
             lp1.weight = 1.0f;
-            LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(0, VDisplayHelper.dp2px(mContext, 188));
+            LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(0, VDisplayHelper.dp2px(mContext, 206));
             lp2.weight = 1.0f;
             mYearPickerView.setLayoutParams(lp1);
             mMonthPickerView.setLayoutParams(lp2);
