@@ -175,6 +175,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 app:item_button="小按钮"
+                app:show_divider="false"
                 app:item_lefttitle="左标题"
                 app:item_style="button" />
 
@@ -233,6 +234,7 @@
                 app:item_arrow="false"
                 app:item_lefttitle="左滑删除"
                 app:item_righttitle="默认"
+                app:enable_swipe_delete="true"
                 app:item_righttitle_textcolor="@color/tips_gray"
                 app:item_style="normal" />
         </LinearLayout>

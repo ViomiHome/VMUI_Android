@@ -1,5 +1,6 @@
 package com.viomi.vmui;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -9,6 +10,9 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewConfiguration;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,6 +34,7 @@ public class VItemView extends LinearLayout {
     public VSwitch vSwitch;
     public VButton mButton;
     public VButton buttonDelete;
+    public View vDivider;
     int style;
     float item_lefttitle_textsize;
     float item_righttitle_textsize;
@@ -43,6 +48,10 @@ public class VItemView extends LinearLayout {
     boolean item_text_redot, item_img_redot, item_select, item_check, item_switch_check, item_arrow;
     int item_src;
     int item_arrow_src;
+    int mScaleTouchSlop;
+
+
+    boolean enableSwipeDelete;
 
     public VItemView(Context context) {
         this(context, null);
@@ -74,9 +83,11 @@ public class VItemView extends LinearLayout {
         vSwitch = findViewById(R.id.vswitch);
         buttonDelete = findViewById(R.id.button_delete);
         mButton = findViewById(R.id.button);
+        vDivider = findViewById(R.id.v_divider);
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) fContent.getLayoutParams();
         layoutParams.width = getResources().getDisplayMetrics().widthPixels;
         fContent.setLayoutParams(layoutParams);
+        mScaleTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
         initAttrs(attrs);
         init();
         setClickable(true);
@@ -117,6 +128,9 @@ public class VItemView extends LinearLayout {
         item_switch_check = a.getBoolean(R.styleable.VItemView_item_switch_check, false);
         item_arrow = a.getBoolean(R.styleable.VItemView_item_arrow, true);
         item_src = a.getResourceId(R.styleable.VItemView_item_src, 0);
+        item_src = a.getResourceId(R.styleable.VItemView_item_src, 0);
+        vDivider.setVisibility(a.getBoolean(R.styleable.VItemView_show_divider, true) ? VISIBLE : GONE);
+        enableSwipeDelete = a.getBoolean(R.styleable.VItemView_enable_swipe_delete, false);
         item_arrow_src = a.getResourceId(R.styleable.VItemView_item_arrow_src, R.mipmap.icon_arrow_bk);
         a.recycle();
     }
@@ -442,5 +456,105 @@ public class VItemView extends LinearLayout {
         return item_src;
     }
 
+    public void showDivider(boolean show) {
+        vDivider.setVisibility(show ? VISIBLE : GONE);
+    }
 
+    public boolean isEnableSwipeDelete() {
+        return enableSwipeDelete;
+    }
+
+    public void setEnableSwipeDelete(boolean enableSwipeDelete) {
+        this.enableSwipeDelete = enableSwipeDelete;
+    }
+
+    float x;
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (!enableSwipeDelete)
+            return super.dispatchTouchEvent(event);
+        if (event.getX() > buttonDelete.getX())
+            return super.dispatchTouchEvent(event);
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                x = event.getX();
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if (Math.abs(x - event.getX()) > mScaleTouchSlop)
+                    getParent().requestDisallowInterceptTouchEvent(true);
+                if (x - event.getX() > mScaleTouchSlop) {
+                    if (llRoot.getScrollX() == buttonDelete.getWidth())
+                        break;
+                    aniTo(0, buttonDelete.getWidth());
+                } else if (x - event.getX() < mScaleTouchSlop) {
+                    if (llRoot.getScrollX() == 0)
+                        break;
+                    aniTo(buttonDelete.getWidth(), 0);
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+
+                break;
+        }
+        return super.dispatchTouchEvent(event);
+    }
+
+    public void closeDelete() {
+        if (llRoot.getScrollX() == 0)
+            return;
+        aniTo(buttonDelete.getWidth(), 0);
+    }
+
+    @Override
+    public boolean performLongClick() {
+        if (Math.abs(getScrollX()) > mScaleTouchSlop) {
+            return false;
+        }
+        return super.performLongClick();
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent event) {
+        if (!enableSwipeDelete)
+            return super.onInterceptTouchEvent(event);
+        if (llRoot.getScrollX() > 0)
+            return true;
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                if (event.getX() > buttonDelete.getX())
+                    return false;
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if (Math.abs(x - event.getX()) > mScaleTouchSlop) {
+                    return true;
+                }
+                break;
+        }
+        return super.onInterceptTouchEvent(event);
+    }
+
+    ValueAnimator animator;
+
+    void aniTo(int start, int end) {
+        if (animator != null && animator.isRunning())
+            return;
+        animator = ValueAnimator.ofInt(start, end);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                llRoot.scrollTo((Integer) animation.getAnimatedValue(), 0);
+            }
+        });
+        animator.setDuration(200);
+        animator.start();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        if (animator != null)
+            animator.cancel();
+        super.onDetachedFromWindow();
+    }
 }

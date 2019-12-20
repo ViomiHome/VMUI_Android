@@ -41,7 +41,8 @@ public class VerticalTabsActivity extends BaseActivity {
         mTabSegment.setDefaultSelectedColor(getResources().getColor(R.color.text_green));
         mTabSegment.setDefaultNormalColor(getResources().getColor(R.color.content_gray_light));
         mTabSegment.setIndicatorDrawable(getResources().getDrawable(R.drawable.indicator_ver));
-        mTabSegment.setPadding(0, padding, 0, padding);
+        mTabSegment.setIndicatorWidthAdjustContent(false);
+//        mTabSegment.setPadding(0, padding, 0, padding);
         mTabSegment.addTab(tab0);
         mTabSegment.addTab(tab1);
         mTabSegment.addTab(new VVerticalTabSegment.Tab("选项三"));
@@ -49,7 +50,6 @@ public class VerticalTabsActivity extends BaseActivity {
         mTabSegment.addTab(new VVerticalTabSegment.Tab("选项五"));
         mTabSegment.addTab(new VVerticalTabSegment.Tab("选项六"));
         mTabSegment.addTab(new VVerticalTabSegment.Tab("选项七"));
-        mTabSegment.setIndicatorWidthAdjustContent(true);
         mTabSegment.setMode(VVerticalTabSegment.MODE_SCROLLABLE);
         mTabSegment.selectTab(0);
     }

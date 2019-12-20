@@ -1,5 +1,6 @@
 package com.viomi.vmui;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -73,13 +74,9 @@ public class VCircleProgress extends View {
     private String uint = "%";//��λ
 
 
-    private Handler spinHandler = new Handler() {
-        /**
-         * This is the code that will increment the progress variable and so
-         * spin the wheel
-         */
+    private Handler spinHandler = new Handler(new Handler.Callback() {
         @Override
-        public void handleMessage(Message msg) {
+        public boolean handleMessage(Message msg) {
             invalidate();
             if (isSpinning) {
                 progress += spinSpeed;
@@ -88,9 +85,9 @@ public class VCircleProgress extends View {
                 }
                 spinHandler.sendEmptyMessageDelayed(0, delayMillis);
             }
-            // super.handleMessage(msg);
+            return true;
         }
-    };
+    });
 
     /**
      * The constructor for the VCircleProgress
@@ -320,15 +317,34 @@ public class VCircleProgress extends View {
         spinHandler.sendEmptyMessage(0);
     }
 
+    ValueAnimator animator;
+
     /**
      * Set the progress to a specific value
      */
-    public void setProgress(int i) {
+    public void setProgress(final int i) {
 
         setText("" + i);
         isSpinning = false;
-        progress = (int) ((((float) i) * 360) / 100);
-        spinHandler.sendEmptyMessage(0);
+        animator = ValueAnimator.ofInt(0, i);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                int process = (int) animation.getAnimatedValue();
+                progress = (int) ((((float) process) * 360) / 100);
+                spinHandler.sendEmptyMessage(0);
+            }
+        });
+        animator.setDuration(500);
+        animator.start();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        if (animator != null)
+            animator.cancel();
+        super.onDetachedFromWindow();
     }
 
     public void setProgressColor(int color) {

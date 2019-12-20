@@ -543,6 +543,7 @@ public class VTabSegment extends HorizontalScrollView {
                     smoothScrollBy(nowView.getRight() - realWidth - getScrollX(), 0);
                 }
             }
+
             mCurrentSelectedIndex = index;
             mIsInSelectTab = false;
             layoutIndicator(nowModel, true);
@@ -987,6 +988,7 @@ public class VTabSegment extends HorizontalScrollView {
 
         @Override
         public void onPageSelected(final int position) {
+            Log.d(TAG, "onPageSelected   " + "position:" + position);
             final VTabSegment tabSegment = mTabSegmentRef.get();
             if (tabSegment != null && tabSegment.mPendingSelectedIndex != NO_POSITION) {
                 tabSegment.mPendingSelectedIndex = position;
@@ -1460,14 +1462,11 @@ public class VTabSegment extends HorizontalScrollView {
         if (mCurrentSelectedIndex != NO_POSITION && mMode == MODE_SCROLLABLE) {
             TabAdapter tabAdapter = getAdapter();
             final TabItemView view = tabAdapter.getViews().get(mCurrentSelectedIndex);
-            if (getScrollX() > view.getLeft()) {
-                scrollTo(view.getLeft(), 0);
-            } else {
-                int realWidth = getWidth() - getPaddingRight() - getPaddingLeft();
-                if (getScrollX() + realWidth < view.getRight()) {
-                    scrollBy(view.getRight() - realWidth - getScrollX(), 0);
-                }
-            }
+            //选中项居中处理
+            int middleWidth = getWidth() / 2;
+            int viewMiddle = view.getLeft() + view.getWidth() / 2 - getScrollX();
+            int x = viewMiddle - middleWidth + getPaddingLeft();
+            smoothScrollBy(x, 0);
         }
     }
 

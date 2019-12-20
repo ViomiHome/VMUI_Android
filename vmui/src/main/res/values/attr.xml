@@ -137,6 +137,8 @@
         <attr name="item_check" format="boolean" />
         <attr name="item_switch_check" format="boolean" />
         <attr name="item_arrow" format="boolean" />
+        <attr name="show_divider" format="boolean" />
+        <attr name="enable_swipe_delete" format="boolean" />
         <attr name="item_arrow_src" format="reference" />
     </declare-styleable>
     <declare-styleable name="VSwitch">

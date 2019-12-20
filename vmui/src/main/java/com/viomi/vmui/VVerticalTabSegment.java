@@ -215,8 +215,8 @@ public class VVerticalTabSegment extends ScrollView {
         mIndicatorRight = array.getBoolean(R.styleable.VTabSegment_seg_indicator_top, false);
         mDefaultTabIconPosition = array.getInt(R.styleable.VTabSegment_seg_tab_icon_position, ICON_POSITION_LEFT);
         mMode = array.getInt(R.styleable.VTabSegment_seg_mode, MODE_FIXED);
-        mItemSpaceInScrollMode = array.getDimensionPixelSize(R.styleable.VTabSegment_seg_itemspace_inscroll,
-                getResources().getDimensionPixelSize(R.dimen.segment_itemspace));
+//        mItemSpaceInScrollMode = array.getDimensionPixelSize(R.styleable.VTabSegment_seg_itemspace_inscroll,
+//                getResources().getDimensionPixelSize(R.dimen.segment_itemspace));
         array.recycle();
 
         mContentLayout = new Container(context);
@@ -1425,7 +1425,7 @@ public class VVerticalTabSegment extends ScrollView {
             mTextView.setEllipsize(TextUtils.TruncateAt.MIDDLE);
             // 用于提供给customView布局用
             mTextView.setId(R.id.tab_segment_item_id);
-            mTextView.setMinimumHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, context.getResources().getDisplayMetrics()));
+            mTextView.setMinimumHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 47, context.getResources().getDisplayMetrics()));
             LayoutParams tvLp = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             tvLp.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
             addView(mTextView, tvLp);

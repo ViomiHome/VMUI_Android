@@ -32,6 +32,10 @@ public class VButton extends LinearLayout {
     public ImageView iv;
     String text_content, text_sub;
     Drawable drawable_right;
+
+
+
+    Drawable drawable_loading;
     boolean isloading;
     float drawablePadding;
     float textPadding;
@@ -56,6 +60,7 @@ public class VButton extends LinearLayout {
         tvContent = findViewById(R.id.tv_content);
         tvSubcontent = findViewById(R.id.tv_subcontent);
         iv = findViewById(R.id.iv);
+        drawable_loading = getResources().getDrawable(R.mipmap.icon_loading_white);
         initAttrs(attrs);
         init();
     }
@@ -122,13 +127,13 @@ public class VButton extends LinearLayout {
         } else {
             tvSubcontent.setVisibility(GONE);
         }
-        if (drawable_right != null) {
+        if (drawable_right != null || isloading) {
             iv.setVisibility(VISIBLE);
-            iv.setImageDrawable(drawable_right);
             LinearLayout.LayoutParams layoutParams = (LayoutParams) iv.getLayoutParams();
             layoutParams.rightMargin = (int) drawablePadding;
             iv.setLayoutParams(layoutParams);
             if (isloading) {
+                iv.setImageDrawable(drawable_loading);
                 if (mAnimator == null) {
                     mAnimator = ValueAnimator.ofInt(0, 365);
                     mAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -146,6 +151,7 @@ public class VButton extends LinearLayout {
                     mAnimator.start();
                 }
             } else {
+                iv.setImageDrawable(drawable_right);
                 if (mAnimator != null)
                     mAnimator.cancel();
                 mAnimator = null;
@@ -304,6 +310,14 @@ public class VButton extends LinearLayout {
 
     public void setBackgroundResId(int backgroundResId) {
         this.backgroundResId = backgroundResId;
+        init();
+    }
+    public Drawable getDrawable_loading() {
+        return drawable_loading;
+    }
+
+    public void setDrawable_loading(Drawable drawable_loading) {
+        this.drawable_loading = drawable_loading;
         init();
     }
 }

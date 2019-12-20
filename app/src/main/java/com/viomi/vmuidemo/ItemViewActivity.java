@@ -30,7 +30,7 @@ public class ItemViewActivity extends BaseActivity {
     VItemView tvDelete;
     @BindView(R.id.item_button)
     VItemView itemButton;
-
+    boolean animated;
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -58,25 +58,31 @@ public class ItemViewActivity extends BaseActivity {
 //            }
 //        });
 
-        tvDelete.setOnTouchListener((v, event) -> {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN:
-                    x = event.getX();
-                    break;
-                case MotionEvent.ACTION_MOVE:
-                    if (x - event.getX() > tvDelete.buttonDelete.getWidth() / 2) {
-                        aniTo(0, tvDelete.buttonDelete.getWidth());
-                    } else if (x - event.getX() < -tvDelete.buttonDelete.getWidth() / 2) {
-                        aniTo(tvDelete.buttonDelete.getWidth(), 0);
-                    }
-                    break;
-                case MotionEvent.ACTION_UP:
-                case MotionEvent.ACTION_CANCEL:
-                    x = event.getX();
-                    break;
-            }
-            return true;
-        });
+//        tvDelete.setOnTouchListener((v, event) -> {
+//            switch (event.getAction()) {
+//                case MotionEvent.ACTION_DOWN:
+//                    x = event.getX();
+//                    break;
+//                case MotionEvent.ACTION_MOVE:
+//                    if (x - event.getX() > tvDelete.buttonDelete.getWidth() / 2) {
+//                        if (tvDelete.llRoot.getScrollX() ==tvDelete.buttonDelete.getWidth())
+//                            break;
+//                        aniTo(0, tvDelete.buttonDelete.getWidth());
+//                    } else if (x - event.getX() < -tvDelete.buttonDelete.getWidth() / 2) {
+//                        if (tvDelete.llRoot.getScrollX() == 0)
+//                            break;
+//                        aniTo(tvDelete.buttonDelete.getWidth(), 0);
+//                    }
+//                    break;
+//                case MotionEvent.ACTION_UP:
+//                case MotionEvent.ACTION_CANCEL:
+//                    x = event.getX();
+//                    animated = false;
+//                    break;
+//            }
+//            return true;
+//        });
+
         select1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,13 +114,13 @@ public class ItemViewActivity extends BaseActivity {
     ValueAnimator animator;
 
     void aniTo(int start, int end) {
+        animated = true;
         if (animator != null && animator.isRunning())
             return;
         animator = ValueAnimator.ofInt(start, end);
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-
                 tvDelete.llRoot.scrollTo((Integer) animation.getAnimatedValue(), 0);
             }
         });

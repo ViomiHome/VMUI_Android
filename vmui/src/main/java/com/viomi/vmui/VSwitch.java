@@ -130,8 +130,9 @@ public class VSwitch extends View {
                     return;
                 float value = (float) animation.getAnimatedValue();
                 curRate = value;
-                if (borderRect != null)
-                    cx = (int) (borderRect.left + radius + borderWith / 2 + (borderRect.right - borderRect.left - radius * 2 - borderWith) * value);
+                if (borderRect != null) {
+                    cx = initX + (int) ((with - borderWith - radius - initX) * value);
+                }
                 tintColor = RGBColorTransform(value, Color.WHITE, initTintColor);
                 borderColor = RGBColorTransform(value, initBorderColor, initTintColor);
                 invalidate();
@@ -165,8 +166,10 @@ public class VSwitch extends View {
 
     @Override
     protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
         isAttachedToWindow = false;
+        if (valueAnimator != null)
+            valueAnimator.cancel();
+        super.onDetachedFromWindow();
 
     }
 
@@ -175,6 +178,7 @@ public class VSwitch extends View {
     RectF borderRect;
     Paint paint;
     int radius;
+    int initX;
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -183,8 +187,9 @@ public class VSwitch extends View {
         height = h;
         rect = new RectF(0, 0, w, h);
         borderRect = new RectF(borderWith, borderWith / 2, w - borderWith, h - borderWith / 2);
-        radius = height / 2 - borderWith;
-        cx = (int) (borderRect.left + radius + borderWith / 2);
+        radius = (height - borderWith * 2) / 2;
+        initX = radius + borderWith + borderWith / 2;
+        cx = initX;
     }
 
     public void setTintColor(int tintColor) {
