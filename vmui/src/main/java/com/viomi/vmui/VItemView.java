@@ -260,6 +260,7 @@ public class VItemView extends LinearLayout {
     }
 
 
+
     public void setItem_lefttitle_textsize(float item_lefttitle_textsize) {
         this.item_lefttitle_textsize = item_lefttitle_textsize;
         init();
