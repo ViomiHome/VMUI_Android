@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Logger;
 
 /**
  * 说明：内容选择器，例如年月日、省市区等
@@ -196,14 +197,14 @@ public class PickerView extends View {
         // 绘制选中上方的 text
         for (int i = 1; i <= mSelectedIndex; i++) {
             drawText(canvas, mDarkColor, mScrollDistance - i * mTextSpacing,
-                    mDataList.get(mSelectedIndex - i), i);
+                    mDataList.get(mSelectedIndex - i), mSelectedIndex - i);
         }
 
         // 绘制选中下方的 text
         int size = mDataList.size() - mSelectedIndex;
         for (int i = 1; i < size; i++) {
             drawText(canvas, mDarkColor, mScrollDistance + i * mTextSpacing,
-                    mDataList.get(mSelectedIndex + i), i);
+                    mDataList.get(mSelectedIndex + i), mSelectedIndex + i);
         }
     }
 
@@ -221,13 +222,14 @@ public class PickerView extends View {
         if (TextUtils.isEmpty(text)) return 0;
         //Math.pow(x,y)表示x的y次方
         float scale = 1 - (float) Math.pow(offsetY / mQuarterHeight, 2);
-        if (index == mSelectedIndex) {
+        int temp = Math.abs(mSelectedIndex - index);
+        if (temp == 0) {
             scale = 1.0f;
-        } else if (index == 1) {
+        } else if (temp == 1) {
             scale = 0.6f;
-        } else if (index == 2) {
+        } else if (temp == 2) {
             scale = 0.4f;
-        } else if (index == 3) {
+        } else if (temp == 3) {
             scale = 0.2f;
         }
 
@@ -255,7 +257,6 @@ public class PickerView extends View {
 
         canvas.drawText(text, mHalfWidth, baseline, mPaint);
         return baseline;
-        //canvas.drawText(text, mHalfWidth, baseline, mPaint);
     }
 
     private void drawLine(Canvas canvas, int lineColor, float startY) {
