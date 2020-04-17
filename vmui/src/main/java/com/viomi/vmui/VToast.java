@@ -19,6 +19,7 @@ import com.viomi.vmui.utils.VDisplayHelper;
 public class VToast extends Toast {
 
     private static ValueAnimator mAnimator;
+    private static VToast vToast;
 
     /**
      * Construct an empty Toast object.  You must call {@link #setView} before you
@@ -45,11 +46,20 @@ public class VToast extends Toast {
      * @return
      */
     public static Toast makeText(Context context, CharSequence text, int duration) {
-        VToast vToast = new VToast(context);
+        VToast vToast = getToast(context);
         vToast.setDuration(duration);
         View view = getToastView(context, text, -1);
         vToast.setView(view);
         vToast.setGravity(Gravity.BOTTOM, 0, 280);
+        return vToast;
+    }
+
+    static VToast getToast(Context context) {
+        if (vToast != null) {
+            vToast.cancel();
+            vToast = null;
+        }
+        vToast = new VToast(context);
         return vToast;
     }
 
@@ -62,7 +72,7 @@ public class VToast extends Toast {
      * @return
      */
     public static Toast makeSuccessText(Context context, CharSequence text, int duration) {
-        VToast vToast = new VToast(context);
+        VToast vToast = getToast(context);
         vToast.setDuration(duration);
         View view = getToastView(context, text, R.mipmap.ic_toast_success);
         vToast.setView(view);
@@ -79,7 +89,7 @@ public class VToast extends Toast {
      * @return
      */
     public static Toast makeErrorText(Context context, CharSequence text, int duration) {
-        VToast vToast = new VToast(context);
+        VToast vToast = getToast(context);
         vToast.setDuration(duration);
         View view = getToastView(context, text, R.mipmap.ic_toast_error);
         vToast.setView(view);
@@ -89,7 +99,7 @@ public class VToast extends Toast {
 
 
     public static Toast makeLoadingToast(Context context, CharSequence text, int duration) {
-        VToast vToast = new VToast(context);
+        VToast vToast = getToast(context);
         vToast.setDuration(duration);
         View view = getToastView(context, text, R.mipmap.icon_loading_white);
         vToast.setView(view);
@@ -119,7 +129,7 @@ public class VToast extends Toast {
      * @return
      */
     public static Toast makeText(Context context, CharSequence text, int duration, int resId) {
-        VToast vToast = new VToast(context);
+        VToast vToast = getToast(context);
         vToast.setDuration(duration);
         View view = getToastView(context, text, resId);
         vToast.setView(view);
