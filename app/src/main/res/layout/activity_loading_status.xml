@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#333333"
+    android:background="@color/bg_gray"
     android:orientation="vertical"
     tools:context=".LoadingStatusActivity">
 
@@ -15,6 +15,7 @@
         app:text_title="加载中…" />
 
     <com.viomi.vmui.VButton
+        android:id="@+id/tv_toast"
         android:layout_width="@dimen/normal_btn_width"
         android:layout_height="@dimen/normal_btn_height"
         android:layout_marginLeft="16dp"
@@ -27,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:text="底部加载"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="15sp" />
 
     <com.viomi.vmui.VLoadingItem
@@ -41,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:text="导航栏加载"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="15sp" />
 
     <com.viomi.vmui.VNavBar
@@ -56,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:text="按钮加载"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="15sp" />
 
     <com.viomi.vmui.VButton

@@ -29,7 +29,7 @@ public class VInputItem extends ConstraintLayout {
     public ImageView ivVisibility;
     public View vDivider;
     boolean error;
-    boolean passVisibility;
+    boolean passVisibility = false;
     boolean isPassword;
     InputMethodManager inputMethodManager;
     TextWatcher textWatcher;
@@ -70,7 +70,10 @@ public class VInputItem extends ConstraintLayout {
                     textWatcher.onTextChanged(text, start, before, count);
                 if (!TextUtils.isEmpty(text))
                     setError(false);
-                ivClear.setVisibility(TextUtils.isEmpty(text) || !edt.isFocused() || lines > 1 ? GONE : VISIBLE);
+                ivClear.setVisibility(TextUtils.isEmpty(text)
+                        || !edt.isFocused()
+                        || lines > 1
+                        ? GONE : VISIBLE);
                 edt.setMinLines(edt.getLineCount());
                 Log.d("VInputItem", "onTextChanged: " + edt.getLineCount());
             }
@@ -90,13 +93,10 @@ public class VInputItem extends ConstraintLayout {
                 requestEditTextFocus();
             if (error)
                 return;
-            if (!hasFocus) {
-                ivClear.setVisibility(GONE);
-            } else if (TextUtils.isEmpty(edt.getText().toString())) {
-                ivClear.setVisibility(GONE);
-            } else {
-                ivClear.setVisibility(VISIBLE);
-            }
+            ivClear.setVisibility(TextUtils.isEmpty(edt.getText().toString())
+                    || !hasFocus
+                    || lines > 1
+                    ? GONE : VISIBLE);
         });
         ivClear.setOnClickListener(v -> {
             if (error)
@@ -104,18 +104,23 @@ public class VInputItem extends ConstraintLayout {
             edt.setText("");
         });
         ivVisibility.setOnClickListener(v -> {
+            passVisibility = !passVisibility;
             setInputType();
+            if (onPasswordVisibilityChangeListener != null)
+                onPasswordVisibilityChangeListener.OnPasswordVisibilityChange(passVisibility);
         });
     }
 
     void setInputType() {
-        passVisibility = !passVisibility;
-        if (onPasswordVisibilityChangeListener != null)
-            onPasswordVisibilityChangeListener.OnPasswordVisibilityChange(passVisibility);
-        edt.setInputType(passVisibility
-                ? InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                : InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        edt.setSelection(edt.getText().toString().length());
+        edt.post(new Runnable() {
+            @Override
+            public void run() {
+                edt.setInputType(passVisibility
+                        ? InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                        : InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                edt.setSelection(edt.getText().toString().length());
+            }
+        });
         ivVisibility.setImageResource(passVisibility ? R.mipmap.icon_input_visibility : R.mipmap.icon_input_invisibility);
     }
 
@@ -137,7 +142,9 @@ public class VInputItem extends ConstraintLayout {
         TypedArray a = getContext().obtainStyledAttributes(attrs,
                 R.styleable.VInputItem);
         isPassword = a.getBoolean(R.styleable.VInputItem_password, false);
-        setInputType();
+        setPassword(isPassword);
+        if (isPassword)
+            setInputType();
         int pos = edt.getSelectionStart();
         edt.setSelection(pos);
         String title = a.getString(R.styleable.VInputItem_title);
@@ -153,6 +160,10 @@ public class VInputItem extends ConstraintLayout {
         a.recycle();
     }
 
+    public void setPassword(boolean password) {
+        isPassword = password;
+        ivVisibility.setVisibility(password ? VISIBLE : GONE);
+    }
 
     public void setOnTextWatcher(TextWatcher textWatcher) {
         this.textWatcher = textWatcher;
