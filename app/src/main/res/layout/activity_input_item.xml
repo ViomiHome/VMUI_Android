@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:orientation="vertical"
+        tools:context=".InputItemActivity">
+
+        <com.viomi.vmui.VInputItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hint="提示语"
+            app:lines="1" />
+
+        <com.viomi.vmui.VInputItem
+            android:id="@+id/item_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:lines="1"
+            app:title="表单报错" />
+
+        <com.viomi.vmui.VInputItem
+            android:id="@+id/item_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hint="提示语"
+            app:lines="1"
+            app:title="单行输入" />
+
+
+        <com.viomi.vmui.VInputItem
+            android:id="@+id/item_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            app:hint="提示语"
+            app:lines="1"
+            app:password="true"
+            app:title="隐藏密码" />
+
+        <com.viomi.vmui.VInputItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="6dp"
+            app:desc="辅助说明文字不设字数限制"
+            app:desc_gravity="bottom"
+            app:hint="提示语"
+            app:lines="1"
+            app:title="单行输入" />
+
+        <com.viomi.vmui.VInputItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="6dp"
+            app:desc="辅助说明文字不设字数限制"
+            app:desc_gravity="top"
+            app:hint="提示语"
+            app:lines="1"
+            app:title="单行输入" />
+
+
+        <com.viomi.vmui.VInputItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            app:hint="提示语"
+            app:title="多行输入" />
+
+        <com.viomi.vmui.VInputItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            app:hint="提示语" />
+
+        <com.viomi.vmui.VInputItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="6dp"
+            app:desc="辅助说明文字不设字数限制"
+            app:desc_gravity="top"
+            app:hint="提示语"
+            app:title="多行输入" />
+
+        <com.viomi.vmui.VInputItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginTop="6dp"
+            app:desc="辅助说明文字不设字数限制"
+            app:desc_gravity="bottom"
+            app:hint="提示语"
+            app:title="多行输入" />
+
+    </LinearLayout>
+</ScrollView>
