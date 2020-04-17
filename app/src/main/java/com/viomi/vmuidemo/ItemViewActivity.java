@@ -4,8 +4,10 @@ import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
+import android.widget.LinearLayout;
+
+import androidx.appcompat.view.menu.MenuView;
 
 import com.viomi.vmui.VItemView;
 
@@ -31,6 +33,8 @@ public class ItemViewActivity extends BaseActivity {
     @BindView(R.id.item_button)
     VItemView itemButton;
     boolean animated;
+    @BindView(R.id.items)
+    LinearLayout items;
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -107,7 +111,6 @@ public class ItemViewActivity extends BaseActivity {
                 radio2.setItemCheck(!radio2.isItemChecked());
             }
         });
-
 
     }
 

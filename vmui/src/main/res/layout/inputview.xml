@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/item_bg"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F8F8FA"
+        android:minHeight="45dp"
+        android:paddingLeft="16dp"
+        android:paddingTop="8dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="20dp"
+        android:textColor="@color/tips_gray"
+        android:textSize="@dimen/item_rowtitle_textsize"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/layout_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/inputview_height"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/tv_desc">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:textColor="@color/title_gray"
+            android:textSize="@dimen/item_bigtitle_textsize" />
+
+        <EditText
+            android:id="@+id/edt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="提示语"
+            android:minHeight="@dimen/inputview_height"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/title_gray"
+            android:textColorHint="@color/tips_gray"
+            android:textCursorDrawable="@drawable/cuesor_drawable"
+            android:textSize="13sp" />
+
+        <ImageView
+            android:id="@+id/iv_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="16dp"
+            android:src="@mipmap/icon_input_clear"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/iv_input_visibility"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingRight="16dp"
+            android:src="@mipmap/icon_input_invisibility"
+            android:visibility="gone" />
+    </LinearLayout>
+
+
+    <View
+        android:id="@+id/v_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="#ECECEE"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

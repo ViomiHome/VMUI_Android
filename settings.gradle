@@ -1,1 +1,1 @@
-include ':app', ':vmui', ':autosize'
+include ':app', ':vmui'

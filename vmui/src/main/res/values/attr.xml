@@ -41,6 +41,9 @@
         <attr name="enable_right" format="boolean" />
         <attr name="enable_share" format="boolean" />
         <attr name="enable_back" format="boolean" />
+        <attr name="nar_isloading" format="boolean" />
+        <attr name="nar_loading_drawable" format="reference" />
+        <attr name="nar_loading_duration" format="integer" />
     </declare-styleable>
     <declare-styleable name="VTabSegment">
         <attr name="seg_selected_color" format="color" />
@@ -144,6 +147,27 @@
     <declare-styleable name="VSwitch">
         <attr name="tintColor" format="color" />
         <attr name="check" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="VInputItem">
+        <attr name="title" format="string" />
+        <attr name="hint" format="string" />
+        <attr name="password" format="boolean" />
+        <attr name="desc" format="string" />
+        <attr name="desc_gravity" format="enum">
+            <enum name="top" value="48" />
+            <enum name="bottom" value="80" />
+        </attr>
+        <attr name="lines" format="integer" />
+    </declare-styleable>
+    <declare-styleable name="VInputTextArea">
+        <attr name="hint_text" format="string" />
+        <attr name="max_count" format="integer" />
+        <attr name="show_count" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="VLoadingItem">
+        <attr name="loading_drawable" format="reference" />
+        <attr name="loading_text" format="string" />
+        <attr name="loadingitem_duration" format="integer" />
     </declare-styleable>
     <declare-styleable name="VDialogView">
         <attr name="dialog_min_width" format="dimension" />

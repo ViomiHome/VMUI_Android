@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.viomi.vmui.Dialog.VDialog;
 import com.viomi.vmui.Dialog.VDialogAction;
 import com.viomi.vmui.VActionSheet;
+import com.viomi.vmui.VPopup;
 import com.viomi.vmui.VToast;
 
 import java.util.ArrayList;
@@ -51,13 +52,17 @@ public class MainActivity extends BaseActivity {
                 , "LocationPicker"
                 , "DatePicker"
                 , "Popup"
-                , "ActionSheet"
+                , "ActionSheet1"
+                , "ActionSheet2"
                 , "ShareSheet"
                 , "Toast"
                 , "SearchBar"
                 , "EmptyPage"
                 , "LoadingPage"
                 , "Itemview"
+                , "Inputitemview"
+                , "InputArea"
+                , "Loading"
         };
         List<String> data = new ArrayList<>();
 
@@ -204,6 +209,18 @@ public class MainActivity extends BaseActivity {
                         break;
                     case 13:
                         //Popup
+                        new VPopup.VPopupBuilder(MainActivity.this)
+                                .setShowCloseImage(true)
+                                .setShowOperateButton(true)
+                                .setViewDismissClickListener(new VPopup.VPopupBuilder.OnViewClickListener() {
+                                    @Override
+                                    public void onViewClick(Dialog dialog) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .showPopup();
+                        break;
+                    case 14:
                         new VActionSheet.MultiButtonActionSheetBuilder(MainActivity.this)
                                 .setTitle("这是一个清晰的描述")
                                 .addItem("按钮1")
@@ -223,18 +240,8 @@ public class MainActivity extends BaseActivity {
                                     }
                                 })
                                 .showActionSheet();
-//                        new VPopup.VPopupBuilder(MainActivity.this)
-//                                .setShowCloseImage(true)
-//                                .setShowOperateButton(true)
-//                                .setViewDismissClickListener(new VPopup.VPopupBuilder.OnViewClickListener() {
-//                                    @Override
-//                                    public void onViewClick(Dialog dialog) {
-//                                        dialog.dismiss();
-//                                    }
-//                                })
-//                                .showPopup();
                         break;
-                    case 14:
+                    case 15:
                         new VActionSheet.MultiButtonActionSheetBuilder(MainActivity.this)
                                 .setTitle("这是一个清晰的描述，可以为一行也可以为两行，这仅仅是一个清晰的描述")
                                 .addAction("危险按钮", VDialogAction.ACTION_PROP_DANGER, new VDialogAction.ActionListener() {
@@ -268,7 +275,7 @@ public class MainActivity extends BaseActivity {
                                 .showActionSheet();
 
                         break;
-                    case 15:
+                    case 16:
                         new VActionSheet.ShareSheetDialogBuilder(MainActivity.this)
                                 .addItem("QQ空间", R.mipmap.ic_launcher)
                                 .addItem("微信", R.mipmap.ic_launcher)
@@ -284,20 +291,29 @@ public class MainActivity extends BaseActivity {
                                 })
                                 .showActionSheet();
                         break;
-                    case 16:
+                    case 17:
                         startActivity(new Intent(getBaseContext(), ToastActivity.class));
                         break;
-                    case 17://SearchBar
+                    case 18://SearchBar
                         startActivity(new Intent(getBaseContext(), SearchBarActivity.class));
                         break;
-                    case 18://EmptyPage
+                    case 19://EmptyPage
                         startActivity(new Intent(getBaseContext(), EmtyActivity.class));
                         break;
-                    case 19://LoadingPage
+                    case 20://LoadingPage
                         startActivity(new Intent(getBaseContext(), LoadingActivity.class));
                         break;
-                    case 20://itemview
+                    case 21://itemview
                         startActivity(new Intent(getBaseContext(), ItemViewActivity.class));
+                        break;
+                    case 22://inputitemview
+                        startActivity(new Intent(getBaseContext(), InputItemActivity.class));
+                        break;
+                    case 23://inputArea
+                        startActivity(new Intent(getBaseContext(), InputAreaActivity.class));
+                        break;
+                    case 24://Loading
+                        startActivity(new Intent(getBaseContext(), LoadingStatusActivity.class));
                         break;
                 }
             }

@@ -4,6 +4,7 @@
     android:id="@+id/ll_root"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:minHeight="@dimen/itemview_row_title"
     android:background="@drawable/item_bg"
     android:orientation="horizontal">
 
@@ -157,7 +158,6 @@
         android:id="@+id/button_delete"
         android:layout_width="60dp"
         android:layout_height="match_parent"
-        android:layout_toRightOf="@+id/f_content"
         android:background="@color/theme_red"
         android:gravity="center"
         android:minWidth="60dp"

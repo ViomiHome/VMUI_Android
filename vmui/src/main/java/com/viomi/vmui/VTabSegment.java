@@ -1430,7 +1430,7 @@ public class VTabSegment extends HorizontalScrollView {
             mTextView.setTextColor(color);
             mTextView.getPaint().setFakeBoldText(isSelected);
             Drawable icon = tab.getNormalIcon();
-            int with = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 28, mTextView.getContext().getResources().getDisplayMetrics());
+            int with = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 29, mTextView.getContext().getResources().getDisplayMetrics());
             if (icon != null)
                 icon.setBounds(0, 0, with, with);
 
@@ -1450,7 +1450,7 @@ public class VTabSegment extends HorizontalScrollView {
                 mTextView.setCompoundDrawables(null, null, null, null);
             } else {
                 mTextView.setCompoundDrawablePadding(
-                        (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 0, getResources().getDisplayMetrics()));
+                        (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics()));
                 setDrawable(mTextView, icon, getTabIconPosition(tab));
             }
         }
