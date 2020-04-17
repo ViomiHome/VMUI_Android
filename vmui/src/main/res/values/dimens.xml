@@ -14,6 +14,7 @@
     <dimen name="itemview_middle_icon">72dp</dimen>
     <dimen name="itemview_big_icon">92dp</dimen>
     <dimen name="itemview_row_title">37dp</dimen>
+    <dimen name="inputview_height">48dp</dimen>
     <dimen name="small_icon_size">25dp</dimen>
     <dimen name="middle_icon_size">45dp</dimen>
     <dimen name="big_icon_size">65dp</dimen>

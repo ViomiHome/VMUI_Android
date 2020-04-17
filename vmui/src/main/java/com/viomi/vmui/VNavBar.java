@@ -1,5 +1,6 @@
 package com.viomi.vmui;
 
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,6 +11,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +21,7 @@ public class VNavBar extends ConstraintLayout {
     public ConstraintLayout clContainer;
     public View vSub;
     public ImageView ivBack;
+    public ImageView ivLoading;
     public TextView tvBack;
     public ImageView ivRight;
     public TextView tvRight;
@@ -42,6 +45,12 @@ public class VNavBar extends ConstraintLayout {
     boolean enableShare;
     boolean enableBack;
 
+
+    Drawable loadingDrawable;
+    boolean isLoading;
+    int loadingDuration;
+    ValueAnimator mAnimator;
+
     public VNavBar(Context context) {
         this(context, null);
     }
@@ -62,6 +71,7 @@ public class VNavBar extends ConstraintLayout {
         ivShare = findViewById(R.id.iv_share);
         ivRight = findViewById(R.id.iv_right);
         tvRight = findViewById(R.id.tv_right);
+        ivLoading = findViewById(R.id.iv_loading);
         initAttrs(attrs);
         init();
     }
@@ -87,8 +97,16 @@ public class VNavBar extends ConstraintLayout {
         enableRight = a.getBoolean(R.styleable.VNavBar_enable_right, false);
         enableShare = a.getBoolean(R.styleable.VNavBar_enable_share, false);
         enableBack = a.getBoolean(R.styleable.VNavBar_enable_back, true);
+        loadingDrawable = a.getDrawable(R.styleable.VNavBar_nar_loading_drawable);
+        if (loadingDrawable == null)
+            loadingDrawable = getResources().getDrawable(R.mipmap.icon_loading_gray);
+        setLoadingDrawable(loadingDrawable);
+        isLoading = a.getBoolean(R.styleable.VNavBar_nar_isloading, false);
+        loadingDuration = a.getInteger(R.styleable.VNavBar_nar_loading_duration, 600);
+        setLoading(isLoading);
         a.recycle();
     }
+
 
     void init() {
         if (bgStyle == 0) {
@@ -132,6 +150,46 @@ public class VNavBar extends ConstraintLayout {
                 ((Activity) getContext()).onBackPressed();
             }
         });
+    }
+
+    public void setLoading(boolean loading) {
+        isLoading = loading;
+        ivLoading.setVisibility(isLoading ? VISIBLE : GONE);
+        if (loading) {
+            rotate();
+        } else {
+            if (mAnimator != null)
+                mAnimator.cancel();
+        }
+    }
+
+    public void setLoadingDrawable(Drawable loadingDrawable) {
+        this.loadingDrawable = loadingDrawable;
+        ivLoading.setImageDrawable(loadingDrawable);
+    }
+
+    public void setLoadingDuration(int loadingDuration) {
+        this.loadingDuration = loadingDuration;
+        if (isLoading)
+            rotate();
+    }
+
+    private void rotate() {
+        if (mAnimator != null)
+            mAnimator.cancel();
+        mAnimator = ValueAnimator.ofInt(0, 365);
+        mAnimator.addUpdateListener(valueAnimator -> ivLoading.setRotation((int) valueAnimator.getAnimatedValue()));
+        mAnimator.setDuration(loadingDuration);
+        mAnimator.setRepeatMode(ValueAnimator.RESTART);
+        mAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        mAnimator.setInterpolator(new LinearInterpolator());
+        mAnimator.start();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (mAnimator != null) mAnimator.cancel();
     }
 
     /**

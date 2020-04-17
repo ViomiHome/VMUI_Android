@@ -40,23 +40,38 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-        <com.viomi.vmui.VTextView
-            android:id="@+id/tv_title"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="100dp"
             android:layout_marginRight="100dp"
-            android:ellipsize="end"
             android:gravity="center"
-            android:textStyle="bold"
-            android:includeFontPadding="false"
-            android:lines="1"
-            android:singleLine="true"
-            android:textColor="#ff2c2c2c"
-            android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_loading"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="6dp"
+                android:visibility="gone" />
+
+            <com.viomi.vmui.VTextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:lines="1"
+                android:singleLine="true"
+                android:text="hhhhhh"
+                android:textColor="#ff2c2c2c"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
 
         <com.viomi.vmui.VImageView
