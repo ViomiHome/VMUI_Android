@@ -80,6 +80,15 @@ public class VToast extends Toast {
         return vToast;
     }
 
+    public static Toast makeLoadingToast(Context context,CharSequence text,int duration){
+        VToast vToast = new VToast(context);
+        vToast.setDuration(duration);
+        View view = getToastView(context,text,R.mipmap.icon_loading_white);
+        vToast.setView(view);
+        vToast.setGravity(Gravity.BOTTOM,0,280);
+        return vToast;
+    }
+
     /**
      * 自定义图标显示内容
      * @param context
@@ -99,7 +108,7 @@ public class VToast extends Toast {
 
     private static View getToastView(Context context, CharSequence text, int resId) {
         RelativeLayout layout = new RelativeLayout(context);
-        layout.setBackground(context.getDrawable(R.drawable.vmui_toast_bg));
+        layout.setBackground(context.getResources().getDrawable(R.drawable.vmui_toast_bg));
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         int lr = VDisplayHelper.dp2px(context, 24);
         int tb = VDisplayHelper.dp2px(context, 12);

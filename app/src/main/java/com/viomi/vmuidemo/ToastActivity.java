@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.viomi.vmui.VToast;
 
-public class ToastActivity extends BaseActivity  implements View.OnClickListener{
+public class ToastActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -20,6 +20,7 @@ public class ToastActivity extends BaseActivity  implements View.OnClickListener
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Toast");
         findViewById(R.id.btn_normal).setOnClickListener(this::onClick);
+        findViewById(R.id.btn_loading).setOnClickListener(this::onClick);
         findViewById(R.id.btn_success).setOnClickListener(this::onClick);
         findViewById(R.id.btn_error).setOnClickListener(this::onClick);
         findViewById(R.id.btn_special).setOnClickListener(this::onClick);
@@ -37,20 +38,24 @@ public class ToastActivity extends BaseActivity  implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_normal:
-                VToast.makeText(this,"这是一个Toast", Toast.LENGTH_SHORT).show();
+                VToast.makeText(this, "这是一个Toast", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.btn_loading:
+                VToast.makeLoadingToast(this, "正在加载...", Toast.LENGTH_SHORT).show();
+                break;
+
             case R.id.btn_success:
-                VToast.makeSuccessText(this,"登陆成功",Toast.LENGTH_SHORT).show();
+                VToast.makeSuccessText(this, "登陆成功", Toast.LENGTH_SHORT).show();
 
                 break;
             case R.id.btn_error:
-                Toast toast = VToast.makeErrorText(this,"加载失败",Toast.LENGTH_SHORT);
+                Toast toast = VToast.makeErrorText(this, "加载失败", Toast.LENGTH_SHORT);
                 toast.show();
                 break;
             case R.id.btn_special:
-                VToast.makeText(this,"这是一个很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的Toast",Toast.LENGTH_SHORT).show();
+                VToast.makeText(this, "这是一个很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的Toast", Toast.LENGTH_SHORT).show();
 
         }
     }

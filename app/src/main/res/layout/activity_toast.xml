@@ -14,7 +14,14 @@
         app:layout_constraintTop_toTopOf="parent"
         app:text_content="普通Toast" />
 
-
+    <com.viomi.vmui.VButton
+        android:id="@+id/btn_loading"
+        android:layout_width="110dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_normal"
+        app:text_content="加载中..."/>
 
     <com.viomi.vmui.VButton
         android:id="@+id/btn_error"
@@ -22,7 +29,7 @@
         android:layout_height="44dp"
         android:layout_marginTop="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_normal"
+        app:layout_constraintTop_toBottomOf="@id/btn_loading"
         app:text_content="加载失败"/>
 
     <com.viomi.vmui.VButton
