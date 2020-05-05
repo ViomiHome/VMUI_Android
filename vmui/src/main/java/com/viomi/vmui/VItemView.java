@@ -36,21 +36,8 @@ public class VItemView extends LinearLayout {
     public VButton buttonDelete;
     public View vDivider;
     int style;
-    float item_lefttitle_textsize;
-    float item_righttitle_textsize;
-    float item_subrighttitle_textsize;
-    float item_sublefttitle_textsize;
-    int item_lefttitle_textcolor;
-    int item_righttitle_textcolor;
-    int item_subrighttitle_textcolor;
-    int item_sublefttitle_textcolor;
-    String item_lefttitle, item_righttitle, item_subrighttitle, item_sublefttitle, item_button;
-    boolean item_text_redot, item_img_redot, item_select, item_check, item_switch_check, item_arrow;
-    int item_src;
-    int item_arrow_src;
     int mScaleTouchSlop;
-
-
+    boolean item_select, item_check, item_switch_check;
     boolean enableSwipeDelete;
 
     public VItemView(Context context) {
@@ -88,8 +75,8 @@ public class VItemView extends LinearLayout {
         layoutParams.width = getResources().getDisplayMetrics().widthPixels;
         fContent.setLayoutParams(layoutParams);
         mScaleTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
-        initAttrs(attrs);
         init();
+        initAttrs(attrs);
         setClickable(true);
     }
 
@@ -98,40 +85,42 @@ public class VItemView extends LinearLayout {
             return;
         TypedArray a = getContext().obtainStyledAttributes(attrs,
                 R.styleable.VItemView);
-        style = a.getInt(R.styleable.VItemView_item_style, 0);
-        item_subrighttitle = a.getString(R.styleable.VItemView_item_subrighttitle);
-        item_lefttitle_textsize = a.getDimension(R.styleable.VItemView_item_lefttitle_textsize
-                , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 14, getResources().getDisplayMetrics()));
-        item_righttitle_textsize = a.getDimension(R.styleable.VItemView_item_righttitle_textsize
-                , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, TextUtils.isEmpty(item_subrighttitle) ? 13 : 14, getResources().getDisplayMetrics()));
-        item_subrighttitle_textsize = a.getDimension(R.styleable.VItemView_item_subrighttitle_textsize
-                , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
-        item_sublefttitle_textsize = a.getDimension(R.styleable.VItemView_item_sublefttitle_textsize
-                , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
-        item_lefttitle_textcolor = a.getColor(R.styleable.VItemView_item_lefttitle_textcolor
-                , getResources().getColor(R.color.title_gray));
-        item_righttitle_textcolor = a.getColor(R.styleable.VItemView_item_righttitle_textcolor
-                , getResources().getColor(R.color.tips_gray));
-        item_subrighttitle_textcolor = a.getColor(R.styleable.VItemView_item_subrighttitle_textcolor
-                , getResources().getColor(R.color.tips_gray));
-        item_sublefttitle_textcolor = a.getColor(R.styleable.VItemView_item_sublefttitle_textcolor
-                , getResources().getColor(R.color.tips_gray));
-        item_lefttitle = a.getString(R.styleable.VItemView_item_lefttitle);
-        item_righttitle = a.getString(R.styleable.VItemView_item_righttitle);
-
-        item_sublefttitle = a.getString(R.styleable.VItemView_item_sublefttitle);
-        item_button = a.getString(R.styleable.VItemView_item_button);
-        item_text_redot = a.getBoolean(R.styleable.VItemView_item_text_redot, false);
-        item_img_redot = a.getBoolean(R.styleable.VItemView_item_img_redot, false);
+        setItem_arrow(a.getBoolean(R.styleable.VItemView_item_arrow, true));
+        setItem_src(a.getResourceId(R.styleable.VItemView_item_src, 0));
         item_select = a.getBoolean(R.styleable.VItemView_item_select, false);
         item_check = a.getBoolean(R.styleable.VItemView_item_check, false);
         item_switch_check = a.getBoolean(R.styleable.VItemView_item_switch_check, false);
-        item_arrow = a.getBoolean(R.styleable.VItemView_item_arrow, true);
-        item_src = a.getResourceId(R.styleable.VItemView_item_src, 0);
-        item_src = a.getResourceId(R.styleable.VItemView_item_src, 0);
+        setStyle(a.getInt(R.styleable.VItemView_item_style, 0));
+        String item_subrighttitle = a.getString(R.styleable.VItemView_item_subrighttitle);
+        setItem_subrighttitle(item_subrighttitle);
+        setItem_lefttitle_textsize(a.getDimension(R.styleable.VItemView_item_lefttitle_textsize
+                , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 14, getResources().getDisplayMetrics())));
+        setItem_righttitle_textsize(a.getDimension(R.styleable.VItemView_item_righttitle_textsize
+                , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, TextUtils.isEmpty(item_subrighttitle) ? 13 : 14, getResources().getDisplayMetrics())));
+        setItem_sublefttitle_textsize(a.getDimension(R.styleable.VItemView_item_sublefttitle_textsize
+                , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics())));
+        setItem_subrighttitle_textsize(a.getDimension(R.styleable.VItemView_item_subrighttitle_textsize
+                , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics())));
+
+        setItem_lefttitle_textcolor(a.getColor(R.styleable.VItemView_item_lefttitle_textcolor
+                , getResources().getColor(R.color.title_gray)));
+        setItem_righttitle_textcolor(a.getColor(R.styleable.VItemView_item_righttitle_textcolor
+                , getResources().getColor(R.color.tips_gray)));
+        setItem_subrighttitle_textcolor(a.getColor(R.styleable.VItemView_item_subrighttitle_textcolor
+                , getResources().getColor(R.color.tips_gray)));
+        setItem_sublefttitle_textcolor(a.getColor(R.styleable.VItemView_item_sublefttitle_textcolor
+                , getResources().getColor(R.color.tips_gray)));
+        setItem_lefttitle(a.getString(R.styleable.VItemView_item_lefttitle));
+        setItem_righttitle(a.getString(R.styleable.VItemView_item_righttitle));
+
+        setItem_sublefttitle(a.getString(R.styleable.VItemView_item_sublefttitle));
+        setItem_button(a.getString(R.styleable.VItemView_item_button));
+        setItem_text_redot(a.getBoolean(R.styleable.VItemView_item_text_redot, false));
+        setItem_img_redot(a.getBoolean(R.styleable.VItemView_item_img_redot, false));
+
         vDivider.setVisibility(a.getBoolean(R.styleable.VItemView_show_divider, true) ? VISIBLE : GONE);
         enableSwipeDelete = a.getBoolean(R.styleable.VItemView_enable_swipe_delete, false);
-        item_arrow_src = a.getResourceId(R.styleable.VItemView_item_arrow_src, R.mipmap.icon_arrow_bk);
+        setItem_arrow_src(a.getResourceId(R.styleable.VItemView_item_arrow_src, R.mipmap.icon_arrow_bk));
         a.recycle();
     }
 
@@ -141,7 +130,97 @@ public class VItemView extends LinearLayout {
         mButton.setVisibility(GONE);
         vSwitch.setVisibility(GONE);
         ivLeft.setVisibility(GONE);
-        ivArrow.setImageResource(item_arrow_src);
+    }
+
+
+    public void setItem_lefttitle_textsize(float item_lefttitle_textsize) {
+        tvLeftTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, item_lefttitle_textsize);
+    }
+
+    public void setItem_righttitle_textsize(float item_righttitle_textsize) {
+        tvRightTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, item_righttitle_textsize);
+    }
+
+    public void setItem_subrighttitle_textsize(float item_subrighttitle_textsize) {
+        tvRightSubtitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, item_subrighttitle_textsize);
+    }
+
+    public void setItem_sublefttitle_textsize(float item_sublefttitle_textsize) {
+        tvLeftSubtitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, item_sublefttitle_textsize);
+    }
+
+    public void setItem_lefttitle_textcolor(int item_lefttitle_textcolor) {
+        tvLeftTitle.setTextColor(item_lefttitle_textcolor);
+    }
+
+    public void setItem_righttitle_textcolor(int item_righttitle_textcolor) {
+        tvRightTitle.setTextColor(item_righttitle_textcolor);
+    }
+
+    public void setItem_subrighttitle_textcolor(int item_subrighttitle_textcolor) {
+        tvRightSubtitle.setTextColor(item_subrighttitle_textcolor);
+    }
+
+    public void setItem_sublefttitle_textcolor(int item_sublefttitle_textcolor) {
+        tvLeftSubtitle.setTextColor(item_sublefttitle_textcolor);
+    }
+
+    public void setItem_lefttitle(String item_lefttitle) {
+        tvLeftTitle.setText(item_lefttitle);
+    }
+
+    public void setItem_righttitle(String item_righttitle) {
+        tvRightTitle.setText(item_righttitle);
+    }
+
+    public void setItem_subrighttitle(String item_subrighttitle) {
+        tvRightSubtitle.setVisibility(TextUtils.isEmpty(item_subrighttitle) ? GONE : VISIBLE);
+        tvRightSubtitle.setText(item_subrighttitle);
+    }
+
+    public void setItem_sublefttitle(String item_sublefttitle) {
+        tvLeftSubtitle.setVisibility(TextUtils.isEmpty(item_sublefttitle) ? GONE : VISIBLE);
+        tvLeftSubtitle.setText(item_sublefttitle);
+    }
+
+    public void setItem_button(String item_button) {
+        mButton.setText_content(item_button);
+    }
+
+    public void setItem_text_redot(boolean item_text_redot) {
+        ivTextReddot.setVisibility(item_text_redot ? VISIBLE : GONE);
+    }
+
+    public void setItem_img_redot(boolean item_img_redot) {
+        ivReddot.setVisibility(item_img_redot ? VISIBLE : GONE);
+    }
+
+    public void setItemSelect(boolean item_select) {
+        this.item_select = item_select;
+        ivRight.setImageResource(item_select ? R.mipmap.icon_check : 0);
+    }
+
+    public void setItemCheck(boolean item_check) {
+        this.item_check = item_check;
+        ivLeft.setImageResource(item_check ? R.mipmap.icon_check_radio : R.mipmap.icon_uncheck_radio);
+    }
+
+    public void setItem_switch_check(boolean item_switch_check) {
+        this.item_switch_check = item_switch_check;
+        vSwitch.setCheck(item_switch_check);
+    }
+
+    public void setItem_arrow(boolean item_arrow) {
+        ivArrow.setVisibility(item_arrow ? VISIBLE : GONE);
+    }
+
+    public void setItem_src(int item_src) {
+        ivLeft.setImageResource(item_src);
+        ivRight.setImageResource(item_src);
+    }
+
+    public void setStyle(int style) {
+        this.style = style;
         switch (style) {
             case 0://normal
                 ivLeft.setVisibility(GONE);
@@ -155,7 +234,7 @@ public class VItemView extends LinearLayout {
                 ivLeft.setLayoutParams(layoutParams);
                 llContent.setMinimumHeight((int) getResources().getDimension(R.dimen.itemview_small_icon));
                 layoutRightText.setVisibility(VISIBLE);
-                ivLeft.setImageResource(item_src);
+
                 break;
             case 2://small_icon_right
                 layoutRightImage.setVisibility(VISIBLE);
@@ -165,7 +244,7 @@ public class VItemView extends LinearLayout {
                 ivRight.setLayoutParams(layoutParams1);
                 llContent.setMinimumHeight((int) getResources().getDimension(R.dimen.itemview_small_icon));
                 layoutRightImage.setVisibility(VISIBLE);
-                ivRight.setImageResource(item_src);
+
                 break;
             case 3://middle_icon_left
                 ivLeft.setVisibility(VISIBLE);
@@ -175,7 +254,6 @@ public class VItemView extends LinearLayout {
                 ivLeft.setLayoutParams(layoutParams2);
                 llContent.setMinimumHeight((int) getResources().getDimension(R.dimen.itemview_middle_icon));
                 layoutRightText.setVisibility(VISIBLE);
-                ivLeft.setImageResource(item_src);
                 break;
             case 4://middle_icon_right
                 layoutRightImage.setVisibility(VISIBLE);
@@ -185,7 +263,6 @@ public class VItemView extends LinearLayout {
                 ivRight.setLayoutParams(layoutParams3);
                 llContent.setMinimumHeight((int) getResources().getDimension(R.dimen.itemview_middle_icon));
                 layoutRightImage.setVisibility(VISIBLE);
-                ivRight.setImageResource(item_src);
                 break;
             case 5://big_icon_left
                 ivLeft.setVisibility(VISIBLE);
@@ -195,7 +272,6 @@ public class VItemView extends LinearLayout {
                 ivLeft.setLayoutParams(layoutParams4);
                 llContent.setMinimumHeight((int) getResources().getDimension(R.dimen.itemview_big_icon));
                 layoutRightText.setVisibility(VISIBLE);
-                ivLeft.setImageResource(item_src);
                 break;
             case 6://big_icon_right
                 layoutRightImage.setVisibility(VISIBLE);
@@ -205,32 +281,29 @@ public class VItemView extends LinearLayout {
                 ivRight.setLayoutParams(layoutParams5);
                 llContent.setMinimumHeight((int) getResources().getDimension(R.dimen.itemview_big_icon));
                 layoutRightImage.setVisibility(VISIBLE);
-                ivRight.setImageResource(item_src);
                 break;
             case 7://select
                 layoutRightImage.setVisibility(VISIBLE);
-                item_arrow = false;
-                ivRight.setImageResource(item_select ? R.mipmap.icon_check : 0);
+                setItem_arrow(false);
+                setItemSelect(item_select);
                 break;
             case 8://radio_check
                 ivLeft.setVisibility(VISIBLE);
-                item_arrow = false;
-                ivLeft.setImageResource(item_check ? R.mipmap.icon_check_radio : R.mipmap.icon_uncheck_radio);
+                setItem_arrow(false);
+                setItemCheck(item_check);
                 break;
             case 9://switch
                 vSwitch.setVisibility(VISIBLE);
-                item_arrow = false;
-                vSwitch.setCheck(item_switch_check);
+                setItem_arrow(false);
+                setItem_switch_check(item_switch_check);
                 break;
             case 10://button
-                item_arrow = false;
+                setItem_arrow(false);
                 mButton.setVisibility(VISIBLE);
-                mButton.setText_content(item_button);
-
                 break;
             case 11://row_title
                 llContent.setMinimumHeight((int) getResources().getDimension(R.dimen.itemview_row_title));
-                item_arrow = false;
+                setItem_arrow(false);
                 LinearLayout.LayoutParams layoutParams6 = (LayoutParams) llLefttextview.getLayoutParams();
                 layoutParams6.topMargin = 0;
                 layoutParams6.bottomMargin = 0;
@@ -239,203 +312,16 @@ public class VItemView extends LinearLayout {
                 llRoot.setBackgroundColor(Color.WHITE);
                 break;
         }
-        tvLeftTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, item_lefttitle_textsize);
-        tvRightTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, item_righttitle_textsize);
-        tvLeftSubtitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, item_sublefttitle_textsize);
-        tvRightSubtitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, item_subrighttitle_textsize);
-
-        tvLeftTitle.setTextColor(item_lefttitle_textcolor);
-        tvRightTitle.setTextColor(item_righttitle_textcolor);
-        tvLeftSubtitle.setTextColor(item_sublefttitle_textcolor);
-        tvRightSubtitle.setTextColor(item_subrighttitle_textcolor);
-        tvLeftTitle.setText(item_lefttitle);
-        tvRightTitle.setText(item_righttitle);
-        tvLeftSubtitle.setText(item_sublefttitle);
-        tvRightSubtitle.setText(item_subrighttitle);
-        tvLeftSubtitle.setVisibility(TextUtils.isEmpty(item_sublefttitle) ? GONE : VISIBLE);
-        tvRightSubtitle.setVisibility(TextUtils.isEmpty(item_subrighttitle) ? GONE : VISIBLE);
-        ivTextReddot.setVisibility(item_text_redot ? VISIBLE : GONE);
-        ivReddot.setVisibility(item_img_redot ? VISIBLE : GONE);
-        ivArrow.setVisibility(item_arrow ? VISIBLE : GONE);
-    }
-
-
-
-    public void setItem_lefttitle_textsize(float item_lefttitle_textsize) {
-        this.item_lefttitle_textsize = item_lefttitle_textsize;
-        init();
-    }
-
-    public void setItem_righttitle_textsize(float item_righttitle_textsize) {
-        this.item_righttitle_textsize = item_righttitle_textsize;
-        init();
-    }
-
-    public void setItem_subrighttitle_textsize(float item_subrighttitle_textsize) {
-        this.item_subrighttitle_textsize = item_subrighttitle_textsize;
-    }
-
-    public void setItem_sublefttitle_textsize(float item_sublefttitle_textsize) {
-        this.item_sublefttitle_textsize = item_sublefttitle_textsize;
-        init();
-    }
-
-    public void setItem_lefttitle_textcolor(int item_lefttitle_textcolor) {
-        this.item_lefttitle_textcolor = item_lefttitle_textcolor;
-        init();
-    }
-
-    public void setItem_righttitle_textcolor(int item_righttitle_textcolor) {
-        this.item_righttitle_textcolor = item_righttitle_textcolor;
-        init();
-    }
-
-    public void setItem_subrighttitle_textcolor(int item_subrighttitle_textcolor) {
-        this.item_subrighttitle_textcolor = item_subrighttitle_textcolor;
-    }
-
-    public void setItem_sublefttitle_textcolor(int item_sublefttitle_textcolor) {
-        this.item_sublefttitle_textcolor = item_sublefttitle_textcolor;
-        init();
-    }
-
-    public void setItem_lefttitle(String item_lefttitle) {
-        this.item_lefttitle = item_lefttitle;
-        init();
-    }
-
-    public void setItem_righttitle(String item_righttitle) {
-        this.item_righttitle = item_righttitle;
-        init();
-    }
-
-    public void setItem_subrighttitle(String item_subrighttitle) {
-        this.item_subrighttitle = item_subrighttitle;
-        tvRightSubtitle.setVisibility(TextUtils.isEmpty(item_subrighttitle) ? GONE : VISIBLE);
-        item_righttitle_textsize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, TextUtils.isEmpty(item_subrighttitle) ? 13 : 14, getResources().getDisplayMetrics());
-        tvRightSubtitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, item_subrighttitle_textsize);
-        init();
-    }
-
-    public void setItem_sublefttitle(String item_sublefttitle) {
-        this.item_sublefttitle = item_sublefttitle;
-        tvLeftSubtitle.setVisibility(TextUtils.isEmpty(item_sublefttitle) ? GONE : VISIBLE);
-        init();
-    }
-
-    public void setItem_button(String item_button) {
-        this.item_button = item_button;
-        init();
-    }
-
-    public void setItem_text_redot(boolean item_text_redot) {
-        this.item_text_redot = item_text_redot;
-        init();
-    }
-
-    public void setItem_img_redot(boolean item_img_redot) {
-        this.item_img_redot = item_img_redot;
-        init();
-    }
-
-    public void setItemSelect(boolean item_select) {
-        this.item_select = item_select;
-        init();
-    }
-
-    public void setItemCheck(boolean item_check) {
-        this.item_check = item_check;
-        init();
-    }
-
-    public void setItem_switch_check(boolean item_switch_check) {
-        this.item_switch_check = item_switch_check;
-        init();
-    }
-
-    public void setItem_arrow(boolean item_arrow) {
-        this.item_arrow = item_arrow;
-        init();
-    }
-
-    public void setItem_src(int item_src) {
-        this.item_src = item_src;
-        init();
-    }
-
-    public void setStyle(int style) {
-        this.style = style;
-        init();
     }
 
     public void setItem_arrow_src(int item_arrow_src) {
-        this.item_arrow_src = item_arrow_src;
-        init();
+        ivArrow.setImageResource(item_arrow_src);
     }
 
     public int getStyle() {
         return style;
     }
 
-    public float getItem_lefttitle_textsize() {
-        return item_lefttitle_textsize;
-    }
-
-    public float getItem_righttitle_textsize() {
-        return item_righttitle_textsize;
-    }
-
-    public float getItem_subrighttitle_textsize() {
-        return item_subrighttitle_textsize;
-    }
-
-    public float getItem_sublefttitle_textsize() {
-        return item_sublefttitle_textsize;
-    }
-
-    public int getItem_lefttitle_textcolor() {
-        return item_lefttitle_textcolor;
-    }
-
-    public int getItem_righttitle_textcolor() {
-        return item_righttitle_textcolor;
-    }
-
-    public int getItem_subrighttitle_textcolor() {
-        return item_subrighttitle_textcolor;
-    }
-
-    public int getItem_sublefttitle_textcolor() {
-        return item_sublefttitle_textcolor;
-    }
-
-    public String getItem_lefttitle() {
-        return item_lefttitle;
-    }
-
-    public String getItem_righttitle() {
-        return item_righttitle;
-    }
-
-    public String getItem_subrighttitle() {
-        return item_subrighttitle;
-    }
-
-    public String getItem_sublefttitle() {
-        return item_sublefttitle;
-    }
-
-    public String getItem_button() {
-        return item_button;
-    }
-
-    public boolean isItem_text_redot() {
-        return item_text_redot;
-    }
-
-    public boolean isItem_img_redot() {
-        return item_img_redot;
-    }
 
     public boolean isItemSelected() {
         return item_select;
@@ -449,13 +335,6 @@ public class VItemView extends LinearLayout {
         return item_switch_check;
     }
 
-    public boolean isItem_arrow() {
-        return item_arrow;
-    }
-
-    public int getItem_src() {
-        return item_src;
-    }
 
     public void showDivider(boolean show) {
         vDivider.setVisibility(show ? VISIBLE : GONE);

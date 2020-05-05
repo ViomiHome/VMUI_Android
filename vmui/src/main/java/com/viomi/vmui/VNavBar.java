@@ -32,17 +32,9 @@ public class VNavBar extends ConstraintLayout {
      * 0,light 1,dark
      */
     int bgStyle;
-    String textTitle;
-    String textSub;
-    String textLeft;
-    String textRight;
-    Drawable drawableRight;
-    Drawable drawableLeft;
-    Drawable drawableShare;
     float titleSize;
     float subtextSize;
     boolean enableRight;
-    boolean enableShare;
     boolean enableBack;
 
 
@@ -73,7 +65,6 @@ public class VNavBar extends ConstraintLayout {
         tvRight = findViewById(R.id.tv_right);
         ivLoading = findViewById(R.id.iv_loading);
         initAttrs(attrs);
-        init();
     }
 
 
@@ -82,21 +73,32 @@ public class VNavBar extends ConstraintLayout {
             return;
         TypedArray a = getContext().obtainStyledAttributes(attrs,
                 R.styleable.VNavBar);
-        bgStyle = a.getInt(R.styleable.VNavBar_title_style, 0);
-        textTitle = a.getString(R.styleable.VNavBar_text_title);
-        textSub = a.getString(R.styleable.VNavBar_text_subtitle);
-        textLeft = a.getString(R.styleable.VNavBar_text_back);
-        textRight = a.getString(R.styleable.VNavBar_text_right);
+        setStyle(a.getInt(R.styleable.VNavBar_title_style, 0));
+        setTitle(a.getString(R.styleable.VNavBar_text_title));
+        setSubText(a.getString(R.styleable.VNavBar_text_subtitle));
+        String textLeft = a.getString(R.styleable.VNavBar_text_back);
+        String textRight = a.getString(R.styleable.VNavBar_text_right);
+        tvBack.setText(textLeft);
+        tvRight.setText(textRight);
+        Drawable drawableBack, drawableRight, drawableShare;
+        drawableBack = a.getDrawable(R.styleable.VNavBar_title_drawable_back);
         drawableRight = a.getDrawable(R.styleable.VNavBar_title_drawable_right);
-        drawableLeft = a.getDrawable(R.styleable.VNavBar_title_drawable_back);
         drawableShare = a.getDrawable(R.styleable.VNavBar_title_drawable_share);
+        if (drawableBack != null)
+            ivBack.setImageDrawable(drawableBack);
+        if (drawableRight != null)
+            ivRight.setImageDrawable(drawableRight);
+        if (drawableShare != null)
+            ivShare.setImageDrawable(drawableShare);
         titleSize = a.getDimension(R.styleable.VNavBar_title_size
                 , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 17, getResources().getDisplayMetrics()));
+        tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, titleSize);
         subtextSize = a.getDimension(R.styleable.VNavBar_title_subtext_size
                 , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
-        enableRight = a.getBoolean(R.styleable.VNavBar_enable_right, false);
-        enableShare = a.getBoolean(R.styleable.VNavBar_enable_share, false);
-        enableBack = a.getBoolean(R.styleable.VNavBar_enable_back, true);
+        tvSubTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, subtextSize);
+        enableRight(a.getBoolean(R.styleable.VNavBar_enable_right, false));
+        enableShare(a.getBoolean(R.styleable.VNavBar_enable_share, false));
+        enableBack(a.getBoolean(R.styleable.VNavBar_enable_back, true));
         loadingDrawable = a.getDrawable(R.styleable.VNavBar_nar_loading_drawable);
         if (loadingDrawable == null)
             loadingDrawable = getResources().getDrawable(R.mipmap.icon_loading_gray);
@@ -104,53 +106,10 @@ public class VNavBar extends ConstraintLayout {
         isLoading = a.getBoolean(R.styleable.VNavBar_nar_isloading, false);
         loadingDuration = a.getInteger(R.styleable.VNavBar_nar_loading_duration, 600);
         setLoading(isLoading);
+        setBackOnClickListner(view -> ((Activity) getContext()).finish());
         a.recycle();
     }
 
-
-    void init() {
-        if (bgStyle == 0) {
-            clContainer.setBackgroundColor(Color.WHITE);
-            drawableLeft = getResources().getDrawable(R.mipmap.back_black);
-            drawableRight = getResources().getDrawable(R.mipmap.right_black);
-            drawableShare = getResources().getDrawable(R.mipmap.share_black);
-            tvTitle.setTextColor(getResources().getColor(R.color.title_gray));
-            tvSubTitle.setTextColor(getResources().getColor(R.color.content_gray_light));
-            tvBack.setTextColor(getResources().getColor(R.color.text_green));
-            tvRight.setTextColor(getResources().getColor(R.color.text_green));
-        } else {
-            clContainer.setBackgroundColor(Color.BLACK);
-            drawableLeft = getResources().getDrawable(R.mipmap.back_white);
-            drawableRight = getResources().getDrawable(R.mipmap.right_white);
-            drawableShare = getResources().getDrawable(R.mipmap.share_white);
-            tvTitle.setTextColor(Color.WHITE);
-            tvSubTitle.setTextColor(Color.parseColor("#b2ffffff"));
-            tvBack.setTextColor(Color.WHITE);
-            tvRight.setTextColor(Color.WHITE);
-        }
-        ivRight.setVisibility(enableRight ? VISIBLE : GONE);
-        tvRight.setVisibility(enableRight ? VISIBLE : GONE);
-        ivShare.setVisibility(enableShare ? VISIBLE : GONE);
-        ivBack.setImageDrawable(drawableLeft);
-        ivRight.setImageDrawable(drawableRight);
-        ivShare.setImageDrawable(drawableShare);
-        tvTitle.setText(textTitle);
-        tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, titleSize);
-        vSub.setVisibility(TextUtils.isEmpty(textSub) ? GONE : VISIBLE);
-        tvSubTitle.setVisibility(TextUtils.isEmpty(textSub) ? GONE : VISIBLE);
-        tvSubTitle.setText(textSub);
-        tvSubTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, subtextSize);
-        tvBack.setText(textLeft);
-        tvRight.setText(textRight);
-        ivBack.setVisibility(TextUtils.isEmpty(textLeft) && enableBack ? VISIBLE : GONE);
-        ivRight.setVisibility(TextUtils.isEmpty(textRight) && enableRight ? VISIBLE : GONE);
-        setBackOnClickListner(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((Activity) getContext()).onBackPressed();
-            }
-        });
-    }
 
     public void setLoading(boolean loading) {
         isLoading = loading;
@@ -197,47 +156,58 @@ public class VNavBar extends ConstraintLayout {
      */
     public void setStyle(int style) {
         bgStyle = style;
-        init();
+        if (bgStyle == 0) {
+            clContainer.setBackgroundColor(Color.WHITE);
+            setBackImageResource(R.mipmap.back_black);
+            setRightImageResource(R.mipmap.right_black);
+            setShareImageResource(R.mipmap.share_black);
+            tvTitle.setTextColor(getResources().getColor(R.color.title_gray));
+            tvSubTitle.setTextColor(getResources().getColor(R.color.content_gray_light));
+            tvBack.setTextColor(getResources().getColor(R.color.text_green));
+            tvRight.setTextColor(getResources().getColor(R.color.text_green));
+        } else {
+            clContainer.setBackgroundColor(Color.BLACK);
+            setBackImageResource(R.mipmap.back_white);
+            setRightImageResource(R.mipmap.right_white);
+            setShareImageResource(R.mipmap.share_white);
+            tvTitle.setTextColor(Color.WHITE);
+            tvSubTitle.setTextColor(Color.parseColor("#b2ffffff"));
+            tvBack.setTextColor(Color.WHITE);
+            tvRight.setTextColor(Color.WHITE);
+        }
     }
 
 
     public void setTitle(String title) {
-        textTitle = title;
-        tvTitle.setText(textTitle);
+        tvTitle.setText(title);
     }
 
     public void setSubText(String text) {
-        textSub = text;
-        tvSubTitle.setText(textSub);
-        vSub.setVisibility(TextUtils.isEmpty(textSub) ? GONE : VISIBLE);
-        tvSubTitle.setVisibility(TextUtils.isEmpty(textSub) ? GONE : VISIBLE);
+        tvSubTitle.setText(text);
+        vSub.setVisibility(TextUtils.isEmpty(text) ? GONE : VISIBLE);
+        tvSubTitle.setVisibility(TextUtils.isEmpty(text) ? GONE : VISIBLE);
     }
 
     public void setBackText(String text) {
-        textLeft = text;
-        tvBack.setText(textLeft);
-        ivBack.setVisibility(TextUtils.isEmpty(textLeft) ? VISIBLE : GONE);
+        tvBack.setText(text);
+        ivBack.setVisibility(TextUtils.isEmpty(text) ? VISIBLE : GONE);
     }
 
     public void setRightText(String text) {
-        textRight = text;
-        tvRight.setText(textRight);
-        ivRight.setVisibility(TextUtils.isEmpty(textRight) && enableRight ? VISIBLE : GONE);
+        tvRight.setText(text);
+        ivRight.setVisibility(TextUtils.isEmpty(text) && enableRight ? VISIBLE : GONE);
     }
 
     public void setBackImageResource(int drawable) {
-        drawableLeft = getResources().getDrawable(drawable);
-        ivBack.setImageDrawable(drawableLeft);
+        ivBack.setImageDrawable(getResources().getDrawable(drawable));
     }
 
     public void setRightImageResource(int drawable) {
-        drawableRight = getResources().getDrawable(drawable);
-        ivRight.setImageDrawable(drawableRight);
+        ivRight.setImageDrawable(getResources().getDrawable(drawable));
     }
 
     public void setShareImageResource(int drawable) {
-        drawableShare = getResources().getDrawable(drawable);
-        ivShare.setImageDrawable(drawableShare);
+        ivShare.setImageDrawable(getResources().getDrawable(drawable));
     }
 
 
@@ -255,12 +225,37 @@ public class VNavBar extends ConstraintLayout {
         ivShare.setOnClickListener(onClickListner);
     }
 
-    public void EnableRight(boolean enable) {
-        ivRight.setVisibility(enable ? VISIBLE : GONE);
-        tvRight.setVisibility(enable ? VISIBLE : GONE);
+    public void enableRight(boolean enable) {
+        if (enable) {
+            if (TextUtils.isEmpty(tvBack.getText().toString())) {
+                ivRight.setVisibility(VISIBLE);
+                tvRight.setVisibility(GONE);
+            } else {
+                ivRight.setVisibility(GONE);
+                tvRight.setVisibility(VISIBLE);
+            }
+        } else {
+            ivRight.setVisibility(GONE);
+            tvRight.setVisibility(GONE);
+        }
     }
 
-    public void EnableShare(boolean enable) {
+    public void enableBack(boolean enable) {
+        if (enable) {
+            if (TextUtils.isEmpty(tvBack.getText().toString())) {
+                ivBack.setVisibility(VISIBLE);
+                tvRight.setVisibility(GONE);
+            } else {
+                ivBack.setVisibility(GONE);
+                tvBack.setVisibility(VISIBLE);
+            }
+        } else {
+            ivBack.setVisibility(GONE);
+            tvBack.setVisibility(GONE);
+        }
+    }
+
+    public void enableShare(boolean enable) {
         ivShare.setVisibility(enable ? VISIBLE : GONE);
     }
 }

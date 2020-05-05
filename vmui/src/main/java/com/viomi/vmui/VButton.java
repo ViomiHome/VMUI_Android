@@ -27,24 +27,19 @@ public class VButton extends LinearLayout {
     public final static int STYLE_UNENABLE = 6;
     public final static int STYLE_DIALOG = 7;
 
+    private final static int DEFAULT_DURATION = 600;
+
     int button_style;
     public TextView tvContent, tvSubcontent;
     public ImageView iv;
-    String text_content, text_sub;
     Drawable drawable_right;
-
-
 
     Drawable drawable_loading;
     boolean isloading;
     float drawablePadding;
     float textPadding;
     int loadingDuration;
-    float textSize;
-    float subTextSize;
 
-    int textColor;
-    int backgroundResId;
 
     public VButton(Context context) {
         this(context, null);
@@ -59,17 +54,79 @@ public class VButton extends LinearLayout {
         LayoutInflater.from(context).inflate(R.layout.vbutton, this);
         tvContent = findViewById(R.id.tv_content);
         tvSubcontent = findViewById(R.id.tv_subcontent);
+        tvSubcontent.setVisibility(GONE);
         iv = findViewById(R.id.iv);
         drawable_loading = getResources().getDrawable(R.mipmap.icon_loading_white);
         initAttrs(attrs);
-        init();
     }
 
-    private void init() {
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (mAnimator != null)
+            mAnimator.cancel();
+        mAnimator = null;
+    }
+
+    ValueAnimator mAnimator;
+
+    private void initAttrs(AttributeSet attrs) {
+        if (attrs == null)
+            return;
+        TypedArray a = getContext().obtainStyledAttributes(attrs,
+                R.styleable.VButton);
+        button_style = a.getInt(R.styleable.VButton_button_style, 0);
+        setButton_style(button_style);
+        String text = a.getString(R.styleable.VButton_text_content);
+        setText_content(text == null ? "" : text);
+        setText_sub(a.getString(R.styleable.VButton_text_sub));
+        isloading = a.getBoolean(R.styleable.VButton_isloading, false);
+        drawablePadding = a.getDimension(R.styleable.VButton_drawablepadding
+                , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics()));
+        setDrawable_right(a.getDrawable(R.styleable.VButton_drawable_right));
+        textPadding = a.getDimension(R.styleable.VButton_textpadding
+                , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -1, getResources().getDisplayMetrics()));
+        loadingDuration = a.getInt(R.styleable.VButton_loading_duration, DEFAULT_DURATION);
+        setTextSize(a.getDimension(R.styleable.VButton_text_size
+                , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 14, getResources().getDisplayMetrics())));
+        setSubTextSize(a.getDimension(R.styleable.VButton_subtext_size
+                , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 11, getResources().getDisplayMetrics())));
+        setTextColor(a.getColor(R.styleable.VButton_text_color, tvContent.getCurrentTextColor()));
+        setEnabled(a.getBoolean(R.styleable.VButton_enable, true));
+        a.recycle();
+    }
+
+
+    @Override
+    public void setPressed(boolean pressed) {
+        super.setPressed(pressed);
+        if (isEnabled())
+            if (pressed) {
+                setAlpha(0.6f);
+            } else {
+                setAlpha(1f);
+            }
+    }
+
+    @Override
+    public void setEnabled(boolean enabled) {
+        if (!enabled) {
+            setAlpha(0.4f);
+        } else {
+            setAlpha(1f);
+        }
+        super.setEnabled(enabled);
+    }
+
+    public int getButton_style() {
+        return button_style;
+    }
+
+    public void setButton_style(int button_style) {
+        this.button_style = button_style;
         switch (button_style) {
             case STYLE_NONE:
-                tvContent.setTextColor(textColor);
-                tvSubcontent.setTextColor(textColor);
                 break;
             case STYLE_BLACK_STROKE:
                 tvContent.setTextColor(getResources().getColor(R.color.title_gray));
@@ -111,56 +168,6 @@ public class VButton extends LinearLayout {
                 tvSubcontent.setTextColor(getResources().getColor(R.color.tips_gray));
                 setBackgroundResource(R.drawable.btn_dialog);
                 break;
-
-        }
-        if (!TextUtils.isEmpty(text_content)) {
-            tvContent.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
-            tvContent.setText(text_content);
-        }
-        if (!TextUtils.isEmpty(text_sub)) {
-            tvSubcontent.setVisibility(VISIBLE);
-            tvSubcontent.setText(text_sub);
-            tvSubcontent.setTextSize(TypedValue.COMPLEX_UNIT_PX, subTextSize);
-            LinearLayout.LayoutParams layoutParams = (LayoutParams) tvSubcontent.getLayoutParams();
-            layoutParams.topMargin = (int) textPadding;
-            tvSubcontent.setLayoutParams(layoutParams);
-        } else {
-            tvSubcontent.setVisibility(GONE);
-        }
-        if (drawable_right != null || isloading) {
-            iv.setVisibility(VISIBLE);
-            LinearLayout.LayoutParams layoutParams = (LayoutParams) iv.getLayoutParams();
-            layoutParams.rightMargin = (int) drawablePadding;
-            iv.setLayoutParams(layoutParams);
-            if (isloading) {
-                iv.setImageDrawable(drawable_loading);
-                if (mAnimator == null) {
-                    mAnimator = ValueAnimator.ofInt(0, 365);
-                    mAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                        @Override
-                        public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                            iv.setRotation((int) valueAnimator.getAnimatedValue());
-                        }
-                    });
-                    mAnimator.setDuration(loadingDuration);
-                    mAnimator.setRepeatMode(ValueAnimator.RESTART);
-                    mAnimator.setRepeatCount(ValueAnimator.INFINITE);
-                    mAnimator.setInterpolator(new LinearInterpolator());
-                    mAnimator.start();
-                } else if (!mAnimator.isStarted()) {
-                    mAnimator.start();
-                }
-            } else {
-                iv.setImageDrawable(drawable_right);
-                if (mAnimator != null)
-                    mAnimator.cancel();
-                mAnimator = null;
-            }
-        } else {
-            iv.setVisibility(GONE);
-            if (mAnimator != null)
-                mAnimator.cancel();
-            mAnimator = null;
         }
         if (button_style == STYLE_UNENABLE) {
             setFocusable(false);
@@ -171,87 +178,28 @@ public class VButton extends LinearLayout {
         }
     }
 
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        if (mAnimator != null)
-            mAnimator.cancel();
-        mAnimator = null;
-    }
-
-    ValueAnimator mAnimator;
-
-    private void initAttrs(AttributeSet attrs) {
-        if (attrs == null)
-            return;
-        TypedArray a = getContext().obtainStyledAttributes(attrs,
-                R.styleable.VButton);
-        button_style = a.getInt(R.styleable.VButton_button_style, 0);
-        text_content = a.getString(R.styleable.VButton_text_content);
-        text_sub = a.getString(R.styleable.VButton_text_sub);
-        drawable_right = a.getDrawable(R.styleable.VButton_drawable_right);
-        isloading = a.getBoolean(R.styleable.VButton_isloading, false);
-        drawablePadding = a.getDimension(R.styleable.VButton_drawablepadding
-                , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics()));
-        textPadding = a.getDimension(R.styleable.VButton_textpadding
-                , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -1, getResources().getDisplayMetrics()));
-        loadingDuration = a.getInt(R.styleable.VButton_loading_duration, 600);
-        textSize = a.getDimension(R.styleable.VButton_text_size
-                , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 14, getResources().getDisplayMetrics()));
-        subTextSize = a.getDimension(R.styleable.VButton_subtext_size
-                , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 11, getResources().getDisplayMetrics()));
-        textColor = a.getColor(R.styleable.VButton_text_color, getResources().getColor(R.color.title_gray));
-        setEnabled(a.getBoolean(R.styleable.VButton_enable, true));
-        a.recycle();
-    }
-
-
-    @Override
-    public void setPressed(boolean pressed) {
-        super.setPressed(pressed);
-        if (isEnabled())
-            if (pressed) {
-                setAlpha(0.6f);
-            } else {
-                setAlpha(1f);
-            }
-    }
-
-    @Override
-    public void setEnabled(boolean enabled) {
-        if (!enabled) {
-            setAlpha(0.4f);
-        } else {
-            setAlpha(1f);
-        }
-        super.setEnabled(enabled);
-    }
-
-    public int getButton_style() {
-        return button_style;
-    }
-
-    public void setButton_style(int button_style) {
-        this.button_style = button_style;
-        init();
-    }
-
     public String getText_content() {
-        return text_content;
+        return tvContent.getText().toString();
     }
 
     public void setText_content(String text_content) {
-        this.text_content = text_content;
-        init();
+        tvContent.setText(text_content);
     }
 
     public String getText_sub() {
-        return text_sub;
+        return tvSubcontent.getText().toString();
     }
 
     public void setText_sub(String text_sub) {
-        this.text_sub = text_sub;
-        init();
+        if (!TextUtils.isEmpty(text_sub)) {
+            tvSubcontent.setVisibility(VISIBLE);
+            tvSubcontent.setText(text_sub);
+            LinearLayout.LayoutParams layoutParams = (LayoutParams) tvSubcontent.getLayoutParams();
+            layoutParams.topMargin = (int) textPadding;
+            tvSubcontent.setLayoutParams(layoutParams);
+        } else {
+            tvSubcontent.setVisibility(GONE);
+        }
     }
 
     public Drawable getDrawable_right() {
@@ -260,7 +208,15 @@ public class VButton extends LinearLayout {
 
     public void setDrawable_right(Drawable drawable_right) {
         this.drawable_right = drawable_right;
-        init();
+        if (drawable_right != null) {
+            iv.setVisibility(VISIBLE);
+            LinearLayout.LayoutParams layoutParams = (LayoutParams) iv.getLayoutParams();
+            layoutParams.rightMargin = (int) drawablePadding;
+            iv.setLayoutParams(layoutParams);
+            iv.setImageDrawable(drawable_right);
+        } else {
+            iv.setVisibility(GONE);
+        }
     }
 
     public boolean isIsloading() {
@@ -269,55 +225,72 @@ public class VButton extends LinearLayout {
 
     public void setIsloading(boolean isloading) {
         this.isloading = isloading;
-        init();
+        if (isloading) {
+            iv.setVisibility(VISIBLE);
+            iv.setImageDrawable(drawable_loading);
+            if (mAnimator == null) {
+                mAnimator = ValueAnimator.ofInt(0, 365);
+                mAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                        iv.setRotation((int) valueAnimator.getAnimatedValue());
+                    }
+                });
+                mAnimator.setDuration(loadingDuration);
+                mAnimator.setRepeatMode(ValueAnimator.RESTART);
+                mAnimator.setRepeatCount(ValueAnimator.INFINITE);
+                mAnimator.setInterpolator(new LinearInterpolator());
+                mAnimator.start();
+            } else if (!mAnimator.isStarted()) {
+                mAnimator.start();
+            }
+        } else {
+            iv.setImageDrawable(drawable_right);
+            if (mAnimator != null)
+                mAnimator.cancel();
+            mAnimator = null;
+        }
     }
 
     public int getLoadingDuration() {
-        return loadingDuration;
+        return this.loadingDuration;
     }
 
     public void setLoadingDuration(int loadingDuration) {
         this.loadingDuration = loadingDuration;
-        if (mAnimator != null) {
-            mAnimator.cancel();
-            mAnimator = null;
-        }
-        init();
+        if (mAnimator != null)
+            mAnimator.setDuration(loadingDuration);
     }
 
     public float getTextSize() {
-        return textSize;
+        return tvContent.getTextSize();
     }
 
     public void setTextSize(float textSize) {
-        this.textSize = textSize;
-        init();
+        tvContent.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
     }
 
     public float getSubTextSize() {
-        return subTextSize;
+        return tvSubcontent.getTextSize();
     }
 
     public void setSubTextSize(float subTextSize) {
-        this.subTextSize = subTextSize;
-        init();
+        tvSubcontent.setTextSize(TypedValue.COMPLEX_UNIT_PX, subTextSize);
     }
 
     public void setTextColor(int textColor) {
-        this.textColor = textColor;
-        init();
+        tvContent.setTextColor(textColor);
     }
 
     public void setBackgroundResId(int backgroundResId) {
-        this.backgroundResId = backgroundResId;
-        init();
+        setBackgroundResource(backgroundResId);
     }
+
     public Drawable getDrawable_loading() {
         return drawable_loading;
     }
 
     public void setDrawable_loading(Drawable drawable_loading) {
         this.drawable_loading = drawable_loading;
-        init();
     }
 }
