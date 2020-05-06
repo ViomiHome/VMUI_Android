@@ -123,11 +123,11 @@ public class StatusBarUtil {
     public static int StatusBarLightMode(Activity activity, boolean dark) {
         int result = 0;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (MIUISetStatusBarLightMode(activity.getWindow(), dark)) {
-                result = 1;
-            } else if (FlymeSetStatusBarLightMode(activity.getWindow(), dark)) {
-                result = 2;
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            if (MIUISetStatusBarLightMode(activity.getWindow(), dark)) {
+//                result = 1;
+//            } else if (FlymeSetStatusBarLightMode(activity.getWindow(), dark)) {
+//                result = 2;
+//            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 View decorView = activity.getWindow().getDecorView();
                 int oldVis = decorView.getSystemUiVisibility();
                 int newVis = oldVis;
@@ -140,7 +140,7 @@ public class StatusBarUtil {
                     decorView.setSystemUiVisibility(newVis);
                 }
                 result = 3;
-            }
+//            }
         }
         return result;
     }

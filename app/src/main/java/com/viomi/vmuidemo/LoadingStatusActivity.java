@@ -23,6 +23,9 @@ public class LoadingStatusActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(Color.WHITE);
+        }
         setContentView(R.layout.activity_loading_status);
         ButterKnife.bind(this);
         StatusBarUtil.StatusBarLightMode(this, true);
