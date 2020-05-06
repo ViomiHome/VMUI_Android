@@ -13,7 +13,9 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".LoadingStatusActivity"></activity>
+        <activity
+            android:name=".LoadingStatusActivity"
+            android:theme="@style/AppMainTheme" />
         <activity
             android:name=".InputAreaActivity"
             android:windowSoftInputMode="adjustPan" />
@@ -24,8 +26,12 @@
         <activity android:name=".ToastActivity" />
         <activity android:name=".ItemViewActivity" />
         <activity android:name=".SearchBarActivity" />
-        <activity android:name=".LoadingActivity" />
-        <activity android:name=".EmtyActivity" />
+        <activity
+            android:name=".LoadingActivity"
+            android:theme="@style/AppMainTheme" />
+        <activity
+            android:name=".EmtyActivity"
+            android:theme="@style/AppMainTheme" />
         <activity android:name=".SegmentActivity" />
         <activity android:name=".TabbarActivity" />
         <activity android:name=".NoticeBarActivity" />

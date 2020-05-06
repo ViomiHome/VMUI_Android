@@ -15,6 +15,7 @@
         <com.viomi.vmui.VInputItem
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:input_divider="true"
             app:hint="提示语"
             app:lines="1" />
 
@@ -22,8 +23,9 @@
             android:id="@+id/item_error"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:lines="1"
             app:hint="提示语"
+            app:lines="1"
+            app:input_divider="true"
             app:title="表单报错" />
 
         <com.viomi.vmui.VInputItem

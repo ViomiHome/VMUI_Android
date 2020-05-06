@@ -157,6 +157,7 @@ public class VInputItem extends ConstraintLayout {
         setDescGravity(gravity);
         String desc = a.getString(R.styleable.VInputItem_desc);
         setDesc(desc);
+        setDivider(a.getBoolean(R.styleable.VInputItem_input_divider, false));
         a.recycle();
     }
 
@@ -232,6 +233,10 @@ public class VInputItem extends ConstraintLayout {
 
     public String getText() {
         return edt.getText().toString();
+    }
+
+    public void setDivider(boolean visible) {
+        vDivider.setVisibility(visible ? VISIBLE : GONE);
     }
 
     public void setError(boolean error) {
