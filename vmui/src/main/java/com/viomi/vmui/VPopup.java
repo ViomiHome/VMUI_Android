@@ -63,12 +63,12 @@ public class VPopup extends VDialog {
             return this;
         }
 
-        public VPopupBuilder setContentLayoutView(View view){
+        public VPopupBuilder setContentLayoutView(View view) {
             mContentLayoutView = view;
             return this;
         }
 
-        public VPopupBuilder setViewDismissClickListener(OnViewClickListener listener){
+        public VPopupBuilder setViewDismissClickListener(OnViewClickListener listener) {
             mViewClickListener = listener;
             return this;
         }
@@ -83,7 +83,8 @@ public class VPopup extends VDialog {
 
             if (mShowCloseImage) {
                 lp2.gravity = Gravity.END;
-                lp2.setMargins(0, 16, 16, 10);
+                lp2.setMargins(0, (int) getBaseContext().getResources().getDimension(R.dimen.margin),
+                        (int) getBaseContext().getResources().getDimension(R.dimen.margin), 0);
                 mCloseImage = new ImageView(context);
                 mCloseImage.setImageResource(R.mipmap.ic_popup_close);
                 mCloseImage.setId(R.id.vmui_popup_img_close);
@@ -95,7 +96,7 @@ public class VPopup extends VDialog {
                 View content = LayoutInflater.from(context).inflate(mContentLayoutResId, null);
                 content.setLayoutParams(lp1);
                 parent.addView(content);
-            } else if(mContentLayoutView != null){
+            } else if (mContentLayoutView != null) {
                 mContentLayoutView.setLayoutParams(lp1);
                 parent.addView(mContentLayoutView);
             } else {
@@ -128,7 +129,7 @@ public class VPopup extends VDialog {
             }
         }
 
-        public interface OnViewClickListener{
+        public interface OnViewClickListener {
             void onViewClick(Dialog dialog);
         }
     }
