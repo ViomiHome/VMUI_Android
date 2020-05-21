@@ -77,18 +77,17 @@ public class VButton extends LinearLayout {
         TypedArray a = getContext().obtainStyledAttributes(attrs,
                 R.styleable.VButton);
         button_style = a.getInt(R.styleable.VButton_button_style, 0);
-        setButton_style(button_style);
-        setDrawable_right(a.getDrawable(R.styleable.VButton_drawable_right));
-        loadingDuration = a.getInt(R.styleable.VButton_loading_duration, DEFAULT_DURATION);
-        setIsloading(a.getBoolean(R.styleable.VButton_isloading, false));
-        String text = a.getString(R.styleable.VButton_text_content);
-        setText_content(text == null ? "" : text);
-        setText_sub(a.getString(R.styleable.VButton_text_sub));
         drawablePadding = a.getDimension(R.styleable.VButton_drawablepadding
                 , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics()));
         textPadding = a.getDimension(R.styleable.VButton_textpadding
                 , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, -1, getResources().getDisplayMetrics()));
-
+        loadingDuration = a.getInt(R.styleable.VButton_loading_duration, DEFAULT_DURATION);
+        setButton_style(button_style);
+        setDrawable_right(a.getDrawable(R.styleable.VButton_drawable_right));
+        setIsloading(a.getBoolean(R.styleable.VButton_isloading, false));
+        String text = a.getString(R.styleable.VButton_text_content);
+        setText_content(text == null ? "" : text);
+        setText_sub(a.getString(R.styleable.VButton_text_sub));
         setTextSize(a.getDimension(R.styleable.VButton_text_size
                 , TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 14, getResources().getDisplayMetrics())));
         setSubTextSize(a.getDimension(R.styleable.VButton_subtext_size

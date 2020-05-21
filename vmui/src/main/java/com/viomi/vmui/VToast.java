@@ -146,6 +146,7 @@ public class VToast extends Toast {
         layoutParams.setMargins(lr, tb, lr, tb);
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
         LinearLayout container = new LinearLayout(context);
+        container.setGravity(Gravity.CENTER_VERTICAL);
         TextView message = new TextView(context);
 
         message.setId(R.id.vmui_toast_message);
