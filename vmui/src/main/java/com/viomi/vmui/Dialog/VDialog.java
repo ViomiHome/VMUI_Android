@@ -935,7 +935,6 @@ public class VDialog extends Dialog {
         protected void onCreateTitle(VDialog dialog, ViewGroup parent, Context context) {
             super.onCreateTitle(dialog, parent, context);
             RelativeLayout.LayoutParams lp1 = (RelativeLayout.LayoutParams) this.mTitleView.getLayoutParams();
-            RelativeLayout.LayoutParams lp2 = (RelativeLayout.LayoutParams) this.mSubTitleView.getLayoutParams();
 
             if (!hasSubTitle()) {
                 int top = VDisplayHelper.dp2px(context, 22);
@@ -943,6 +942,7 @@ public class VDialog extends Dialog {
                 this.mTitleView.setLayoutParams(lp1);
                 this.mTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
             } else {
+                RelativeLayout.LayoutParams lp2 = (RelativeLayout.LayoutParams) this.mSubTitleView.getLayoutParams();
                 int top1 = VDisplayHelper.dp2px(context, 13);
                 lp1.setMargins(0, top1, 0, 0);
                 this.mTitleView.setLayoutParams(lp1);
@@ -968,7 +968,7 @@ public class VDialog extends Dialog {
             mDayPickerView = new PickerView(context, "日");
 
             LinearLayout ll = new LinearLayout(context);
-            ll.setBackground(getBaseContext().getDrawable(R.drawable.dialog_picker_bg));
+            ll.setBackground(getBaseContext().getResources().getDrawable(R.drawable.dialog_picker_bg));
             ll.setOrientation(LinearLayout.HORIZONTAL);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             ll.setLayoutParams(lp);
