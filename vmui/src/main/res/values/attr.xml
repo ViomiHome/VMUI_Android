@@ -158,6 +158,7 @@
             <enum name="bottom" value="80" />
         </attr>
         <attr name="lines" format="integer" />
+        <attr name="android:maxLength" format="integer" />
         <attr name="input_divider" format="boolean" />
     </declare-styleable>
     <declare-styleable name="VInputTextArea">
