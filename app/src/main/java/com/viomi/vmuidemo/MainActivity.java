@@ -3,11 +3,13 @@ package com.viomi.vmuidemo;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.viomi.vmui.Dialog.VDialog;
@@ -250,10 +252,24 @@ public class MainActivity extends BaseActivity {
                         break;
                     case 15:
                         //Popup
+                        String Text = "【全新启动页】生活家居好管家，品质颜值都在手\r\n【购物车优化】优惠多少更清晰，规格重选不用愁\r\n【类目页优化】类目上新先知晓，好货热销等你瞅\r\n【礼品卡优化】友谊要有保鲜期，转赠礼品马上拆";
+                        View content = LayoutInflater.from(MainActivity.this).inflate(R.layout.view_layout_popup, null);
+                        TextView tv = content.findViewById(R.id.tv_update_content);
+                        tv.setText(Text);
                         new VPopup.VPopupBuilder(MainActivity.this)
+                                .setHeadImage(R.mipmap.ic_launcher_round)
+                                .setTitle("发现新版本v3.2.2.1")
                                 .setShowCloseImage(true)
                                 .setShowOperateButton(true)
-                                .setViewDismissClickListener(new VPopup.VPopupBuilder.OnViewClickListener() {
+                                .setOperateButtonText("立即升级")
+                                .setContentLayoutView(content)
+                                .setViewDismissClickListener(new VPopup.VPopupBuilder.OnViewDismissClickListener() {
+                                    @Override
+                                    public void onViewDismissClick(Dialog dialog) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .setViewClickListener(new VPopup.VPopupBuilder.OnViewClickListener() {
                                     @Override
                                     public void onViewClick(Dialog dialog) {
                                         dialog.dismiss();
