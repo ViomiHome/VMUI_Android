@@ -3,8 +3,6 @@ package com.viomi.vmui.Dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +10,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Space;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StyleRes;
 
-import com.viomi.vmui.VButton;
-import com.viomi.vmui.VPopup;
 import com.viomi.vmui.R;
 import com.viomi.vmui.VActionSheet;
+import com.viomi.vmui.VButton;
+import com.viomi.vmui.VPopup;
 import com.viomi.vmui.VTextView;
 import com.viomi.vmui.utils.VDisplayHelper;
 import com.viomi.vmui.utils.VResHelper;
@@ -39,7 +36,7 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
     protected Context mContext;
     protected VTextView mTitleView;
     protected VTextView mSubTitleView;
-    private ImageView mHeadImage;
+    protected ImageView mHeadImage;
     protected int mImgResId = -1;
     private boolean mCancelable = true;
     protected LinearLayout mActionContainer;
@@ -51,6 +48,7 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
     protected VDialogView mDialogView;
     float titleSize;
     float subtextSize;
+
     public VDialogBuilder(Context context) {
         this.mContext = context;
     }
@@ -262,6 +260,18 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
 
     public VPopup showPopup() {
         VPopup popup = createPopup();
+//        WindowManager.LayoutParams params = popup.getWindow().getAttributes();
+//        FloatWindowManager.getInstance().applyOrShowFloatWindow(mContext);
+//
+//
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O){
+//            params.type = WindowManager.LayoutParams.TYPE_PHONE;
+//            popup.getWindow().setAttributes(params);
+//        } else {
+//            params.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+//            popup.getWindow().setAttributes(params);
+//        }
+
         popup.show();
         return popup;
     }
@@ -294,6 +304,12 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
         Context popupContext = popup.getContext();
         mRootView = (LinearLayout) LayoutInflater.from(popupContext).inflate(R.layout.vdialog, null);
         mDialogView = mRootView.findViewById(R.id.dialog);
+        // head image
+        onCreateHeadImage(popup, mDialogView, popupContext);
+
+        // title
+        onCreateTitle(popup, mDialogView, popupContext);
+
         //content
         onCreateContent(popup, mDialogView, popupContext);
         popup.setContentView(mRootView, new ViewGroup.LayoutParams(
@@ -377,7 +393,7 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
             mTitleView.setLayoutParams(lp2);
             rtl.addView(mTitleView);
             parent.addView(rtl);
-        } else if (hasTitle() && hasSubTitle()){
+        } else if (hasTitle() && hasSubTitle()) {
             mSubTitleView = new VTextView(context);
             mSubTitleView.setEnabled(false);
             mSubTitleView.setText(mSubTitle);
@@ -389,10 +405,10 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
                 int top1 = VDisplayHelper.dp2px(context, 13);
                 lp2.setMargins(0, top1, 0, 0);
 
-                if(hasSubTitle()){
+                if (hasSubTitle()) {
                     int top2 = VDisplayHelper.dp2px(context, 2);
                     lp3.setMargins(0, top2, 0, 0);
-                    lp3.addRule(RelativeLayout.BELOW,R.id.vmui_dialog_title_id);
+                    lp3.addRule(RelativeLayout.BELOW, R.id.vmui_dialog_title_id);
                 }
             } else {
                 int top = VDisplayHelper.dp2px(context, 28);
@@ -400,7 +416,7 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
             }
             mTitleView.setLayoutParams(lp2);
             rtl.addView(mTitleView);
-            if(hasSubTitle()){
+            if (hasSubTitle()) {
                 mSubTitleView.setLayoutParams(lp3);
                 rtl.addView(mSubTitleView);
 
@@ -432,7 +448,7 @@ public abstract class VDialogBuilder<T extends VDialogBuilder> {
             rtl.addView(mTitleView);
             View view = new View(context);
             view.setLayoutParams(lp3);
-            view.setBackground(context.getDrawable(R.drawable.divider_line));
+            view.setBackground(context.getResources().getDrawable(R.drawable.divider_line));
             parent.addView(rtl);
             parent.addView(view);
         }

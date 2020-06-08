@@ -183,6 +183,8 @@
         <attr name="dialog_padding_horizontal" format="dimension" />
         <attr name="dialog_background_dim_amount" format="float" />
         <attr name="dialog_title_style" format="reference" />
+        <attr name="popup_title_style" format="reference" />
+        <attr name="popup_action_style" format="reference" />
         <attr name="sheet_title_style" format="reference" />
         <attr name="sheet_action_style" format="reference" />
         <attr name="dialog_action_container_style" format="reference" />
