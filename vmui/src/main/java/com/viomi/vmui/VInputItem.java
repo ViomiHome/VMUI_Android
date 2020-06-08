@@ -3,6 +3,7 @@ package com.viomi.vmui;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -153,6 +154,8 @@ public class VInputItem extends ConstraintLayout {
         edt.setHint(a.getString(R.styleable.VInputItem_hint));
         int lines = a.getInteger(R.styleable.VInputItem_lines, 0);
         setLines(lines);
+        int maxLength = a.getInteger(R.styleable.VInputItem_android_maxLength,0);
+        setMaxLength(maxLength);
         int gravity = a.getInteger(R.styleable.VInputItem_desc_gravity, Gravity.TOP);
         setDescGravity(gravity);
         String desc = a.getString(R.styleable.VInputItem_desc);
@@ -213,6 +216,15 @@ public class VInputItem extends ConstraintLayout {
         edt.setSingleLine(this.lines == 1);
         edt.setLines(this.lines);
         edt.setMaxLines(this.lines);
+    }
+
+    public void setMaxLength(int maxLength){
+        if(maxLength > 0)
+            edt.setFilters( new InputFilter[]{ new InputFilter.LengthFilter( maxLength )});
+        else
+            edt.setFilters( new InputFilter[]{});
+
+
     }
 
     public void setHint(String hint) {

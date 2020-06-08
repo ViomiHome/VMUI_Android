@@ -3,7 +3,6 @@ package com.viomi.vmui;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -26,6 +25,7 @@ public class VButton extends LinearLayout {
     public final static int STYLE_RED_FILL = 5;
     public final static int STYLE_UNENABLE = 6;
     public final static int STYLE_DIALOG = 7;
+    public final static int STYLE_GREEN_FILL_HORIZONTAL = 8;
 
     private final static int DEFAULT_DURATION = 600;
 
@@ -167,6 +167,11 @@ public class VButton extends LinearLayout {
                 tvContent.setTextColor(getResources().getColor(R.color.text_green));
                 tvSubcontent.setTextColor(getResources().getColor(R.color.tips_gray));
                 setBackgroundResource(R.drawable.btn_dialog);
+                break;
+            case STYLE_GREEN_FILL_HORIZONTAL:
+                tvContent.setTextColor(getResources().getColor(R.color.white));
+                tvSubcontent.setTextColor(getResources().getColor(R.color.white));
+                setBackgroundResource(R.drawable.green_fill);
                 break;
         }
         if (button_style == STYLE_UNENABLE) {

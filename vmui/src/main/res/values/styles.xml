@@ -20,6 +20,8 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowAnimationStyle">@null</item>
         <item name="android:layout_width">match_parent</item>
+        <item name="popup_title_style">@style/VMUI.Dialog.Title</item>
+        <item name="popup_action_style">@style/VMUI.Popup.Action</item>
     </style>
 
     <style name="VMUI.ActionSheet" parent="android:Theme.Dialog">
@@ -50,6 +52,7 @@
         <item name="dialog_action_container_style">@style/VMUI.Dialog.ActionContainer</item>
         <item name="dialog_action_style">@style/VMUI.Dialog.Action</item>
         <item name="sheet_action_style">@style/VMUI.ActionSheet.Action</item>
+        <item name="popup_action_style">@style/VMUI.Popup.Action</item>
         <item name="dialog_message_content_style">@style/VMUI.Dialog.MessageContent</item>
         <item name="dialog_edit_content_style">@style/VMUI.Dialog.EditContent</item>
     </style>
@@ -111,6 +114,13 @@
         <item name="dialog_negative_action_text_color">@color/tips_gray</item>
         <item name="dialog_danger_action_text_color">@color/danger_red</item>
         <item name="dialog_common_action_text_color">@color/title_gray</item>
+    </style>
+
+    <style name="VMUI.Popup.Action">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="VMUI.Dialog.MessageContent">

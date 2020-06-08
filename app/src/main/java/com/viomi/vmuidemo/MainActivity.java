@@ -3,11 +3,13 @@ package com.viomi.vmuidemo;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.viomi.vmui.Dialog.VDialog;
@@ -51,6 +53,8 @@ public class MainActivity extends BaseActivity {
                 , "MultiPicker"
                 , "LocationPicker"
                 , "DatePicker"
+                , "DatePicker-Month"
+                , "DatePicker-Day"
                 , "Popup"
                 , "ActionSheet1"
                 , "ActionSheet2"
@@ -204,15 +208,68 @@ public class MainActivity extends BaseActivity {
                                 .setBeginTimestamp("2001-01-01")
                                 .setEndTimestamp("2029-05-01")
                                 .setTitle("弹窗标题")
-                                .setSubTitle("副标题")
                                 .showDialog();
                         break;
                     case 13:
+                        VDialog.DatePickerBuilder builder5 = new VDialog.DatePickerBuilder(MainActivity.this);
+                        builder5.addAction("辅助操作", VDialogAction.ACTION_PROP_NEGATIVE, new VDialogAction.ActionListener() {
+                            @Override
+                            public void onClick(Dialog dialog, int index) {
+                                dialog.dismiss();
+                            }
+                        }).addAction("主操作", VDialogAction.ACTION_PROP_POSITIVE, new VDialogAction.ActionListener() {
+                            @Override
+                            public void onClick(Dialog dialog, int index) {
+                                dialog.dismiss();
+                            }
+                        })
+                                .setShowDateFormatPattern(1)
+                                .setBeginTimestamp("2020-01-01")
+                                .setEndTimestamp("2020-12-31")
+                                .setTitle("弹窗标题")
+                                .setSubTitle("副标题")
+                                .showDialog();
+                        break;
+                    case 14:
+                        VDialog.DatePickerBuilder builder6 = new VDialog.DatePickerBuilder(MainActivity.this);
+                        builder6.addAction("辅助操作", VDialogAction.ACTION_PROP_NEGATIVE, new VDialogAction.ActionListener() {
+                            @Override
+                            public void onClick(Dialog dialog, int index) {
+                                dialog.dismiss();
+                            }
+                        }).addAction("主操作", VDialogAction.ACTION_PROP_POSITIVE, new VDialogAction.ActionListener() {
+                            @Override
+                            public void onClick(Dialog dialog, int index) {
+                                dialog.dismiss();
+                            }
+                        })
+                                .setShowDateFormatPattern(2)
+                                .setBeginTimestamp("2020-01-01")
+                                .setEndTimestamp("2020-01-31")
+                                .setTitle("弹窗标题")
+                                .setSubTitle("副标题")
+                                .showDialog();
+                        break;
+                    case 15:
                         //Popup
+                        String Text = "【全新启动页】生活家居好管家，品质颜值都在手\r\n【购物车优化】优惠多少更清晰，规格重选不用愁\r\n【类目页优化】类目上新先知晓，好货热销等你瞅\r\n【礼品卡优化】友谊要有保鲜期，转赠礼品马上拆";
+                        View content = LayoutInflater.from(MainActivity.this).inflate(R.layout.view_layout_popup, null);
+                        TextView tv = content.findViewById(R.id.tv_update_content);
+                        tv.setText(Text);
                         new VPopup.VPopupBuilder(MainActivity.this)
+                                .setHeadImage(R.mipmap.ic_launcher_round)
+                                .setTitle("发现新版本v3.2.2.1")
                                 .setShowCloseImage(true)
                                 .setShowOperateButton(true)
-                                .setViewDismissClickListener(new VPopup.VPopupBuilder.OnViewClickListener() {
+                                .setOperateButtonText("立即升级")
+                                .setContentLayoutView(content)
+                                .setViewDismissClickListener(new VPopup.VPopupBuilder.OnViewDismissClickListener() {
+                                    @Override
+                                    public void onViewDismissClick(Dialog dialog) {
+                                        dialog.dismiss();
+                                    }
+                                })
+                                .setViewClickListener(new VPopup.VPopupBuilder.OnViewClickListener() {
                                     @Override
                                     public void onViewClick(Dialog dialog) {
                                         dialog.dismiss();
@@ -220,7 +277,7 @@ public class MainActivity extends BaseActivity {
                                 })
                                 .showPopup();
                         break;
-                    case 14:
+                    case 16:
                         new VActionSheet.MultiButtonActionSheetBuilder(MainActivity.this)
                                 .setTitle("这是一个清晰的描述")
                                 .addItem("按钮1")
@@ -241,7 +298,7 @@ public class MainActivity extends BaseActivity {
                                 })
                                 .showActionSheet();
                         break;
-                    case 15:
+                    case 17:
                         new VActionSheet.MultiButtonActionSheetBuilder(MainActivity.this)
                                 .setTitle("这是一个清晰的描述，可以为一行也可以为两行，这仅仅是一个清晰的描述")
                                 .addAction("危险按钮", VDialogAction.ACTION_PROP_DANGER, new VDialogAction.ActionListener() {
@@ -275,7 +332,7 @@ public class MainActivity extends BaseActivity {
                                 .showActionSheet();
 
                         break;
-                    case 16:
+                    case 18:
                         new VActionSheet.ShareSheetDialogBuilder(MainActivity.this)
                                 .addItem("QQ空间", R.mipmap.ic_launcher)
                                 .addItem("微信", R.mipmap.ic_launcher)
@@ -291,28 +348,28 @@ public class MainActivity extends BaseActivity {
                                 })
                                 .showActionSheet();
                         break;
-                    case 17:
+                    case 19:
                         startActivity(new Intent(getBaseContext(), ToastActivity.class));
                         break;
-                    case 18://SearchBar
+                    case 20://SearchBar
                         startActivity(new Intent(getBaseContext(), SearchBarActivity.class));
                         break;
-                    case 19://EmptyPage
+                    case 21://EmptyPage
                         startActivity(new Intent(getBaseContext(), EmtyActivity.class));
                         break;
-                    case 20://LoadingPage
+                    case 22://LoadingPage
                         startActivity(new Intent(getBaseContext(), LoadingActivity.class));
                         break;
-                    case 21://itemview
+                    case 23://itemview
                         startActivity(new Intent(getBaseContext(), ItemViewActivity.class));
                         break;
-                    case 22://inputitemview
+                    case 24://inputitemview
                         startActivity(new Intent(getBaseContext(), InputItemActivity.class));
                         break;
-                    case 23://inputArea
+                    case 25://inputArea
                         startActivity(new Intent(getBaseContext(), InputAreaActivity.class));
                         break;
-                    case 24://Loading
+                    case 26://Loading
                         startActivity(new Intent(getBaseContext(), LoadingStatusActivity.class));
                         break;
                 }
