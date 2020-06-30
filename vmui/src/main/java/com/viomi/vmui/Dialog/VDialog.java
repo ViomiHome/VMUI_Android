@@ -74,8 +74,8 @@ public class VDialog extends Dialog {
     }
 
     private void init() {
-        setCancelable(true);
-        setCanceledOnTouchOutside(true);
+        setCancelable(mCancelable);
+        setCanceledOnTouchOutside(mCanceledOnTouchOutside);
     }
 
     @Override
@@ -97,7 +97,7 @@ public class VDialog extends Dialog {
         int screenHeight = VDisplayHelper.getScreenHeight(getContext());
         params.width = screenWidth < screenHeight ? screenWidth : screenHeight;
         getWindow().setAttributes(params);
-        setCanceledOnTouchOutside(true);
+        setCanceledOnTouchOutside(mCanceledOnTouchOutside);
     }
 
     @Override

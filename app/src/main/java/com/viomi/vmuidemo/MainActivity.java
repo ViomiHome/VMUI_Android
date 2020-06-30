@@ -261,6 +261,7 @@ public class MainActivity extends BaseActivity {
                                 .setTitle("发现新版本v3.2.2.1")
                                 .setShowCloseImage(true)
                                 .setShowOperateButton(true)
+                                .setCanceledOnTouchOutside(false)
                                 .setOperateButtonText("立即升级")
                                 .setContentLayoutView(content)
                                 .setViewDismissClickListener(new VPopup.VPopupBuilder.OnViewDismissClickListener() {
