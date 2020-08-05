@@ -51,4 +51,23 @@
         app:layout_constraintTop_toBottomOf="@id/btn_success"
         app:text_content="很长的toast"/>
 
+    <com.viomi.vmui.VButton
+        android:id="@+id/btn_def_time"
+        android:layout_width="110dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_special"
+        app:text_content="自定义显示30sToast"/>
+
+    <com.viomi.vmui.VButton
+        android:id="@+id/btn_dismiss"
+        android:layout_width="110dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_def_time"
+        app:text_content="隐藏Toast"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

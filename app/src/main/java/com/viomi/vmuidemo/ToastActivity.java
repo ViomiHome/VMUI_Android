@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.viomi.vmui.VDialogToast;
 import com.viomi.vmui.VToast;
 
 public class ToastActivity extends BaseActivity implements View.OnClickListener {
@@ -24,6 +25,8 @@ public class ToastActivity extends BaseActivity implements View.OnClickListener 
         findViewById(R.id.btn_success).setOnClickListener(this::onClick);
         findViewById(R.id.btn_error).setOnClickListener(this::onClick);
         findViewById(R.id.btn_special).setOnClickListener(this::onClick);
+        findViewById(R.id.btn_def_time).setOnClickListener(this::onClick);
+        findViewById(R.id.btn_dismiss).setOnClickListener(this::onClick);
     }
 
     @Override
@@ -48,7 +51,6 @@ public class ToastActivity extends BaseActivity implements View.OnClickListener 
 
             case R.id.btn_success:
                 VToast.makeSuccessText(this, "登陆成功", Toast.LENGTH_SHORT).show();
-
                 break;
             case R.id.btn_error:
                 Toast toast = VToast.makeErrorText(this, "加载失败", Toast.LENGTH_SHORT);
@@ -56,7 +58,13 @@ public class ToastActivity extends BaseActivity implements View.OnClickListener 
                 break;
             case R.id.btn_special:
                 VToast.makeText(this, "这是一个很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的Toast", Toast.LENGTH_SHORT).show();
-
+                break;
+            case R.id.btn_def_time:
+                VDialogToast.makeLoadingToast(this, "正在连接...", 5000).show();
+                break;
+            case R.id.btn_dismiss:
+                VToast.dismiss();
+                break;
         }
     }
 }

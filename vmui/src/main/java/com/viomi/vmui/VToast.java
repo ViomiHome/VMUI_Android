@@ -63,6 +63,13 @@ public class VToast extends Toast {
         return vToast;
     }
 
+    public static void dismiss() {
+        if (vToast != null) {
+            vToast.cancel();
+            vToast = null;
+        }
+    }
+
     /**
      * 登陆成功
      *
