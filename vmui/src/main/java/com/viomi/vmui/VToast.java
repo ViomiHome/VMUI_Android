@@ -160,7 +160,7 @@ public class VToast extends Toast {
         message.setTextColor(context.getResources().getColor(R.color.white));
         message.setTextSize(14);
         message.setText(text);
-
+        message.setGravity(Gravity.CENTER);
         if (resId != -1) {
             ImageView icon = new ImageView(context);
             icon.setImageResource(resId);

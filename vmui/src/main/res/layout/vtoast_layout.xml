@@ -24,7 +24,6 @@
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_marginRight="8dp"
-            android:visibility="gone"
             android:src="@mipmap/icon_loading_white"/>
 
         <TextView

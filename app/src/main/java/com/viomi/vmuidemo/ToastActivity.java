@@ -64,6 +64,7 @@ public class ToastActivity extends BaseActivity implements View.OnClickListener 
                 break;
             case R.id.btn_dismiss:
                 VToast.dismiss();
+                VDialogToast.dismiss();
                 break;
         }
     }
