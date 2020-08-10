@@ -71,7 +71,7 @@ public class VActionSheet extends VDialog {
             mListView.setVerticalScrollBarEnabled(false);
             mListView.setDivider(getBaseContext().getDrawable(R.color.divider_gray));
             mListView.setDividerHeight(1);
-            mListView.setSelector(getBaseContext().getDrawable(R.color.transparent));
+            mListView.setSelector(getBaseContext().getResources().getDrawable(R.color.transparent));
             mListView.setOnItemClickListener(this);
             parent.addView(mListView);
         }

@@ -332,6 +332,7 @@ public class VDialog extends Dialog {
     public static class EditTextDialogBuilder extends VDialogBuilder<EditTextDialogBuilder> implements View.OnClickListener {
 
         private String mPlaceholder;
+        private String mTipsText;
         private EditText mEditText;
         private TextView mTxtTips;
         private TransformationMethod mTransformationMethod;
@@ -356,6 +357,11 @@ public class VDialog extends Dialog {
 
         public EditTextDialogBuilder setPlaceholder(int resId) {
             return setPlaceholder(getBaseContext().getResources().getString(resId));
+        }
+
+        public EditTextDialogBuilder setTipsText(String text) {
+            this.mTipsText = text;
+            return this;
         }
 
         /**
@@ -402,7 +408,7 @@ public class VDialog extends Dialog {
             mTxtTips = new VTextView(context);
             mTxtTips.setTextColor(context.getResources().getColor(R.color.tips_gray));
             mTxtTips.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
-            mTxtTips.setText("辅助文字请尽量控制在一行显示");
+            mTxtTips.setText(mTipsText);
             MessageDialogBuilder.assignMessageTvWithAttr(context, mEditText, hasTitle(), R.attr.dialog_edit_content_style);
             mEditText.setFocusable(true);
             mEditText.setFocusableInTouchMode(true);
@@ -432,6 +438,7 @@ public class VDialog extends Dialog {
             mRightImageView.setImageResource(R.mipmap.icon_clear);
             mRightImageView.setVisibility(View.GONE);
             mRightImageView.setOnClickListener(this);
+
             mMainLayout = new RelativeLayout(context);
             mMainLayout.setBackgroundResource(R.drawable.vmui_edittext_bg_border_bottom);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -500,6 +507,216 @@ public class VDialog extends Dialog {
         }
     }
 
+    public static class EditAuthTextDialogBuilder extends VDialogBuilder<EditAuthTextDialogBuilder> implements View.OnClickListener {
+
+        private String mPlaceholder;
+        private EditText mEditText;
+        private TextView mTxtTips;
+        private String mTipsText;
+
+        private TransformationMethod mTransformationMethod;
+        private RelativeLayout mMainLayout;
+        private ImageView mAuthCodeView;
+        private ImageView mRefreshCodeView;
+        private int mInputType = InputType.TYPE_CLASS_TEXT;
+        private boolean mShowTipsText = false;
+        private onRefreshClickListener mRefreshClickListener;
+
+        public EditAuthTextDialogBuilder(Context context) {
+            super(context);
+        }
+
+        public EditAuthTextDialogBuilder setShowTipsText(boolean value) {
+            mShowTipsText = value;
+            return this;
+        }
+
+        public EditAuthTextDialogBuilder setTipsText(String text) {
+            this.mTipsText = text;
+            return this;
+        }
+
+        public EditAuthTextDialogBuilder setAuthCodeView(ImageView imageView) {
+            this.mAuthCodeView = imageView;
+            return this;
+        }
+
+        public EditAuthTextDialogBuilder setPlaceholder(String placeholder) {
+            this.mPlaceholder = placeholder;
+            return this;
+        }
+
+        public EditAuthTextDialogBuilder setPlaceholder(int resId) {
+            return setPlaceholder(getBaseContext().getResources().getString(resId));
+        }
+
+        /**
+         * 设置 EditText 的 inputType
+         */
+        public EditAuthTextDialogBuilder setInputType(int inputType) {
+            mInputType = inputType;
+            return this;
+        }
+
+        /**
+         * 设置密码不可见（new PasswordTransformationMethod()）
+         *
+         * @param method
+         * @return
+         */
+        public EditAuthTextDialogBuilder setTransformationMethod(TransformationMethod method) {
+            mTransformationMethod = method;
+            return this;
+        }
+
+        public EditAuthTextDialogBuilder setRefreshClickListener(onRefreshClickListener listener) {
+            this.mRefreshClickListener = listener;
+            return this;
+        }
+
+        protected RelativeLayout.LayoutParams createEditTextLayoutParams() {
+            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            lp.addRule(RelativeLayout.LEFT_OF, mRefreshCodeView.getId());
+            lp.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
+            return lp;
+        }
+
+        protected RelativeLayout.LayoutParams createRefreshIconLayoutParams(Context context) {
+            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            lp.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
+            lp.addRule(RelativeLayout.LEFT_OF, mAuthCodeView.getId());
+            lp.width = VDisplayHelper.dp2px(context, 15);
+            lp.height = VDisplayHelper.dp2px(context, 15);
+            lp.leftMargin = VDisplayHelper.dpToPx(5);
+            return lp;
+        }
+
+        protected RelativeLayout.LayoutParams createAuthCodeIconLayoutParams(Context context) {
+            RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            lp.width = VDisplayHelper.dp2px(context, 82);
+            lp.height = VDisplayHelper.dp2px(context, 34);
+            lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
+            lp.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
+            lp.leftMargin = VDisplayHelper.dpToPx(8);
+            return lp;
+        }
+
+        public EditText getEditText() {
+            return mEditText;
+        }
+
+        @Override
+        protected void onCreateContent(Dialog dialog, ViewGroup parent, Context context) {
+            mEditText = new AppCompatEditText(context);
+            mTxtTips = new VTextView(context);
+            mTxtTips.setTextColor(context.getResources().getColor(R.color.tips_gray));
+            mTxtTips.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+            mTxtTips.setText(mTipsText);
+            MessageDialogBuilder.assignMessageTvWithAttr(context, mEditText, hasTitle(), R.attr.dialog_edit_content_style);
+            mEditText.setFocusable(true);
+            mEditText.setFocusableInTouchMode(true);
+            mEditText.setImeOptions(EditorInfo.IME_ACTION_GO);
+            mEditText.setId(R.id.vmui_dialog_edit_input);
+            mEditText.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (s.length() > 0) {
+
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+
+            if (mAuthCodeView == null) {
+                mAuthCodeView = new ImageView(context);
+            }
+            mAuthCodeView.setId(R.id.vmui_dialog_auth_code_icon);
+
+            mRefreshCodeView = new ImageView(context);
+            mRefreshCodeView.setId(R.id.vmui_dialog_refresh_icon);
+            mRefreshCodeView.setImageResource(R.mipmap.icon_tips_refresh);
+
+
+            mRefreshCodeView.setOnClickListener(this);
+
+            mMainLayout = new RelativeLayout(context);
+            mMainLayout.setBackgroundResource(R.drawable.vmui_edittext_bg_border_bottom);
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, VDisplayHelper.dp2px(context, 50));
+            LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+            if (mTransformationMethod != null) {
+                mEditText.setTransformationMethod(mTransformationMethod);
+            } else {
+                mEditText.setInputType(mInputType);
+            }
+
+            lp.leftMargin = mEditText.getPaddingLeft();
+            lp.rightMargin = mEditText.getPaddingRight();
+            lp.topMargin = mEditText.getPaddingTop();
+            if (mShowTipsText) {
+                lp1.leftMargin = mEditText.getPaddingLeft();
+                lp1.rightMargin = mEditText.getPaddingRight();
+                lp1.topMargin = VDisplayHelper.dp2px(context, 8);
+                lp1.bottomMargin = mEditText.getPaddingBottom();
+                mTxtTips.setLayoutParams(lp1);
+            } else {
+                lp.bottomMargin = mEditText.getPaddingBottom();
+            }
+            mEditText.setBackgroundResource(0);
+            mEditText.setPadding(0, 0, 0, 0);
+            if (mPlaceholder != null) {
+                mEditText.setHint(mPlaceholder);
+            }
+            mMainLayout.setLayoutParams(lp);
+            mMainLayout.addView(mEditText, createEditTextLayoutParams());
+            mMainLayout.addView(mRefreshCodeView, createRefreshIconLayoutParams(context));
+            mMainLayout.addView(mAuthCodeView, createAuthCodeIconLayoutParams(context));
+
+            parent.addView(mMainLayout);
+            if (mShowTipsText) {
+                parent.addView(mTxtTips);
+            }
+        }
+
+        @Override
+        protected void onAfter(Dialog dialog, LinearLayout parent, Context context) {
+            super.onAfter(dialog, parent, context);
+            final InputMethodManager inputMethodManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            dialog.setOnDismissListener(new OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    inputMethodManager.hideSoftInputFromWindow(mEditText.getWindowToken(), 0);
+                }
+            });
+            mEditText.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mEditText.requestFocus();
+                    inputMethodManager.showSoftInput(mEditText, 0);
+                }
+            }, 300);
+        }
+
+        @Override
+        public void onClick(View v) {
+            mEditText.getText().clear();
+            if (mRefreshClickListener != null) mRefreshClickListener.onRefreshViewClick();
+        }
+
+        public interface onRefreshClickListener {
+            void onRefreshViewClick();
+        }
+    }
+
     public static class SingleCheckableDialogBuilder extends VDialogBuilder<SingleCheckableDialogBuilder> {
         private PickerView mPickerView;
         private List<String> mData = new ArrayList<>();
@@ -538,7 +755,7 @@ public class VDialog extends Dialog {
             View foreground = new View(context);
             mPickerView = new PickerView(context);
             mPickerView.setDataList(mData);
-            view.setBackground(getBaseContext().getDrawable(R.drawable.dialog_picker_bg));
+            view.setBackground(getBaseContext().getResources().getDrawable(R.drawable.dialog_picker_bg));
             RelativeLayout.LayoutParams lp1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, VDisplayHelper.dp2px(mContext, 206));
             RelativeLayout.LayoutParams lp2 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, VDisplayHelper.dp2px(mContext, 206));
 
