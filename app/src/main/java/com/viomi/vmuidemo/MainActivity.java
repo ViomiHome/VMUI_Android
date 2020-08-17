@@ -112,7 +112,7 @@ public class MainActivity extends BaseActivity {
                                 .showDialog();
                         break;
                     case 8:
-                        VDialog.EditTextDialogBuilder builder = new VDialog.EditTextDialogBuilder(MainActivity.this);
+                        VDialog.EditAuthTextDialogBuilder builder = new VDialog.EditAuthTextDialogBuilder(MainActivity.this);
                         builder.addAction("取消", VDialogAction.ACTION_PROP_NEGATIVE, new VDialogAction.ActionListener() {
                             @Override
                             public void onClick(Dialog dialog, int index) {
@@ -133,8 +133,7 @@ public class MainActivity extends BaseActivity {
                                 .setPlaceholder("在此输入您的内容")
                                 .setTitle("弹窗标题")
                                 .setShowTipsText(true)
-
-                                //.setTransformationMethod(new PasswordTransformationMethod())
+                                .setTipsText("辅助文字请尽量控制在一行显示")
                                 .showDialog();
                         break;
                     case 9:

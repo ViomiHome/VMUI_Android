@@ -147,12 +147,13 @@ public class VToast extends Toast {
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
         LinearLayout container = new LinearLayout(context);
         container.setGravity(Gravity.CENTER_VERTICAL);
-        TextView message = new TextView(context);
+        VTextView message = new VTextView(context, true);
 
         message.setId(R.id.vmui_toast_message);
         message.setTextColor(context.getResources().getColor(R.color.white));
         message.setTextSize(14);
         message.setText(text);
+        //message.setLineSpacing(-6,1.0f);
 
         if (resId != -1) {
             ImageView icon = new ImageView(context);

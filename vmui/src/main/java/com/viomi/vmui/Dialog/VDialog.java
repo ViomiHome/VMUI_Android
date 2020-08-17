@@ -639,6 +639,7 @@ public class VDialog extends Dialog {
             if (mAuthCodeView == null) {
                 mAuthCodeView = new ImageView(context);
             }
+            mAuthCodeView.setPadding(2, 2, 2, 2);
             mAuthCodeView.setId(R.id.vmui_dialog_auth_code_icon);
 
             mRefreshCodeView = new ImageView(context);
@@ -647,6 +648,7 @@ public class VDialog extends Dialog {
 
 
             mRefreshCodeView.setOnClickListener(this);
+            mAuthCodeView.setOnClickListener(this);
 
             mMainLayout = new RelativeLayout(context);
             mMainLayout.setBackgroundResource(R.drawable.vmui_edittext_bg_border_bottom);
