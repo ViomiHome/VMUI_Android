@@ -56,7 +56,7 @@ public class VTextView extends AppCompatTextView {
         tp = new TextPaint(Paint.ANTI_ALIAS_FLAG);
         tp.setTextSize(getTextSize());
         tp.setColor(getCurrentTextColor());
-        myStaticLayout = new StaticLayout(getText(), tp, getWidth(), Layout.Alignment.ALIGN_CENTER, 1.2f, 0.0f, true);
+        myStaticLayout = new StaticLayout(getText(), tp, getWidth(), Layout.Alignment.ALIGN_CENTER, 1.0f, 0.0f, false);
     }
 
     @Override
