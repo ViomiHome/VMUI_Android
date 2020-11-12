@@ -60,7 +60,7 @@ public class ToastActivity extends BaseActivity implements View.OnClickListener 
                 VToast.makeText(this, "这是一个很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的Toast", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_def_time:
-                VDialogToast.makeLoadingToast(this, "正在连接...", 5000).show();
+                VDialogToast.makeLoadingToast(this, "正在连接...", 30000).show();
                 break;
             case R.id.btn_dismiss:
                 VToast.dismiss();

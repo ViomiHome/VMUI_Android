@@ -328,6 +328,10 @@ public class PickerView extends View {
         return true;
     }
 
+    public void setTips(String tips){
+        this.mTips = tips;
+    }
+
     private void cancelTimerTask() {
         if (mTimerTask != null) {
             mTimerTask.cancel();

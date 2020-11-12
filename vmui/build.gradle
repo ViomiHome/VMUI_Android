@@ -40,10 +40,11 @@ dependencies {
 
 apply plugin: 'maven'
 ext {
-    GITHUB_REPO_PATH = "F:\\viomi_repository"
+//    GITHUB_REPO_PATH = "F:\\viomi_repository"
+    GITHUB_REPO_PATH = "$rootDir/../../cangku/viomi_repository"
     PUBLISH_GROUP_ID = 'com.viomi.vmui_android'
     PUBLISH_ARTIFACT_ID = 'viomi-vmui_android-lib'
-    PUBLISH_VERSION = '1.0.9'
+    PUBLISH_VERSION = '1.0.14'
 }
 uploadArchives {
     repositories.mavenDeployer {
