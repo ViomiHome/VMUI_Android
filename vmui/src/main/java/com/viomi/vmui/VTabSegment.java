@@ -626,6 +626,10 @@ public class VTabSegment extends HorizontalScrollView {
         return Color.argb(resultA, resultR, resultG, resultB);
     }
 
+    public int computeSize(@ColorInt int fromsize, @ColorInt int toSize, float fraction) {
+        return (int) (fromsize + (toSize - fromsize) * fraction);
+    }
+
     private void layoutIndicator(Tab model, boolean invalidate) {
         if (model == null) {
             return;
@@ -648,6 +652,7 @@ public class VTabSegment extends HorizontalScrollView {
             mIndicatorPaint.setStyle(Paint.Style.FILL);
         }
         mIndicatorPaint.setColor(getTabSelectedColor(model));
+        mIndicatorPaint.setTextSize(getTabTextSelectedSize(model));
         if (invalidate) {
             mContentLayout.invalidate();
         }
@@ -679,7 +684,10 @@ public class VTabSegment extends HorizontalScrollView {
         }
         int indicatorColor = computeColor(
                 getTabSelectedColor(preModel), getTabSelectedColor(targetModel), offsetPercent);
+        int indicatorSize = computeSize(
+                getTabTextSelectedSize(preModel), getTabTextSize(targetModel), offsetPercent);
         mIndicatorPaint.setColor(indicatorColor);
+        mIndicatorPaint.setTextSize(indicatorSize);
         mContentLayout.invalidate();
     }
 
@@ -719,6 +727,11 @@ public class VTabSegment extends HorizontalScrollView {
         int targetColor = computeColor(getTabNormalColor(targetModel), getTabSelectedColor(targetModel), offsetPercent);
         preView.setColorInTransition(preModel, preColor);
         targetView.setColorInTransition(targetModel, targetColor);
+
+        int preSize = computeSize(getTabTextSelectedSize(preModel), getTabTextSize(preModel), offsetPercent);
+        int targetSize = computeSize(getTabTextSize(targetModel), getTabTextSelectedSize(targetModel), offsetPercent);
+        preView.setSizeInTransition(preModel, preSize);
+        targetView.setSizeInTransition(targetModel, targetSize);
         layoutIndicatorInTransition(preModel, targetModel, offsetPercent);
         Log.d(TAG, "updateIndicatorPosition   " + "pre:" + index + "  target:" + targetIndex);
     }
@@ -784,6 +797,14 @@ public class VTabSegment extends HorizontalScrollView {
         int textSize = item.getTextSize();
         if (textSize == Tab.USE_TAB_SEGMENT) {
             textSize = mTabTextSize;
+        }
+        return textSize;
+    }
+
+    private int getTabTextSelectedSize(Tab item) {
+        int textSize = item.getTextSize();
+        if (textSize == Tab.USE_TAB_SEGMENT) {
+            textSize = mTabSelectedTextSize;
         }
         return textSize;
     }
@@ -1405,7 +1426,7 @@ public class VTabSegment extends HorizontalScrollView {
         }
 
         public void setColorInTransition(Tab tab, int color) {
-//            mTextView.setTextColor(color);
+            mTextView.setTextColor(color);
 //            if (tab.isDynamicChangeIconColor()) {
 //                Drawable icon = mTextView.getCompoundDrawables()[getTabIconPosition(tab)];
 //                if (icon != null) {
@@ -1413,6 +1434,10 @@ public class VTabSegment extends HorizontalScrollView {
 //                    setDrawable(mTextView, icon, getTabIconPosition(tab));
 //                }
 //            }
+        }
+
+        public void setSizeInTransition(Tab tab, int size) {
+            mTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
         }
 
         public ColorFilter setDrawableTintColor(Drawable drawable, @ColorInt int tintColor) {
@@ -1427,7 +1452,9 @@ public class VTabSegment extends HorizontalScrollView {
 
 
             int color = isSelected ? getTabSelectedColor(tab) : getTabNormalColor(tab);
+            int size = isSelected ? getTabTextSelectedSize(tab) : getTabTextSize(tab);
             mTextView.setTextColor(color);
+            mTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, size);
             mTextView.getPaint().setFakeBoldText(isSelected);
             Drawable icon = tab.getNormalIcon();
             int with = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 29, mTextView.getContext().getResources().getDisplayMetrics());
