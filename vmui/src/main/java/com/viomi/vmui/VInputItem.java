@@ -125,6 +125,10 @@ public class VInputItem extends ConstraintLayout {
         ivVisibility.setImageResource(passVisibility ? R.mipmap.icon_input_visibility : R.mipmap.icon_input_invisibility);
     }
 
+    public void setFilters(InputFilter[] filters){
+        edt.setFilters(filters);
+    }
+
     private void requestEditTextFocus() {
         edt.requestFocus();
         edt.setCursorVisible(true);

@@ -48,6 +48,8 @@ public class InputItemActivity extends BaseActivity {
         });
         itemInput.setText("输入时显示清除按钮");
         itemPassword.setOnPasswordVisibilityChangeListener(passwordVisibility -> itemPassword.setTitle(passwordVisibility ? "可见密码" : "隐藏密码"));
+        //
+        //itemInput.setFilters(new InputFilter[]{VInputUtil.Utf8InputFilter(10)});
     }
 
     @Override
