@@ -10,6 +10,7 @@
     <color name="theme_red">#EE3333</color>
     <color name="title_gray">#2c2c2c</color>
     <color name="content_gray">#4c4c4c</color>
+    <color name="desc_gray">#4a4a4a</color>
     <color name="content_gray_light">#666666</color>
     <color name="tips_gray">#999999</color>
     <color name="tips_gray_light">#b2b2b2</color>

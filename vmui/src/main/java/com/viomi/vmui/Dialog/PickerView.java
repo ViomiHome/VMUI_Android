@@ -40,7 +40,7 @@ public class PickerView extends View {
     private Context mContext;
 
     private Paint mPaint;
-    private int mLightColor, mDarkColor, mDividerColor;
+    private int mLightColor, mDarkColor, mDividerColor, mDescColor;
     private float mHalfWidth, mHalfHeight, mQuarterHeight;
     private float mMinTextSize, mTextSizeRange;
     private float mTextSpacing, mHalfTextSpacing;
@@ -77,6 +77,7 @@ public class PickerView extends View {
     private float mOffsetX = 0;
 
     private String mTips = "";
+    private String mDesc = "";
 
     /**
      * 选择结果回调接口
@@ -142,6 +143,7 @@ public class PickerView extends View {
     private void initPaint() {
         mDarkColor = ContextCompat.getColor(mContext, R.color.title_gray);
         mDividerColor = ContextCompat.getColor(mContext, R.color.divider_gray);
+        mDescColor = ContextCompat.getColor(mContext, R.color.desc_gray);
     }
 
     @Override
@@ -193,6 +195,7 @@ public class PickerView extends View {
             //drawLine(canvas, mDividerColor, mHalfHeight + VDisplayHelper.dpToPx(20));
             mPaint.setColor(mDarkColor);
             drawTipsText(canvas, mDarkColor, mHalfWidth + mOffsetX / 2, mAscent, mTips);
+            drawDescText(canvas, mDescColor, mHalfWidth - mOffsetX / 2, mAscent, mDesc);
         }
         // 绘制选中上方的 text
         for (int i = 1; i <= mSelectedIndex; i++) {
@@ -206,6 +209,18 @@ public class PickerView extends View {
             drawText(canvas, mDarkColor, mScrollDistance + i * mTextSpacing,
                     mDataList.get(mSelectedIndex + i), mSelectedIndex + i);
         }
+    }
+
+    private void drawDescText(Canvas canvas, int textColor, float startX, float startY, String text) {
+        if (TextUtils.isEmpty(text)) return;
+        mPaint.setTextSize(VDisplayHelper.sp2px(mContext, 14));
+        mPaint.setColor(textColor);
+        float offset = mPaint.measureText(text);
+        Paint.FontMetrics fm = mPaint.getFontMetrics();
+        float y = (fm.ascent + fm.descent) / 2;//基线到中线的距离
+        float baseline = mHalfHeight - y;
+        startX = startX - VDisplayHelper.dpToPx(5) - offset;
+        canvas.drawText(text, startX, baseline, mPaint);
     }
 
     private void drawTipsText(Canvas canvas, int textColor, float startX, float startY, String text) {
@@ -328,8 +343,12 @@ public class PickerView extends View {
         return true;
     }
 
-    public void setTips(String tips){
+    public void setTips(String tips) {
         this.mTips = tips;
+    }
+
+    public void setDesc(String desc){
+        this.mDesc = desc;
     }
 
     private void cancelTimerTask() {

@@ -1361,4 +1361,117 @@ public class VDialog extends Dialog {
             }
         }
     }
+
+    public static class PickerBuilder extends VDialogBuilder<PickerBuilder> {
+
+        private String tips, desc, mSelectedValue;
+        private int mMaxValue, mMinValue;
+        private boolean mScrollLoop;
+        protected PickerView mPickerView;
+        private List<String> mValueUnites = new ArrayList<>();
+
+
+        private void initData() {
+            initDataUnits(mMaxValue, mMinValue);
+        }
+
+        private void initDataUnits(int maxValue, int minValue) {
+            for (int i = minValue; i <= maxValue; i++) {
+                mValueUnites.add(String.valueOf(i));
+            }
+            mPickerView.setDataList(mValueUnites);
+            mPickerView.setSelected(0);
+
+            setCanScroll();
+        }
+
+        private void setCanScroll() {
+            mPickerView.setCanScroll(mValueUnites.size() > 1);
+        }
+
+        public PickerBuilder(Context context) {
+            super(context);
+        }
+
+        @Override
+        protected void onCreateTitle(VDialog dialog, ViewGroup parent, Context context) {
+            super.onCreateTitle(dialog, parent, context);
+            RelativeLayout.LayoutParams lp1 = (RelativeLayout.LayoutParams) this.mTitleView.getLayoutParams();
+
+            if (!hasSubTitle()) {
+                int top = VDisplayHelper.dp2px(context, 22);
+                lp1.setMargins(0, top, 0, top);
+                this.mTitleView.setLayoutParams(lp1);
+                this.mTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+            } else {
+                RelativeLayout.LayoutParams lp2 = (RelativeLayout.LayoutParams) this.mSubTitleView.getLayoutParams();
+                int top1 = VDisplayHelper.dp2px(context, 13);
+                lp1.setMargins(0, top1, 0, 0);
+                this.mTitleView.setLayoutParams(lp1);
+                int top2 = VDisplayHelper.dp2px(context, 2);
+                lp2.setMargins(0, top2, 0, top1);
+                this.mSubTitleView.setLayoutParams(lp2);
+                this.mTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                this.mSubTitleView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 11);
+                this.mSubTitleView.setTextColor(context.getResources().getColor(R.color.title_gray));
+            }
+        }
+
+        @Override
+        protected void onCreateContent(Dialog dialog, ViewGroup parent, Context context) {
+
+            mPickerView = new PickerView(context, tips);
+            mPickerView.setDesc(desc);
+
+            LinearLayout ll = new LinearLayout(context);
+            ll.setBackground(getBaseContext().getResources().getDrawable(R.drawable.dialog_picker_bg));
+            ll.setOrientation(LinearLayout.HORIZONTAL);
+            LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(0, VDisplayHelper.dp2px(mContext, 206));
+            lp2.weight = 1.0f;
+            mPickerView.setLayoutParams(lp2);
+            mPickerView.setCanShowAnim(false);
+            mPickerView.setCanScrollLoop(mScrollLoop);
+
+            initData();
+
+            ll.addView(mPickerView);
+
+            mPickerView.setOnSelectListener(new PickerView.OnSelectListener() {
+                @Override
+                public void onSelect(View view, String selected) {
+                    mSelectedValue = selected;
+                }
+            });
+            parent.addView(ll);
+        }
+
+        public PickerBuilder setDesc(String desc) {
+            this.desc = desc;
+            return this;
+        }
+
+        public PickerBuilder setTips(String tips) {
+            this.tips = tips;
+            return this;
+        }
+
+        public PickerBuilder setMaxValue(int maxValue) {
+            this.mMaxValue = maxValue;
+            return this;
+        }
+
+        public PickerBuilder setMinValue(int minValue) {
+            this.mMinValue = minValue;
+            return this;
+        }
+
+        public PickerBuilder setScrollLoop(boolean scrollLoop) {
+            this.mScrollLoop = scrollLoop;
+            return this;
+        }
+
+        public String getSelectedValue() {
+            return mSelectedValue;
+        }
+    }
 }

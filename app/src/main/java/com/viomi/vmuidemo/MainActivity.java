@@ -55,6 +55,7 @@ public class MainActivity extends BaseActivity {
                 , "DatePicker"
                 , "DatePicker-Month"
                 , "DatePicker-Day"
+                , "Picker-Value"
                 , "Popup"
                 , "ActionSheet1"
                 , "ActionSheet2"
@@ -250,6 +251,28 @@ public class MainActivity extends BaseActivity {
                                 .showDialog();
                         break;
                     case 15:
+                        VDialog.PickerBuilder builder7 = new VDialog.PickerBuilder(MainActivity.this);
+                        builder7.addAction("辅助操作", VDialogAction.ACTION_PROP_NEGATIVE, new VDialogAction.ActionListener() {
+                            @Override
+                            public void onClick(Dialog dialog, int index) {
+                                dialog.dismiss();
+                            }
+                        }).addAction("主操作", VDialogAction.ACTION_PROP_POSITIVE, new VDialogAction.ActionListener() {
+                            @Override
+                            public void onClick(Dialog dialog, int index) {
+                                Toast.makeText(MainActivity.this, "您选择的内容是：" + builder7.getSelectedValue(), Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            }
+                        }).setDesc(">")
+                                .setTips("℃")
+                                .setMaxValue(33)
+                                .setMinValue(16)
+                                .setTitle("弹窗标题")
+                                .setSubTitle("副标题")
+                                .setScrollLoop(false)
+                                .showDialog();
+                        break;
+                    case 16:
                         //Popup
                         String Text = "【全新启动页】生活家居好管家，品质颜值都在手\r\n【购物车优化】优惠多少更清晰，规格重选不用愁\r\n【类目页优化】类目上新先知晓，好货热销等你瞅\r\n【礼品卡优化】友谊要有保鲜期，转赠礼品马上拆";
                         View content = LayoutInflater.from(MainActivity.this).inflate(R.layout.view_layout_popup, null);
@@ -277,7 +300,7 @@ public class MainActivity extends BaseActivity {
                                 })
                                 .showPopup();
                         break;
-                    case 16:
+                    case 17:
                         new VActionSheet.MultiButtonActionSheetBuilder(MainActivity.this)
                                 .setTitle("这是一个清晰的描述")
                                 .addItem("按钮1")
@@ -298,7 +321,7 @@ public class MainActivity extends BaseActivity {
                                 })
                                 .showActionSheet();
                         break;
-                    case 17:
+                    case 18:
                         new VActionSheet.MultiButtonActionSheetBuilder(MainActivity.this)
                                 .setTitle("这是一个清晰的描述，可以为一行也可以为两行，这仅仅是一个清晰的描述")
                                 .addAction("危险按钮", VDialogAction.ACTION_PROP_DANGER, new VDialogAction.ActionListener() {
@@ -332,7 +355,7 @@ public class MainActivity extends BaseActivity {
                                 .showActionSheet();
 
                         break;
-                    case 18:
+                    case 19:
                         new VActionSheet.ShareSheetDialogBuilder(MainActivity.this)
                                 .addItem("QQ空间", R.mipmap.ic_launcher)
                                 .addItem("微信", R.mipmap.ic_launcher)
@@ -348,28 +371,28 @@ public class MainActivity extends BaseActivity {
                                 })
                                 .showActionSheet();
                         break;
-                    case 19:
+                    case 20:
                         startActivity(new Intent(getBaseContext(), ToastActivity.class));
                         break;
-                    case 20://SearchBar
+                    case 21://SearchBar
                         startActivity(new Intent(getBaseContext(), SearchBarActivity.class));
                         break;
-                    case 21://EmptyPage
+                    case 22://EmptyPage
                         startActivity(new Intent(getBaseContext(), EmtyActivity.class));
                         break;
-                    case 22://LoadingPage
+                    case 23://LoadingPage
                         startActivity(new Intent(getBaseContext(), LoadingActivity.class));
                         break;
-                    case 23://itemview
+                    case 24://itemview
                         startActivity(new Intent(getBaseContext(), ItemViewActivity.class));
                         break;
-                    case 24://inputitemview
+                    case 25://inputitemview
                         startActivity(new Intent(getBaseContext(), InputItemActivity.class));
                         break;
-                    case 25://inputArea
+                    case 26://inputArea
                         startActivity(new Intent(getBaseContext(), InputAreaActivity.class));
                         break;
-                    case 26://Loading
+                    case 27://Loading
                         startActivity(new Intent(getBaseContext(), LoadingStatusActivity.class));
                         break;
                 }
